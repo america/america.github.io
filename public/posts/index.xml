@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on 雑記</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://america.github.io/posts/</link>
     <description>Recent content in Posts on 雑記</description>
     <generator>Hugo -- 0.138.0</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 20 Nov 2024 23:47:31 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://america.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>First Post</title>
-      <link>http://localhost:1313/posts/first-post/</link>
+      <link>https://america.github.io/posts/first-post/</link>
       <pubDate>Wed, 20 Nov 2024 23:47:31 +0900</pubDate>
-      <guid>http://localhost:1313/posts/first-post/</guid>
+      <guid>https://america.github.io/posts/first-post/</guid>
       <description>&lt;h1 id=&#34;awsでlamp環境を構築したけれど&#34;&gt;AWSでLAMP環境を構築したけれど…&lt;/h1&gt;
 &lt;p&gt;最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。&lt;/p&gt;
 &lt;h2 id=&#34;wordpressのダッシュボードを初めて開いたときには達成感がありましたこれで理想のブログができると思ったのですしかしその後運用をイメージし始めたとき徐々に違和感が生じてきました&#34;&gt;WordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。&lt;/h2&gt;
