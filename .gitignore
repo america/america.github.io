@@ -1,4 +1,4 @@
-.backup/
-.undo/
-.swp
+~/.config/nvim/backup/
+~/.config/nvim/undo/
 
+public/
