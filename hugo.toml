@@ -2,3 +2,4 @@ baseURL = 'https://america.github.io/'
 languageCode = 'en-us'
 title = '雑記'
 theme = "PaperMod"
+canonifyURLs = true
