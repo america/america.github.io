@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>First Post | 雑記</title>
+<meta name="keywords" content="">
+<meta name="description" content="AWSでLAMP環境を構築したけれど…
+最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。
+WordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。
+WordPressで感じた違和感
+WordPressは確かに便利で多機能です。しかし、カスタマイズしようと思うとプラグインの選定やセキュリティ対策に多くの時間を費やす必要があります。そして、定期的なアップデートの管理、MySQLのバックアップ、万が一のトラブル時の復旧作業…これらが少しずつ重くのしかかってきました。
+ブログ運営は長期戦です。構築そのものに時間をかけすぎるのではなく、記事の執筆や情報発信にもっと時間を使いたい。そう思い始めると、WordPressは少し「重たい」と感じるようになりました。
+静的サイトジェネレーターとの出会い
+そんな中で目にしたのが、静的サイトジェネレーターの存在です。特にHugoのシンプルさや高速性には興味を惹かれました。さらに、GitHub Pagesを利用すれば無料でホスティングでき、運用コストを大幅に削減できることに気づいたのです。
+Hugoで生成される静的サイトは、セキュリティリスクも少なく、更新もGitの操作だけで完結します。「これなら、より気軽にブログを運営できるかもしれない」と思い、試しにローカル環境でHugoを導入してみました。
+GitHub Pages &#43; Hugoへの移行を決断
+Hugoを使ってサイトを構築してみると、その軽さとスピード感に驚きました。Markdownで記事を書き、コマンド一つでサイトを生成。そして、そのファイルをGitHubにプッシュするだけで公開できる。このシンプルさに感動しました。
+最初は「WordPressで構築したものを捨てるのはもったいない」と葛藤しました。しかし、将来を見据えたとき、運用の手軽さが何よりも重要だと判断し、GitHub Pages &#43; Hugoに移行することを決断しました。
+結論：ブログ運営における最適解とは？
+AWSでのLAMP環境構築やWordPressの設定は、確かに学びの多い経験でした。しかし、それ以上に「どんな形でブログを運営したいのか」を考える貴重な機会にもなりました。
+今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。
+もし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。">
+<meta name="author" content="">
+<link rel="canonical" href="https://america.github.io/posts/first-post/">
+<link crossorigin="anonymous" href="https://america.github.io/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://america.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://america.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://america.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://america.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://america.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://america.github.io/posts/first-post/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://america.github.io/posts/first-post/">
+  <meta property="og:site_name" content="雑記">
+  <meta property="og:title" content="First Post">
+  <meta property="og:description" content="AWSでLAMP環境を構築したけれど… 最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。
+WordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。 WordPressで感じた違和感 WordPressは確かに便利で多機能です。しかし、カスタマイズしようと思うとプラグインの選定やセキュリティ対策に多くの時間を費やす必要があります。そして、定期的なアップデートの管理、MySQLのバックアップ、万が一のトラブル時の復旧作業…これらが少しずつ重くのしかかってきました。
+ブログ運営は長期戦です。構築そのものに時間をかけすぎるのではなく、記事の執筆や情報発信にもっと時間を使いたい。そう思い始めると、WordPressは少し「重たい」と感じるようになりました。 静的サイトジェネレーターとの出会い そんな中で目にしたのが、静的サイトジェネレーターの存在です。特にHugoのシンプルさや高速性には興味を惹かれました。さらに、GitHub Pagesを利用すれば無料でホスティングでき、運用コストを大幅に削減できることに気づいたのです。
+Hugoで生成される静的サイトは、セキュリティリスクも少なく、更新もGitの操作だけで完結します。「これなら、より気軽にブログを運営できるかもしれない」と思い、試しにローカル環境でHugoを導入してみました。 GitHub Pages &#43; Hugoへの移行を決断 Hugoを使ってサイトを構築してみると、その軽さとスピード感に驚きました。Markdownで記事を書き、コマンド一つでサイトを生成。そして、そのファイルをGitHubにプッシュするだけで公開できる。このシンプルさに感動しました。
+最初は「WordPressで構築したものを捨てるのはもったいない」と葛藤しました。しかし、将来を見据えたとき、運用の手軽さが何よりも重要だと判断し、GitHub Pages &#43; Hugoに移行することを決断しました。 結論：ブログ運営における最適解とは？ AWSでのLAMP環境構築やWordPressの設定は、確かに学びの多い経験でした。しかし、それ以上に「どんな形でブログを運営したいのか」を考える貴重な機会にもなりました。
+今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。
+もし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-20T23:47:31+09:00">
+    <meta property="article:modified_time" content="2024-11-20T23:47:31+09:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="First Post">
+<meta name="twitter:description" content="AWSでLAMP環境を構築したけれど…
+最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。
+WordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。
+WordPressで感じた違和感
+WordPressは確かに便利で多機能です。しかし、カスタマイズしようと思うとプラグインの選定やセキュリティ対策に多くの時間を費やす必要があります。そして、定期的なアップデートの管理、MySQLのバックアップ、万が一のトラブル時の復旧作業…これらが少しずつ重くのしかかってきました。
+ブログ運営は長期戦です。構築そのものに時間をかけすぎるのではなく、記事の執筆や情報発信にもっと時間を使いたい。そう思い始めると、WordPressは少し「重たい」と感じるようになりました。
+静的サイトジェネレーターとの出会い
+そんな中で目にしたのが、静的サイトジェネレーターの存在です。特にHugoのシンプルさや高速性には興味を惹かれました。さらに、GitHub Pagesを利用すれば無料でホスティングでき、運用コストを大幅に削減できることに気づいたのです。
+Hugoで生成される静的サイトは、セキュリティリスクも少なく、更新もGitの操作だけで完結します。「これなら、より気軽にブログを運営できるかもしれない」と思い、試しにローカル環境でHugoを導入してみました。
+GitHub Pages &#43; Hugoへの移行を決断
+Hugoを使ってサイトを構築してみると、その軽さとスピード感に驚きました。Markdownで記事を書き、コマンド一つでサイトを生成。そして、そのファイルをGitHubにプッシュするだけで公開できる。このシンプルさに感動しました。
+最初は「WordPressで構築したものを捨てるのはもったいない」と葛藤しました。しかし、将来を見据えたとき、運用の手軽さが何よりも重要だと判断し、GitHub Pages &#43; Hugoに移行することを決断しました。
+結論：ブログ運営における最適解とは？
+AWSでのLAMP環境構築やWordPressの設定は、確かに学びの多い経験でした。しかし、それ以上に「どんな形でブログを運営したいのか」を考える貴重な機会にもなりました。
+今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。
+もし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://america.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "First Post",
+      "item": "https://america.github.io/posts/first-post/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "First Post",
+  "name": "First Post",
+  "description": "AWSでLAMP環境を構築したけれど… 最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。\nWordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。 WordPressで感じた違和感 WordPressは確かに便利で多機能です。しかし、カスタマイズしようと思うとプラグインの選定やセキュリティ対策に多くの時間を費やす必要があります。そして、定期的なアップデートの管理、MySQLのバックアップ、万が一のトラブル時の復旧作業…これらが少しずつ重くのしかかってきました。\nブログ運営は長期戦です。構築そのものに時間をかけすぎるのではなく、記事の執筆や情報発信にもっと時間を使いたい。そう思い始めると、WordPressは少し「重たい」と感じるようになりました。 静的サイトジェネレーターとの出会い そんな中で目にしたのが、静的サイトジェネレーターの存在です。特にHugoのシンプルさや高速性には興味を惹かれました。さらに、GitHub Pagesを利用すれば無料でホスティングでき、運用コストを大幅に削減できることに気づいたのです。\nHugoで生成される静的サイトは、セキュリティリスクも少なく、更新もGitの操作だけで完結します。「これなら、より気軽にブログを運営できるかもしれない」と思い、試しにローカル環境でHugoを導入してみました。 GitHub Pages + Hugoへの移行を決断 Hugoを使ってサイトを構築してみると、その軽さとスピード感に驚きました。Markdownで記事を書き、コマンド一つでサイトを生成。そして、そのファイルをGitHubにプッシュするだけで公開できる。このシンプルさに感動しました。\n最初は「WordPressで構築したものを捨てるのはもったいない」と葛藤しました。しかし、将来を見据えたとき、運用の手軽さが何よりも重要だと判断し、GitHub Pages + Hugoに移行することを決断しました。 結論：ブログ運営における最適解とは？ AWSでのLAMP環境構築やWordPressの設定は、確かに学びの多い経験でした。しかし、それ以上に「どんな形でブログを運営したいのか」を考える貴重な機会にもなりました。\n今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。\nもし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。",
+  "keywords": [
+    
+  ],
+  "articleBody": "AWSでLAMP環境を構築したけれど… 最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。\nWordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。 WordPressで感じた違和感 WordPressは確かに便利で多機能です。しかし、カスタマイズしようと思うとプラグインの選定やセキュリティ対策に多くの時間を費やす必要があります。そして、定期的なアップデートの管理、MySQLのバックアップ、万が一のトラブル時の復旧作業…これらが少しずつ重くのしかかってきました。\nブログ運営は長期戦です。構築そのものに時間をかけすぎるのではなく、記事の執筆や情報発信にもっと時間を使いたい。そう思い始めると、WordPressは少し「重たい」と感じるようになりました。 静的サイトジェネレーターとの出会い そんな中で目にしたのが、静的サイトジェネレーターの存在です。特にHugoのシンプルさや高速性には興味を惹かれました。さらに、GitHub Pagesを利用すれば無料でホスティングでき、運用コストを大幅に削減できることに気づいたのです。\nHugoで生成される静的サイトは、セキュリティリスクも少なく、更新もGitの操作だけで完結します。「これなら、より気軽にブログを運営できるかもしれない」と思い、試しにローカル環境でHugoを導入してみました。 GitHub Pages + Hugoへの移行を決断 Hugoを使ってサイトを構築してみると、その軽さとスピード感に驚きました。Markdownで記事を書き、コマンド一つでサイトを生成。そして、そのファイルをGitHubにプッシュするだけで公開できる。このシンプルさに感動しました。\n最初は「WordPressで構築したものを捨てるのはもったいない」と葛藤しました。しかし、将来を見据えたとき、運用の手軽さが何よりも重要だと判断し、GitHub Pages + Hugoに移行することを決断しました。 結論：ブログ運営における最適解とは？ AWSでのLAMP環境構築やWordPressの設定は、確かに学びの多い経験でした。しかし、それ以上に「どんな形でブログを運営したいのか」を考える貴重な機会にもなりました。\n今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。\nもし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。 ",
+  "wordCount" : "24",
+  "inLanguage": "en",
+  "datePublished": "2024-11-20T23:47:31+09:00",
+  "dateModified": "2024-11-20T23:47:31+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://america.github.io/posts/first-post/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "雑記",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://america.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://america.github.io/" accesskey="h" title="雑記 (Alt + H)">雑記</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      First Post
+    </h1>
+    <div class="post-meta"><span title='2024-11-20 23:47:31 +0900 JST'>November 20, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="awsでlamp環境を構築したけれど">AWSでLAMP環境を構築したけれど…<a hidden class="anchor" aria-hidden="true" href="#awsでlamp環境を構築したけれど">#</a></h1>
+<p>最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。</p>
+<h2 id="wordpressのダッシュボードを初めて開いたときには達成感がありましたこれで理想のブログができると思ったのですしかしその後運用をイメージし始めたとき徐々に違和感が生じてきました">WordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。<a hidden class="anchor" aria-hidden="true" href="#wordpressのダッシュボードを初めて開いたときには達成感がありましたこれで理想のブログができると思ったのですしかしその後運用をイメージし始めたとき徐々に違和感が生じてきました">#</a></h2>
+<h1 id="wordpressで感じた違和感">WordPressで感じた違和感<a hidden class="anchor" aria-hidden="true" href="#wordpressで感じた違和感">#</a></h1>
+<p>WordPressは確かに便利で多機能です。しかし、カスタマイズしようと思うとプラグインの選定やセキュリティ対策に多くの時間を費やす必要があります。そして、定期的なアップデートの管理、MySQLのバックアップ、万が一のトラブル時の復旧作業…これらが少しずつ重くのしかかってきました。</p>
+<h2 id="ブログ運営は長期戦です構築そのものに時間をかけすぎるのではなく記事の執筆や情報発信にもっと時間を使いたいそう思い始めるとwordpressは少し重たいと感じるようになりました">ブログ運営は長期戦です。構築そのものに時間をかけすぎるのではなく、記事の執筆や情報発信にもっと時間を使いたい。そう思い始めると、WordPressは少し「重たい」と感じるようになりました。<a hidden class="anchor" aria-hidden="true" href="#ブログ運営は長期戦です構築そのものに時間をかけすぎるのではなく記事の執筆や情報発信にもっと時間を使いたいそう思い始めるとwordpressは少し重たいと感じるようになりました">#</a></h2>
+<h1 id="静的サイトジェネレーターとの出会い">静的サイトジェネレーターとの出会い<a hidden class="anchor" aria-hidden="true" href="#静的サイトジェネレーターとの出会い">#</a></h1>
+<p>そんな中で目にしたのが、静的サイトジェネレーターの存在です。特にHugoのシンプルさや高速性には興味を惹かれました。さらに、GitHub Pagesを利用すれば無料でホスティングでき、運用コストを大幅に削減できることに気づいたのです。</p>
+<h2 id="hugoで生成される静的サイトはセキュリティリスクも少なく更新もgitの操作だけで完結しますこれならより気軽にブログを運営できるかもしれないと思い試しにローカル環境でhugoを導入してみました">Hugoで生成される静的サイトは、セキュリティリスクも少なく、更新もGitの操作だけで完結します。「これなら、より気軽にブログを運営できるかもしれない」と思い、試しにローカル環境でHugoを導入してみました。<a hidden class="anchor" aria-hidden="true" href="#hugoで生成される静的サイトはセキュリティリスクも少なく更新もgitの操作だけで完結しますこれならより気軽にブログを運営できるかもしれないと思い試しにローカル環境でhugoを導入してみました">#</a></h2>
+<h1 id="github-pages--hugoへの移行を決断">GitHub Pages + Hugoへの移行を決断<a hidden class="anchor" aria-hidden="true" href="#github-pages--hugoへの移行を決断">#</a></h1>
+<p>Hugoを使ってサイトを構築してみると、その軽さとスピード感に驚きました。Markdownで記事を書き、コマンド一つでサイトを生成。そして、そのファイルをGitHubにプッシュするだけで公開できる。このシンプルさに感動しました。</p>
+<h2 id="最初はwordpressで構築したものを捨てるのはもったいないと葛藤しましたしかし将来を見据えたとき運用の手軽さが何よりも重要だと判断しgithub-pages--hugoに移行することを決断しました">最初は「WordPressで構築したものを捨てるのはもったいない」と葛藤しました。しかし、将来を見据えたとき、運用の手軽さが何よりも重要だと判断し、GitHub Pages + Hugoに移行することを決断しました。<a hidden class="anchor" aria-hidden="true" href="#最初はwordpressで構築したものを捨てるのはもったいないと葛藤しましたしかし将来を見据えたとき運用の手軽さが何よりも重要だと判断しgithub-pages--hugoに移行することを決断しました">#</a></h2>
+<h1 id="結論ブログ運営における最適解とは">結論：ブログ運営における最適解とは？<a hidden class="anchor" aria-hidden="true" href="#結論ブログ運営における最適解とは">#</a></h1>
+<p>AWSでのLAMP環境構築やWordPressの設定は、確かに学びの多い経験でした。しかし、それ以上に「どんな形でブログを運営したいのか」を考える貴重な機会にもなりました。</p>
+<p>今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。</p>
+<h2 id="もしブログの運営方法で悩んでいる方がいれば自分にとって最適な運用方法は何かをぜひ考えてみてください決して簡単にたどり着ける答えではありませんがその過程で得られる学びは大きいものです">もし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。<a hidden class="anchor" aria-hidden="true" href="#もしブログの運営方法で悩んでいる方がいれば自分にとって最適な運用方法は何かをぜひ考えてみてください決して簡単にたどり着ける答えではありませんがその過程で得られる学びは大きいものです">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://america.github.io/">雑記</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
