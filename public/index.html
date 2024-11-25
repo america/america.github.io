@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.138.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.139.2"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -128,38 +128,34 @@
 
 <article class="first-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">First Post
+    <h2 class="entry-hint-parent">BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法
     </h2>
   </header>
   <div class="entry-content">
-    <p>AWSでLAMP環境を構築したけれど… 最近、AWS上でLAMP環境を構築し、WordPressを立ち上げました。これ自体は、これまでの経験を活かして比較的スムーズに進めることができました。EC2のインスタンスを用意し、Apacheを設定し、MySQLとPHPを組み合わせて、ようやくWordPressのインストールにこぎつけました。
-WordPressのダッシュボードを初めて開いたときには、達成感がありました。「これで理想のブログができる」と思ったのです。しかし、その後、運用をイメージし始めたとき、徐々に違和感が生じてきました。
-WordPressで感じた違和感 WordPressは確かに便利で多機能です。しかし、カスタマイズしようと思うとプラグインの選定やセキュリティ対策に多くの時間を費やす必要があります。そして、定期的なアップデートの管理、MySQLのバックアップ、万が一のトラブル時の復旧作業…これらが少しずつ重くのしかかってきました。
-ブログ運営は長期戦です。構築そのものに時間をかけすぎるのではなく、記事の執筆や情報発信にもっと時間を使いたい。そう思い始めると、WordPressは少し「重たい」と感じるようになりました。
-静的サイトジェネレーターとの出会い そんな中で目にしたのが、静的サイトジェネレーターの存在です。特にHugoのシンプルさや高速性には興味を惹かれました。さらに、GitHub Pagesを利用すれば無料でホスティングでき、運用コストを大幅に削減できることに気づいたのです。
-Hugoで生成される静的サイトは、セキュリティリスクも少なく、更新もGitの操作だけで完結します。「これなら、より気軽にブログを運営できるかもしれない」と思い、試しにローカル環境でHugoを導入してみました。
-GitHub Pages &#43; Hugoへの移行を決断 Hugoを使ってサイトを構築してみると、その軽さとスピード感に驚きました。Markdownで記事を書き、コマンド一つでサイトを生成。そして、そのファイルをGitHubにプッシュするだけで公開できる。このシンプルさに感動しました。
-最初は「WordPressで構築したものを捨てるのはもったいない」と葛藤しました。しかし、将来を見据えたとき、運用の手軽さが何よりも重要だと判断し、GitHub Pages &#43; Hugoに移行することを決断しました。
-結論：ブログ運営における最適解とは？ AWSでのLAMP環境構築やWordPressの設定は、確かに学びの多い経験でした。しかし、それ以上に「どんな形でブログを運営したいのか」を考える貴重な機会にもなりました。
-今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。
-もし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。
-</p>
+    <p>問題の背景 BluetoothヘッドホンをWindowsで接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、Bluetoothのペアリング情報がOSごとに管理され、競合が発生するためです。
+この記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。
+問題の原因 Bluetoothペアリング情報の競合
+Bluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。
+Windowsではリンクキーがレジストリに保存されます。 Linuxではリンクキーが/var/lib/bluetooth/ディレクトリに保存されます。 OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。
+解決のための再ペアリング
+問題を解決するために、Linuxでbluetoothctlを使ってデバイスをremoveし、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。
+解決方法 以下の2つの解決方法を提案します。
+方法 1: Bluetooth設定を完全に個別管理する WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。
+1.1 BluetoothアダプタのMACアドレスを変更する Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。
+# Bluetoothアダプタを停止 sudo hciconfig hci0 down # MACアドレスを変更 sudo btmgmt --index 0 public-addr XX:XX:XX:XX:XX:XX # Bluetoothアダプタを再起動 sudo hciconfig hci0 up XX:XX:XX:XX:XX:XXには新しいMACアドレスを指定してください。 その後、ヘッドホンを再ペアリングします。 1.2 異なるBluetoothアダプタを使用する WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。
+方法 2: Bluetooth設定をOS間で同期する Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。
+2.1 必要な設定ファイルの場所 Windows:
+Bluetoothリンクキーは以下のレジストリパスに保存されています。
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys
+Linux:
+Bluetoothリンクキーは以下に保存されています。
+/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info
+2.2 Tailscaleを使った同期手順 Tailscaleをインストールする
+Arch Linux: sudo pacman -S tailscale sudo tailscale up Windows: Tailscale公式サイトからインストーラーをダウンロードしてインストールします。 リンクキーをエクスポートする
+...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-11-20 23:47:31 +0900 JST'>November 20, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to First Post" href="https://america.github.io/posts/first-post/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Test Post
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>This is a test post!
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-11-20 12:00:00 +0900 JST'>November 20, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Test Post" href="https://america.github.io/posts/test-post/"></a>
+  <footer class="entry-footer"><span title='2024-11-26 00:56:08 +0900 JST'>November 26, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法" href="https://america.github.io/posts/my-second-post/"></a>
 </article>
     </main>
     
