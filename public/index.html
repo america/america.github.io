@@ -128,6 +128,30 @@
 
 <article class="first-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">AWSでSSH接続できない問題を解決した話
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>はじめに 先日、AWSで立てたEC2インスタンスにSSH接続できなくなる問題が発生しました。このトラブルの原因と解 決方法を記録しておきます。同じ状況に陥った方の助けになれば幸いです。
+問題の症状 EC2インスタンスにSSH接続を試みると、Connection timed out のエラーが表示される。 AWSコンソール上では、インスタンスは正常に動作中。 ブラウザからの接続は可能（インスタンス内のApacheは稼働中）。 原因と解決方法 調査の結果、以下の4つの原因が考えられました。
+原因1: セキュリティグループのルール設定ミス 問題点 セキュリティグループでポート22（SSH）が許可されていなかった。
+解決方法 AWSコンソールのセキュリティグループ設定に以下のルールを追加：
+タイプ: SSH プロトコル: TCP ポート範囲: 22 ソース: 自分のグローバルIPアドレス（例: 203.0.113.0/32） 原因2: UFW（Uncomplicated Firewall）がポート22を閉じていた 問題点 EC2インスタンス内のUFW（ローカルファイアウォール）でポート22が閉じられていた。
+解決方法 以下のコマンドを実行してポート22を許可し、設定を反映しました。
+sudo ufw allow 22 sudo ufw reload 原因3: グローバルIPの変動 問題点 自分のグローバルIPアドレスが変更されたことで、セキュリティグループのルールが機能しなくなった。
+解決方法 新しいグローバルIPを確認し、セキュリティグループのSSHルールを更新しました。
+curl ifconfig.me 原因4: インターネットゲートウェイの設定ミス 問題点 インターネットゲートウェイがVPCに正しくアタッチされていなかった。
+解決方法 AWSコンソールのVPCダッシュボードで以下を確認しました：
+インターネットゲートウェイがVPCにアタッチされていること。 ルートテーブルに0.0.0.0/0のデフォルトルートがインターネットゲートウェイを指していること。 # 例: ルートテーブルの確認コマンド aws ec2 describe-route-tables --query &#34;RouteTables[*].Routes&#34; 解決のポイント このケースでは、UFWの設定でポート22が閉じていた ことが主な原因でした。ローカルのファイアウォール設定とAWSのセキュリティグループ設定が一致していないことが問題を引き起こしていました。
+学んだこと 今回のトラブルから、以下の教訓を得ました：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-11-27 00:18:34 +0900 JST'>November 27, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to AWSでSSH接続できない問題を解決した話" href="https://america.github.io/posts/aws_ssh_issue/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法
     </h2>
   </header>
