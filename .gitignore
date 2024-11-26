@@ -2,3 +2,5 @@
 ~/.config/nvim/undo/
 
 public/
+/public/
+deploy.sh
