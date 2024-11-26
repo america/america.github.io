@@ -6,8 +6,70 @@
     <description>Recent content on 雑記</description>
     <generator>Hugo -- 0.139.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Nov 2024 00:56:08 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 27 Nov 2024 06:29:43 +0900</lastBuildDate>
     <atom:link href="https://america.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWSでSSH接続できない問題を解決した話</title>
+      <link>https://america.github.io/posts/aws_ssh_issue_new/</link>
+      <pubDate>Wed, 27 Nov 2024 06:29:43 +0900</pubDate>
+      <guid>https://america.github.io/posts/aws_ssh_issue_new/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;先日、AWSで立てたEC2インスタンスにSSH接続できなくなる問題が発生しました。このトラブルの原因と解決方法を記録しておきます。同じ状況に陥った方の助けになれば幸いです。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;問題の症状&#34;&gt;問題の症状&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;EC2インスタンスにSSH接続を試みると、&lt;code&gt;Connection timed out&lt;/code&gt; のエラーが表示される。&lt;/li&gt;
+&lt;li&gt;AWSコンソール上では、インスタンスは正常に動作中。&lt;/li&gt;
+&lt;li&gt;ブラウザからの接続は可能（インスタンス内のApacheは稼働中）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;トラブルシューティングの進め方&#34;&gt;トラブルシューティングの進め方&lt;/h2&gt;
+&lt;p&gt;問題解決のため、まずはSSH接続ができない間もAWS System Managerの「セッションマネージャー」を利用しました。System Managerを活用することで、インスタンスの内部に直接ログインでき、次のような確認 や操作が可能になりました：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ファイアウォール（UFW）の状態確認&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw status
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SSHサービスの状態確認&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status ssh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;原因と解決方法&#34;&gt;原因と解決方法&lt;/h2&gt;
+&lt;p&gt;調査の結果、以下の4つの原因が考えられました。&lt;/p&gt;
+&lt;h3 id=&#34;原因1-セキュリティグループのルール設定ミス&#34;&gt;&lt;strong&gt;原因1: セキュリティグループのルール設定ミス&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;
+セキュリティグループでポート22（SSH）が許可されていなかった。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解決方法&lt;/strong&gt;
+AWSコンソールのセキュリティグループ設定に以下のルールを追加：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;タイプ: SSH&lt;/li&gt;
+&lt;li&gt;プロトコル: TCP&lt;/li&gt;
+&lt;li&gt;ポート範囲: 22&lt;/li&gt;
+&lt;li&gt;ソース: 自分のグローバルIPアドレス（例: &lt;code&gt;203.0.113.0/32&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;原因2-ufwuncomplicated-firewallがポート22を閉じていた&#34;&gt;&lt;strong&gt;原因2: UFW（Uncomplicated Firewall）がポート22を閉じていた&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;
+EC2インスタンス内のUFW（ローカルファイアウォール）でポート22が閉じられていた。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解決方法&lt;/strong&gt;
+以下のコマンドを実行してポート22を許可し、設定を反映しました。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw allow &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw reload
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;原因3-グローバルipの変動&#34;&gt;&lt;strong&gt;原因3: グローバルIPの変動&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;
+自分のグローバルIPアドレスが変更されたことで、セキュリティグループのルールが機能しなくなった。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解決方法&lt;/strong&gt;
+新しいグローバルIPを確認し、セキュリティグループのSSHルールを更新しました。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl ifconfig.me
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;原因4-インターネットゲートウェイの設定ミス&#34;&gt;&lt;strong&gt;原因4: インターネットゲートウェイの設定ミス&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;
+インターネットゲートウェイがVPCに正しくアタッチされていなかった。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法</title>
       <link>https://america.github.io/posts/my-second-post/</link>
@@ -112,6 +174,68 @@ WordPressのダッシュボードを初めて開いたときには、達成感�
 &lt;p&gt;今、私はHugoとGitHub Pagesでブログを運営しています。そのシンプルさと自由度の高さに満足しながら、これから記事を増やしていくつもりです。&lt;/p&gt;
 &lt;p&gt;もし、ブログの運営方法で悩んでいる方がいれば、「自分にとって最適な運用方法は何か？」をぜひ考えてみてください。決して、簡単にたどり着ける答えではありませんが、その過程で得られる学びは大きいものです。&lt;/p&gt;
 &lt;hr&gt;</description>
+    </item>
+    <item>
+      <title>AWSでSSH接続できない問題を解決した話</title>
+      <link>https://america.github.io/posts/aws_ssh_issue_with_system_manager/</link>
+      <pubDate>Wed, 20 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>https://america.github.io/posts/aws_ssh_issue_with_system_manager/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;先日、AWSで立てたEC2インスタンスにSSH接続できなくなる問題が発生しました。このトラブルの原因と解決方法を記録しておきます。同じ状況に陥った方の助けになれば幸いです。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;問題の症状&#34;&gt;問題の症状&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;EC2インスタンスにSSH接続を試みると、&lt;code&gt;Connection timed out&lt;/code&gt; のエラーが表示される。&lt;/li&gt;
+&lt;li&gt;AWSコンソール上では、インスタンスは正常に動作中。&lt;/li&gt;
+&lt;li&gt;ブラウザからの接続は可能（インスタンス内のApacheは稼働中）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;トラブルシューティングの進め方&#34;&gt;トラブルシューティングの進め方&lt;/h2&gt;
+&lt;p&gt;問題解決のため、まずはSSH接続ができない間もAWS System Managerの「セッションマネージャー」を利用しました。System Managerを活用することで、インスタンスの内部に直接ログインでき、次のような確認や操作が可能になりました：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ファイアウォール（UFW）の状態確認&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw status
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SSHサービスの状態確認&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status ssh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;原因と解決方法&#34;&gt;原因と解決方法&lt;/h2&gt;
+&lt;p&gt;調査の結果、以下の4つの原因が考えられました。&lt;/p&gt;
+&lt;h3 id=&#34;原因1-セキュリティグループのルール設定ミス&#34;&gt;&lt;strong&gt;原因1: セキュリティグループのルール設定ミス&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;&lt;br&gt;
+セキュリティグループでポート22（SSH）が許可されていなかった。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解決方法&lt;/strong&gt;&lt;br&gt;
+AWSコンソールのセキュリティグループ設定に以下のルールを追加：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;タイプ: SSH&lt;/li&gt;
+&lt;li&gt;プロトコル: TCP&lt;/li&gt;
+&lt;li&gt;ポート範囲: 22&lt;/li&gt;
+&lt;li&gt;ソース: 自分のグローバルIPアドレス（例: &lt;code&gt;203.0.113.0/32&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;原因2-ufwuncomplicated-firewallがポート22を閉じていた&#34;&gt;&lt;strong&gt;原因2: UFW（Uncomplicated Firewall）がポート22を閉じていた&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;&lt;br&gt;
+EC2インスタンス内のUFW（ローカルファイアウォール）でポート22が閉じられていた。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解決方法&lt;/strong&gt;&lt;br&gt;
+以下のコマンドを実行してポート22を許可し、設定を反映しました。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw allow &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw reload
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;原因3-グローバルipの変動&#34;&gt;&lt;strong&gt;原因3: グローバルIPの変動&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;&lt;br&gt;
+自分のグローバルIPアドレスが変更されたことで、セキュリティグループのルールが機能しなくなった。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解決方法&lt;/strong&gt;&lt;br&gt;
+新しいグローバルIPを確認し、セキュリティグループのSSHルールを更新しました。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl ifconfig.me
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;原因4-インターネットゲートウェイの設定ミス&#34;&gt;&lt;strong&gt;原因4: インターネットゲートウェイの設定ミス&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;問題点&lt;/strong&gt;&lt;br&gt;
+インターネットゲートウェイがVPCに正しくアタッチされていなかった。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

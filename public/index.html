@@ -128,6 +128,31 @@
 
 <article class="first-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">AWSでSSH接続できない問題を解決した話
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>はじめに 先日、AWSで立てたEC2インスタンスにSSH接続できなくなる問題が発生しました。このトラブルの原因と解決方法を記録しておきます。同じ状況に陥った方の助けになれば幸いです。
+問題の症状 EC2インスタンスにSSH接続を試みると、Connection timed out のエラーが表示される。 AWSコンソール上では、インスタンスは正常に動作中。 ブラウザからの接続は可能（インスタンス内のApacheは稼働中）。 トラブルシューティングの進め方 問題解決のため、まずはSSH接続ができない間もAWS System Managerの「セッションマネージャー」を利用しました。System Managerを活用することで、インスタンスの内部に直接ログインでき、次のような確認 や操作が可能になりました：
+ファイアウォール（UFW）の状態確認
+sudo ufw status SSHサービスの状態確認
+sudo systemctl status ssh System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。
+原因と解決方法 調査の結果、以下の4つの原因が考えられました。
+原因1: セキュリティグループのルール設定ミス 問題点 セキュリティグループでポート22（SSH）が許可されていなかった。
+解決方法 AWSコンソールのセキュリティグループ設定に以下のルールを追加：
+タイプ: SSH プロトコル: TCP ポート範囲: 22 ソース: 自分のグローバルIPアドレス（例: 203.0.113.0/32） 原因2: UFW（Uncomplicated Firewall）がポート22を閉じていた 問題点 EC2インスタンス内のUFW（ローカルファイアウォール）でポート22が閉じられていた。
+解決方法 以下のコマンドを実行してポート22を許可し、設定を反映しました。
+sudo ufw allow 22 sudo ufw reload 原因3: グローバルIPの変動 問題点 自分のグローバルIPアドレスが変更されたことで、セキュリティグループのルールが機能しなくなった。
+解決方法 新しいグローバルIPを確認し、セキュリティグループのSSHルールを更新しました。
+curl ifconfig.me 原因4: インターネットゲートウェイの設定ミス 問題点 インターネットゲートウェイがVPCに正しくアタッチされていなかった。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-11-27 06:29:43 +0900 JST'>November 27, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to AWSでSSH接続できない問題を解決した話" href="https://america.github.io/posts/aws_ssh_issue_new/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法
     </h2>
   </header>
@@ -179,6 +204,38 @@ GitHub Pages &#43; Hugoへの移行を決断 Hugoを使ってサイトを構築�
   </div>
   <footer class="entry-footer"><span title='2024-11-20 23:47:31 +0900 JST'>November 20, 2024</span></footer>
   <a class="entry-link" aria-label="post link to First Post" href="https://america.github.io/posts/first-post/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">AWSでSSH接続できない問題を解決した話
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>はじめに 先日、AWSで立てたEC2インスタンスにSSH接続できなくなる問題が発生しました。このトラブルの原因と解決方法を記録しておきます。同じ状況に陥った方の助けになれば幸いです。
+問題の症状 EC2インスタンスにSSH接続を試みると、Connection timed out のエラーが表示される。 AWSコンソール上では、インスタンスは正常に動作中。 ブラウザからの接続は可能（インスタンス内のApacheは稼働中）。 トラブルシューティングの進め方 問題解決のため、まずはSSH接続ができない間もAWS System Managerの「セッションマネージャー」を利用しました。System Managerを活用することで、インスタンスの内部に直接ログインでき、次のような確認や操作が可能になりました：
+ファイアウォール（UFW）の状態確認
+sudo ufw status SSHサービスの状態確認
+sudo systemctl status ssh System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。
+原因と解決方法 調査の結果、以下の4つの原因が考えられました。
+原因1: セキュリティグループのルール設定ミス 問題点
+セキュリティグループでポート22（SSH）が許可されていなかった。
+解決方法
+AWSコンソールのセキュリティグループ設定に以下のルールを追加：
+タイプ: SSH プロトコル: TCP ポート範囲: 22 ソース: 自分のグローバルIPアドレス（例: 203.0.113.0/32） 原因2: UFW（Uncomplicated Firewall）がポート22を閉じていた 問題点
+EC2インスタンス内のUFW（ローカルファイアウォール）でポート22が閉じられていた。
+解決方法
+以下のコマンドを実行してポート22を許可し、設定を反映しました。
+sudo ufw allow 22 sudo ufw reload 原因3: グローバルIPの変動 問題点
+自分のグローバルIPアドレスが変更されたことで、セキュリティグループのルールが機能しなくなった。
+解決方法
+新しいグローバルIPを確認し、セキュリティグループのSSHルールを更新しました。
+curl ifconfig.me 原因4: インターネットゲートウェイの設定ミス 問題点
+インターネットゲートウェイがVPCに正しくアタッチされていなかった。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-11-20 00:00:00 +0000 UTC'>November 20, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to AWSでSSH接続できない問題を解決した話" href="https://america.github.io/posts/aws_ssh_issue_with_system_manager/"></a>
 </article>
     </main>
     
