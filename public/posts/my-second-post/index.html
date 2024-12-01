@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法 | 雑記</title>
+<meta name="keywords" content="">
+<meta name="description" content="問題の背景
+BluetoothヘッドホンをWindowsで接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、Bluetoothのペアリング情報がOSごとに管理され、競合が発生するためです。
+この記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。
+
+問題の原因
+
+
+Bluetoothペアリング情報の競合
+Bluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。
+
+Windowsではリンクキーがレジストリに保存されます。
+Linuxではリンクキーが/var/lib/bluetooth/ディレクトリに保存されます。
+
+OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。
+
+
+解決のための再ペアリング
+問題を解決するために、Linuxでbluetoothctlを使ってデバイスをremoveし、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。
+
+
+
+解決方法
+以下の2つの解決方法を提案します。
+方法 1: Bluetooth設定を完全に個別管理する
+WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。
+1.1 BluetoothアダプタのMACアドレスを変更する
+Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。
+# Bluetoothアダプタを停止
+sudo hciconfig hci0 down
+
+# MACアドレスを変更
+sudo btmgmt --index 0 public-addr XX:XX:XX:XX:XX:XX
+
+# Bluetoothアダプタを再起動
+sudo hciconfig hci0 up
+
+XX:XX:XX:XX:XX:XXには新しいMACアドレスを指定してください。
+その後、ヘッドホンを再ペアリングします。
+
+1.2 異なるBluetoothアダプタを使用する
+WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。
+
+方法 2: Bluetooth設定をOS間で同期する
+Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。
+2.1 必要な設定ファイルの場所
+
+
+Windows:
+Bluetoothリンクキーは以下のレジストリパスに保存されています。
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys
+
+
+Linux:
+Bluetoothリンクキーは以下に保存されています。
+/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info
+
+
+2.2 Tailscaleを使った同期手順
+
+
+Tailscaleをインストールする
+
+Arch Linux:
+sudo pacman -S tailscale
+sudo tailscale up
+
+Windows:
+Tailscale公式サイトからインストーラーをダウンロードしてインストールします。
+
+
+
+リンクキーをエクスポートする">
+<meta name="author" content="">
+<link rel="canonical" href="https://america.github.io/posts/my-second-post/">
+<link crossorigin="anonymous" href="https://america.github.io/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://america.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://america.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://america.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://america.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://america.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://america.github.io/posts/my-second-post/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://america.github.io/posts/my-second-post/">
+  <meta property="og:site_name" content="雑記">
+  <meta property="og:title" content="BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法">
+  <meta property="og:description" content="問題の背景 BluetoothヘッドホンをWindowsで接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、Bluetoothのペアリング情報がOSごとに管理され、競合が発生するためです。
+この記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。
+問題の原因 Bluetoothペアリング情報の競合
+Bluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。
+Windowsではリンクキーがレジストリに保存されます。 Linuxではリンクキーが/var/lib/bluetooth/ディレクトリに保存されます。 OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。
+解決のための再ペアリング
+問題を解決するために、Linuxでbluetoothctlを使ってデバイスをremoveし、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。
+解決方法 以下の2つの解決方法を提案します。
+方法 1: Bluetooth設定を完全に個別管理する WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。
+1.1 BluetoothアダプタのMACアドレスを変更する Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。
+# Bluetoothアダプタを停止 sudo hciconfig hci0 down # MACアドレスを変更 sudo btmgmt --index 0 public-addr XX:XX:XX:XX:XX:XX # Bluetoothアダプタを再起動 sudo hciconfig hci0 up XX:XX:XX:XX:XX:XXには新しいMACアドレスを指定してください。 その後、ヘッドホンを再ペアリングします。 1.2 異なるBluetoothアダプタを使用する WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。
+方法 2: Bluetooth設定をOS間で同期する Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。
+2.1 必要な設定ファイルの場所 Windows:
+Bluetoothリンクキーは以下のレジストリパスに保存されています。
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys
+Linux:
+Bluetoothリンクキーは以下に保存されています。
+/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info
+2.2 Tailscaleを使った同期手順 Tailscaleをインストールする
+Arch Linux: sudo pacman -S tailscale sudo tailscale up Windows: Tailscale公式サイトからインストーラーをダウンロードしてインストールします。 リンクキーをエクスポートする">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-26T00:56:08+09:00">
+    <meta property="article:modified_time" content="2024-11-26T00:56:08+09:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法">
+<meta name="twitter:description" content="問題の背景
+BluetoothヘッドホンをWindowsで接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、Bluetoothのペアリング情報がOSごとに管理され、競合が発生するためです。
+この記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。
+
+問題の原因
+
+
+Bluetoothペアリング情報の競合
+Bluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。
+
+Windowsではリンクキーがレジストリに保存されます。
+Linuxではリンクキーが/var/lib/bluetooth/ディレクトリに保存されます。
+
+OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。
+
+
+解決のための再ペアリング
+問題を解決するために、Linuxでbluetoothctlを使ってデバイスをremoveし、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。
+
+
+
+解決方法
+以下の2つの解決方法を提案します。
+方法 1: Bluetooth設定を完全に個別管理する
+WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。
+1.1 BluetoothアダプタのMACアドレスを変更する
+Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。
+# Bluetoothアダプタを停止
+sudo hciconfig hci0 down
+
+# MACアドレスを変更
+sudo btmgmt --index 0 public-addr XX:XX:XX:XX:XX:XX
+
+# Bluetoothアダプタを再起動
+sudo hciconfig hci0 up
+
+XX:XX:XX:XX:XX:XXには新しいMACアドレスを指定してください。
+その後、ヘッドホンを再ペアリングします。
+
+1.2 異なるBluetoothアダプタを使用する
+WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。
+
+方法 2: Bluetooth設定をOS間で同期する
+Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。
+2.1 必要な設定ファイルの場所
+
+
+Windows:
+Bluetoothリンクキーは以下のレジストリパスに保存されています。
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys
+
+
+Linux:
+Bluetoothリンクキーは以下に保存されています。
+/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info
+
+
+2.2 Tailscaleを使った同期手順
+
+
+Tailscaleをインストールする
+
+Arch Linux:
+sudo pacman -S tailscale
+sudo tailscale up
+
+Windows:
+Tailscale公式サイトからインストーラーをダウンロードしてインストールします。
+
+
+
+リンクキーをエクスポートする">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://america.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法",
+      "item": "https://america.github.io/posts/my-second-post/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法",
+  "name": "BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法",
+  "description": "問題の背景 BluetoothヘッドホンをWindowsで接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、Bluetoothのペアリング情報がOSごとに管理され、競合が発生するためです。\nこの記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。\n問題の原因 Bluetoothペアリング情報の競合\nBluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。\nWindowsではリンクキーがレジストリに保存されます。 Linuxではリンクキーが/var/lib/bluetooth/ディレクトリに保存されます。 OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。\n解決のための再ペアリング\n問題を解決するために、Linuxでbluetoothctlを使ってデバイスをremoveし、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。\n解決方法 以下の2つの解決方法を提案します。\n方法 1: Bluetooth設定を完全に個別管理する WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。\n1.1 BluetoothアダプタのMACアドレスを変更する Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。\n# Bluetoothアダプタを停止 sudo hciconfig hci0 down # MACアドレスを変更 sudo btmgmt --index 0 public-addr XX:XX:XX:XX:XX:XX # Bluetoothアダプタを再起動 sudo hciconfig hci0 up XX:XX:XX:XX:XX:XXには新しいMACアドレスを指定してください。 その後、ヘッドホンを再ペアリングします。 1.2 異なるBluetoothアダプタを使用する WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。\n方法 2: Bluetooth設定をOS間で同期する Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。\n2.1 必要な設定ファイルの場所 Windows:\nBluetoothリンクキーは以下のレジストリパスに保存されています。\nHKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\BTHPORT\\Parameters\\Keys\nLinux:\nBluetoothリンクキーは以下に保存されています。\n/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info\n2.2 Tailscaleを使った同期手順 Tailscaleをインストールする\nArch Linux: sudo pacman -S tailscale sudo tailscale up Windows: Tailscale公式サイトからインストーラーをダウンロードしてインストールします。 リンクキーをエクスポートする\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "問題の背景 BluetoothヘッドホンをWindowsで接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、Bluetoothのペアリング情報がOSごとに管理され、競合が発生するためです。\nこの記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。\n問題の原因 Bluetoothペアリング情報の競合\nBluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。\nWindowsではリンクキーがレジストリに保存されます。 Linuxではリンクキーが/var/lib/bluetooth/ディレクトリに保存されます。 OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。\n解決のための再ペアリング\n問題を解決するために、Linuxでbluetoothctlを使ってデバイスをremoveし、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。\n解決方法 以下の2つの解決方法を提案します。\n方法 1: Bluetooth設定を完全に個別管理する WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。\n1.1 BluetoothアダプタのMACアドレスを変更する Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。\n# Bluetoothアダプタを停止 sudo hciconfig hci0 down # MACアドレスを変更 sudo btmgmt --index 0 public-addr XX:XX:XX:XX:XX:XX # Bluetoothアダプタを再起動 sudo hciconfig hci0 up XX:XX:XX:XX:XX:XXには新しいMACアドレスを指定してください。 その後、ヘッドホンを再ペアリングします。 1.2 異なるBluetoothアダプタを使用する WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。\n方法 2: Bluetooth設定をOS間で同期する Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。\n2.1 必要な設定ファイルの場所 Windows:\nBluetoothリンクキーは以下のレジストリパスに保存されています。\nHKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\BTHPORT\\Parameters\\Keys\nLinux:\nBluetoothリンクキーは以下に保存されています。\n/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info\n2.2 Tailscaleを使った同期手順 Tailscaleをインストールする\nArch Linux: sudo pacman -S tailscale sudo tailscale up Windows: Tailscale公式サイトからインストーラーをダウンロードしてインストールします。 リンクキーをエクスポートする\nWindows: レジストリエディタでリンクキーをエクスポートします。\nregeditを開き、パスに移動します。 該当キーを右クリックしてエクスポートを選択します。 Linux: infoファイルをコピーします。\ncp /var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info ~/info_backup リンクキーをOS間で同期する\nTailscaleのファイル共有機能やSSHを利用して、WindowsとLinux間でファイルを送受信します。\nリンクキーを適用する\nWindows側ではレジストリにインポート。 Linux側ではinfoファイルを上書き保存。 Bluetoothサービスを再起動する\nsudo systemctl restart bluetooth スクリプトでの自動化（Linux向け） リンクキーの同期をスクリプトで簡単に管理することもできます。\n#!/bin/bash # Tailscaleで同期されたリンクキーを適用する SYNC_DIR=~/tailscale_bluetooth_sync DEVICE_MAC=\"[デバイスMAC]\" # Bluetoothサービスを停止 sudo systemctl stop bluetooth # 同期ディレクトリからリンクキーをコピー sudo cp $SYNC_DIR/info /var/lib/bluetooth/[アダプタMAC]/$DEVICE_MAC/info # Bluetoothサービスを再起動 sudo systemctl start bluetooth まとめ 簡単な方法: 方法 1（Bluetooth設定の個別管理）は設定が少なく、簡単に実行できます。 応用的な方法: 方法 2（OS間でBluetooth設定を同期する）はやや難しいですが、リンクキーを共有することで再ペアリングの手間を省けます。 日常的にOSを切り替える場合は、スクリプト化して作業を自動化するのがおすすめです。\nこの記事が役に立ったと思ったら、コメントで感想を教えてください！ 🙌\n",
+  "wordCount" : "129",
+  "inLanguage": "en",
+  "datePublished": "2024-11-26T00:56:08+09:00",
+  "dateModified": "2024-11-26T00:56:08+09:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://america.github.io/posts/my-second-post/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "雑記",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://america.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://america.github.io/" accesskey="h" title="雑記 (Alt + H)">雑記</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法
+    </h1>
+    <div class="post-meta"><span title='2024-11-26 00:56:08 +0900 JST'>November 26, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="問題の背景">問題の背景<a hidden class="anchor" aria-hidden="true" href="#問題の背景">#</a></h2>
+<p>Bluetoothヘッドホンを<strong>Windows</strong>で接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、<strong>Bluetoothのペアリング情報がOSごとに管理され、競合が発生するため</strong>です。</p>
+<p>この記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。</p>
+<hr>
+<h2 id="問題の原因">問題の原因<a hidden class="anchor" aria-hidden="true" href="#問題の原因">#</a></h2>
+<ol>
+<li>
+<p><strong>Bluetoothペアリング情報の競合</strong><br>
+Bluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。</p>
+<ul>
+<li>Windowsではリンクキーがレジストリに保存されます。</li>
+<li>Linuxではリンクキーが<code>/var/lib/bluetooth/</code>ディレクトリに保存されます。</li>
+</ul>
+<p>OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。</p>
+</li>
+<li>
+<p><strong>解決のための再ペアリング</strong><br>
+問題を解決するために、Linuxで<code>bluetoothctl</code>を使ってデバイスを<code>remove</code>し、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。</p>
+</li>
+</ol>
+<hr>
+<h2 id="解決方法">解決方法<a hidden class="anchor" aria-hidden="true" href="#解決方法">#</a></h2>
+<p>以下の2つの解決方法を提案します。</p>
+<h3 id="方法-1-bluetooth設定を完全に個別管理する">方法 1: Bluetooth設定を完全に個別管理する<a hidden class="anchor" aria-hidden="true" href="#方法-1-bluetooth設定を完全に個別管理する">#</a></h3>
+<p>WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。</p>
+<h4 id="11-bluetoothアダプタのmacアドレスを変更する">1.1 BluetoothアダプタのMACアドレスを変更する<a hidden class="anchor" aria-hidden="true" href="#11-bluetoothアダプタのmacアドレスを変更する">#</a></h4>
+<p>Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Bluetoothアダプタを停止</span>
+</span></span><span style="display:flex;"><span>sudo hciconfig hci0 down
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># MACアドレスを変更</span>
+</span></span><span style="display:flex;"><span>sudo btmgmt --index <span style="color:#ae81ff">0</span> public-addr XX:XX:XX:XX:XX:XX
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Bluetoothアダプタを再起動</span>
+</span></span><span style="display:flex;"><span>sudo hciconfig hci0 up
+</span></span></code></pre></div><ul>
+<li><code>XX:XX:XX:XX:XX:XX</code>には新しいMACアドレスを指定してください。</li>
+<li>その後、ヘッドホンを再ペアリングします。</li>
+</ul>
+<h4 id="12-異なるbluetoothアダプタを使用する">1.2 異なるBluetoothアダプタを使用する<a hidden class="anchor" aria-hidden="true" href="#12-異なるbluetoothアダプタを使用する">#</a></h4>
+<p>WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。</p>
+<hr>
+<h3 id="方法-2-bluetooth設定をos間で同期する">方法 2: Bluetooth設定をOS間で同期する<a hidden class="anchor" aria-hidden="true" href="#方法-2-bluetooth設定をos間で同期する">#</a></h3>
+<p>Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。</p>
+<h4 id="21-必要な設定ファイルの場所">2.1 必要な設定ファイルの場所<a hidden class="anchor" aria-hidden="true" href="#21-必要な設定ファイルの場所">#</a></h4>
+<ul>
+<li>
+<p><strong>Windows</strong>:<br>
+Bluetoothリンクキーは以下のレジストリパスに保存されています。<br>
+<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys</code></p>
+</li>
+<li>
+<p><strong>Linux</strong>:<br>
+Bluetoothリンクキーは以下に保存されています。<br>
+<code>/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info</code></p>
+</li>
+</ul>
+<h4 id="22-tailscaleを使った同期手順">2.2 Tailscaleを使った同期手順<a hidden class="anchor" aria-hidden="true" href="#22-tailscaleを使った同期手順">#</a></h4>
+<ol>
+<li>
+<p><strong>Tailscaleをインストールする</strong></p>
+<ul>
+<li><strong>Arch Linux</strong>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S tailscale
+</span></span><span style="display:flex;"><span>sudo tailscale up
+</span></span></code></pre></div></li>
+<li><strong>Windows</strong>:
+<a href="https://tailscale.com/">Tailscale公式サイト</a>からインストーラーをダウンロードしてインストールします。</li>
+</ul>
+</li>
+<li>
+<p><strong>リンクキーをエクスポートする</strong></p>
+<ul>
+<li>
+<p><strong>Windows</strong>:
+レジストリエディタでリンクキーをエクスポートします。</p>
+<ol>
+<li><code>regedit</code>を開き、パスに移動します。</li>
+<li>該当キーを右クリックして<code>エクスポート</code>を選択します。</li>
+</ol>
+</li>
+<li>
+<p><strong>Linux</strong>:
+<code>info</code>ファイルをコピーします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp /var/lib/bluetooth/<span style="color:#f92672">[</span>アダプタMAC<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>デバイスMAC<span style="color:#f92672">]</span>/info ~/info_backup
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>リンクキーをOS間で同期する</strong></p>
+<p>Tailscaleのファイル共有機能やSSHを利用して、WindowsとLinux間でファイルを送受信します。</p>
+</li>
+<li>
+<p><strong>リンクキーを適用する</strong></p>
+<ul>
+<li>Windows側ではレジストリにインポート。</li>
+<li>Linux側では<code>info</code>ファイルを上書き保存。</li>
+</ul>
+</li>
+<li>
+<p><strong>Bluetoothサービスを再起動する</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl restart bluetooth
+</span></span></code></pre></div></li>
+</ol>
+<hr>
+<h2 id="スクリプトでの自動化linux向け">スクリプトでの自動化（Linux向け）<a hidden class="anchor" aria-hidden="true" href="#スクリプトでの自動化linux向け">#</a></h2>
+<p>リンクキーの同期をスクリプトで簡単に管理することもできます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tailscaleで同期されたリンクキーを適用する</span>
+</span></span><span style="display:flex;"><span>SYNC_DIR<span style="color:#f92672">=</span>~/tailscale_bluetooth_sync
+</span></span><span style="display:flex;"><span>DEVICE_MAC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[デバイスMAC]&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Bluetoothサービスを停止</span>
+</span></span><span style="display:flex;"><span>sudo systemctl stop bluetooth
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 同期ディレクトリからリンクキーをコピー</span>
+</span></span><span style="display:flex;"><span>sudo cp $SYNC_DIR/info /var/lib/bluetooth/<span style="color:#f92672">[</span>アダプタMAC<span style="color:#f92672">]</span>/$DEVICE_MAC/info
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Bluetoothサービスを再起動</span>
+</span></span><span style="display:flex;"><span>sudo systemctl start bluetooth
+</span></span></code></pre></div><hr>
+<h2 id="まとめ">まとめ<a hidden class="anchor" aria-hidden="true" href="#まとめ">#</a></h2>
+<ul>
+<li><strong>簡単な方法</strong>: 方法 1（Bluetooth設定の個別管理）は設定が少なく、簡単に実行できます。</li>
+<li><strong>応用的な方法</strong>: 方法 2（OS間でBluetooth設定を同期する）はやや難しいですが、リンクキーを共有することで再ペアリングの手間を省けます。</li>
+</ul>
+<p>日常的にOSを切り替える場合は、スクリプト化して作業を自動化するのがおすすめです。</p>
+<hr>
+<p>この記事が役に立ったと思ったら、コメントで感想を教えてください！ 🙌</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://america.github.io/">雑記</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

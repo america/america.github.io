@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>404 Page not found | 雑記</title>
+<title>Posts | 雑記</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
+<meta name="description" content="Posts - 雑記">
 <meta name="author" content="">
-<link rel="canonical" href="https://america.github.io/404.html">
+<link rel="canonical" href="https://america.github.io/posts/">
 <link crossorigin="anonymous" href="https://america.github.io/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://america.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://america.github.io/favicon-16x16.png">
@@ -18,7 +18,8 @@
 <link rel="mask-icon" href="https://america.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://america.github.io/404.html">
+<link rel="alternate" type="application/rss+xml" href="https://america.github.io/posts/index.xml">
+<link rel="alternate" hreflang="en" href="https://america.github.io/posts/">
 <noscript>
     <style>
         #theme-toggle,
@@ -55,15 +56,30 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://america.github.io/404.html">
+</noscript><meta property="og:url" content="https://america.github.io/posts/">
   <meta property="og:site_name" content="雑記">
-  <meta property="og:title" content="404 Page not found">
+  <meta property="og:title" content="Posts">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="404 Page not found">
+<meta name="twitter:title" content="Posts">
 <meta name="twitter:description" content="">
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://america.github.io/posts/"
+    }
+  ]
+}
+</script>
 </head>
 
 <body class="list" id="top">
@@ -109,8 +125,44 @@
         </ul>
     </nav>
 </header>
-<main class="main">
-<div class="not-found">404</div>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Posts
+  </h1>
+</header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>問題の背景 BluetoothヘッドホンをWindowsで接続した後、**Linux（例: Arch Linux）**に切り替えると、ヘッドホンがうまく接続できないことがあります。この問題の原因は、Bluetoothのペアリング情報がOSごとに管理され、競合が発生するためです。
+この記事では、トラブルの原因を解説し、具体的な解決策を2つ提案します。
+問題の原因 Bluetoothペアリング情報の競合
+Bluetoothヘッドホンは、ホストデバイス（PCやスマートフォン）との暗号化されたリンクキーを使用して認証を行います。
+Windowsではリンクキーがレジストリに保存されます。 Linuxではリンクキーが/var/lib/bluetooth/ディレクトリに保存されます。 OSごとに異なるリンクキーを使用するため、OSを切り替えると認証に失敗し、接続エラーが発生します。
+解決のための再ペアリング
+問題を解決するために、Linuxでbluetoothctlを使ってデバイスをremoveし、再ペアリングする必要が出てきます。これにより、新しいリンクキーが生成され、再接続が可能になります。
+解決方法 以下の2つの解決方法を提案します。
+方法 1: Bluetooth設定を完全に個別管理する WindowsとLinuxでペアリング情報が競合しないように、Bluetoothデバイスを個別に管理します。
+1.1 BluetoothアダプタのMACアドレスを変更する Linux側でMACアドレスを変更し、ヘッドホンに異なるペアリング情報を記憶させることで、Windowsのペアリング情報との競合を回避します。
+# Bluetoothアダプタを停止 sudo hciconfig hci0 down # MACアドレスを変更 sudo btmgmt --index 0 public-addr XX:XX:XX:XX:XX:XX # Bluetoothアダプタを再起動 sudo hciconfig hci0 up XX:XX:XX:XX:XX:XXには新しいMACアドレスを指定してください。 その後、ヘッドホンを再ペアリングします。 1.2 異なるBluetoothアダプタを使用する WindowsとLinuxで異なるBluetoothアダプタ（例: USBドングル）を使用する方法も有効です。これにより、ヘッドホンは2つの異なるデバイスとして認識します。
+方法 2: Bluetooth設定をOS間で同期する Tailscaleのようなツールを使って、WindowsとLinuxでBluetooth設定を共有します。
+2.1 必要な設定ファイルの場所 Windows:
+Bluetoothリンクキーは以下のレジストリパスに保存されています。
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys
+Linux:
+Bluetoothリンクキーは以下に保存されています。
+/var/lib/bluetooth/[アダプタMAC]/[デバイスMAC]/info
+2.2 Tailscaleを使った同期手順 Tailscaleをインストールする
+Arch Linux: sudo pacman -S tailscale sudo tailscale up Windows: Tailscale公式サイトからインストーラーをダウンロードしてインストールします。 リンクキーをエクスポートする
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-11-26 00:56:08 +0900 JST'>November 26, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to BluetoothデバイスをWindowsとLinuxで切り替える際のトラブルと解決方法" href="https://america.github.io/posts/my-second-post/"></a>
+</article>
     </main>
     
 <footer class="footer">
