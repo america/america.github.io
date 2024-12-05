@@ -1,0 +1,7 @@
+{{ $code := .Get 0 }}
+<div>
+  <pre>
+    <button class="copy-button" onclick="navigator.clipboard.writeText(`{{ .Inner | plainify }}`)">Copy</button>
+    <code>{{ .Inner | safeHTML }}</code>
+  </pre>
+</div>

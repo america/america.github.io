@@ -3,3 +3,5 @@ languageCode = 'en-us'
 title = '雑記'
 theme = "PaperMod"
 canonifyURLs = true
+[params]
+  customCSS = ["css/custom.css"]

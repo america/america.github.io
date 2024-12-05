@@ -1,0 +1,5 @@
+code { background-color: #2d2d2d; color: #ffffff; border-radius: 5px; padding: 10px; }
+pre { position: relative; }
+pre .copy-button { position: absolute; top: 5px; right: 10px; background-color: #ffffff; color: #000; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; }
+pre:hover .copy-button { display: inline; }
+
