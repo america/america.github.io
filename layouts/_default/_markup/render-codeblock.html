@@ -1,7 +1,7 @@
-{{ $code := .Get 0 }}
-<div>
+{{ $id := printf "codeblock-%d" (.Get "id") }}
+<div class="codeblock-wrapper">
   <pre>
-    <button class="copy-button" onclick="navigator.clipboard.writeText(`{{ .Inner | plainify }}`)">Copy</button>
-    <code>{{ .Inner | safeHTML }}</code>
+    <code id="{{ $id }}" class="{{ .Get "class" }}">{{ .Get "content" }}</code>
   </pre>
+  <button class="copy-btn" onclick="copyToClipboard('{{ $id }}')">Copy</button>
 </div>
