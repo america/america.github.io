@@ -1,7 +1,7 @@
-{{ $id := printf "codeblock-%d" (.Get "id") }}
 <div class="codeblock-wrapper">
-  <pre>
-    <code id="{{ $id }}" class="{{ .Get "class" }}">{{ .Get "content" }}</code>
-  </pre>
-  <button class="copy-btn" onclick="copyToClipboard('{{ $id }}')">Copy</button>
+    <pre>
+        <code id="codeblock-1" class="plaintext">{{ .Inner | safeHTML }}</code>
+    </pre>
+    <button class="copy-btn" onclick="copyToClipboard('codeblock-1')">Copy</button>
 </div>
+

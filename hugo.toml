@@ -1,7 +1,31 @@
 baseURL = 'https://america.github.io/'
-languageCode = 'en-us'
+languageCode = 'ja'
 title = '雑記'
 theme = "PaperMod"
-canonifyURLs = true
+
+#[params]
+#  customCSS = ["css/custom.css"]
+
 [params]
+  # 一部PaperMod固有の設定
+  defaultTheme = "auto" # ダーク/ライトテーマの自動切り替え
+  showReadingTime = true # 記事の読み時間を表示
+  disableSpecial1st = false # 特殊な1記事目デザインを無効化
+  enableGitInfo = true # 更新日時を表示
+  customJS = ["js/copy.js"]
+  copyCode = true
   customCSS = ["css/custom.css"]
+  customJS = ["js/copy.js"]
+
+#[markup]
+#  [markup.highlight]
+#    noClasses = false
+
+[languages]
+  [languages.ja]
+    languageName = "日本語"
+    weight = 1
+  [languages.en]
+    languageName = "English"
+    weight = 2
+
