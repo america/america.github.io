@@ -2,3 +2,7 @@
 ~/.config/nvim/undo/
 
 public/
+node_modules/
+package-lock.json
+resources/
+content/posts/my-second-post.md.bak
