@@ -6,3 +6,22 @@ node_modules/
 package-lock.json
 resources/
 content/posts/my-second-post.md.bak
+
+# 自動生成されたCSSとJS
+assets/css/stylesheet.*.css
+assets/js/
+assets/jsconfig.json
+
+# 不要なコンテンツ
+docsy-example/
+content/en/
+content/ja/
+static
+
+# テーマの変更（未追跡・変更内容確認）
+themes/*
+
+# Node.js関連
+node_modules/
+package.json
+package-lock.json
