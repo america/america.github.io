@@ -1,7 +1,21 @@
 <div class="codeblock-wrapper">
+    {{ $id := printf "codeblock-%d" .Ordinal }}
     <pre>
-        <code id="codeblock-1" class="plaintext">{{ .Inner | safeHTML }}</code>
+        <code id="{{ $id }}" class="language-{{ .Type }}">{{ .Inner | safeHTML }}</code>
     </pre>
-    <button class="copy-btn" onclick="copyToClipboard('codeblock-1')">Copy</button>
-</div>
+    <button class="copy-btn" onclick="copyToClipboard('{{ $id }}')">Copy</button>
 
+    <script>
+        function copyToClipboard(id) {
+            const codeBlock = document.getElementById(id);
+            if (!codeBlock) return;
+
+            const text = codeBlock.textContent.replace(/^\$\s/gm, "");
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Copied!");
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
+</div>

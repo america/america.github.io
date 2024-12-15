@@ -1,5 +1,36 @@
-code { background-color: #2d2d2d; color: #ffffff; border-radius: 5px; padding: 10px; }
-pre { position: relative; }
-pre .copy-button { position: absolute; top: 5px; right: 10px; background-color: #ffffff; color: #000; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; }
-pre:hover .copy-button { display: inline; }
+.codeblock-wrapper {
+    position: relative;
+    margin-bottom: 1.5em;
+}
 
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    z-index: 10;
+}
+
+.copy-btn:hover {
+    background: #555;
+}
+
+/* Copied! メッセージのスタイル */
+.copied-message {
+    position: absolute; /* 絶対位置で配置 */
+    top: 10px; /* ボタンの上に配置 */
+    right: 10px;
+    background-color: #f0f0f0; /* 背景色 */
+    color: #333; /* テキスト色 */
+    padding: 5px 10px; /* パディング */
+    border-radius: 5px; /* 角を丸める */
+    font-size: 0.875rem; /* フォントサイズ */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* ボックスシャドウ */
+    z-index: 1000; /* 他の要素より前面に表示 */
+}

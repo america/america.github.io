@@ -1,0 +1,33 @@
+{{- if lt hugo.Version "0.125.7" }}
+{{- errorf "=> hugo v0.125.7 or greater is required for hugo-PaperMod to build " }}
+{{- end -}}
+
+<!DOCTYPE html>
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+
+<head>
+    {{ $styles := resources.Get "css/custom.css" | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.Permalink }}">
+
+    {{- partial "head.html" . }}
+</head>
+
+<body class="
+{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
+{{- print "list" -}}
+{{- end -}}
+{{- if eq site.Params.defaultTheme `dark` -}}
+{{- print " dark" }}
+{{- end -}}
+" id="top">
+    {{- partialCached "header.html" . .Page -}}
+    <main class="main">
+        {{- block "main" . }}{{ end }}
+    </main>
+    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+    <!-- JSファイルを読み込む -->
+    {{ $scripts := resources.Get "js/copy.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $scripts.Permalink }}"></script>
+</body>
+
+</html>
