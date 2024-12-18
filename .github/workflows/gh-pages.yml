@@ -18,10 +18,18 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.140.0'
+
+      - name: Check file paths
+        run: |
+          ls -R assets/
+          ls -R public/
 
       - name: Build site
-        run: hugo --minify
+        - name: Debug Hugo Build
+          run: hugo --minify --log --logFile hugo.log
+        - name: Display Hugo Log
+          run: cat hugo.log
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
