@@ -21,7 +21,7 @@ jobs:
           hugo-version: '0.140.0'
 
       - name: Build site
-        run: hugo --minify --debug --logLevel debug
+        run:  hugo --minify --logLevel debug --verbose --printPathWarnings --printUnusedTemplates
 
       - name: Display Hugo Log
         run: cat hugo.log
