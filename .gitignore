@@ -1,6 +1,0 @@
-~/.config/nvim/backup/
-~/.config/nvim/undo/
-
-public/
-/public/
-deploy.sh
