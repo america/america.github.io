@@ -9,7 +9,6 @@ content/posts/my-second-post.md.bak
 
 # 自動生成されたCSSとJS
 assets/css/stylesheet.*.css
-assets/js/
 assets/jsconfig.json
 
 # 不要なコンテンツ
