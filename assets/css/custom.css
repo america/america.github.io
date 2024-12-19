@@ -1,6 +1,6 @@
 /* コードブロック全体のスタイル */
-.codeblock-wrapper {
-    position: relative; /* ボタンをコードブロック内に配置するため */
+pre {
+    position: relative;
     display: inline-block; /* コードブロックをボタンと一緒に扱う */
 }
 
