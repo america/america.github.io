@@ -1,48 +1,11 @@
-/* コードブロック全体のスタイル */
-pre {
+.codeblock-wrapper {
     position: relative;
-    display: inline-block; /* コードブロックをボタンと一緒に扱う */
 }
 
-/* ボタンのスタイル */
-button.copy-btn {
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-/* ボタンにホバーしたときのスタイル */
-button.copy-btn:hover {
-    background-color: #45a049; /* ホバー時の背景色 */
-}
-
-button.copy-btn:after {
-    content: 'Copied!';
+.copy-btn {
     position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #4caf50;
-    color: white;
+    top: 10px; /* 必要に応じて調整 */
+    right: 10px; /* 必要に応じて調整 */
     padding: 5px 10px;
-    border-radius: 5px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-button.copy-btn.copied:after {
-    opacity: 1;
-}
-
-button.copy-btn.copied {
-    background-color: #4caf50; /* 成功時の背景色（緑色） */
-    color: white;             /* 成功時の文字色 */
-    transition: background-color 0.3s ease;
-}
-
-button.copy-btn.copied:after {
-    content: 'Copied!';       /* "Copied!" の表示 */
-    display: block;           /* ブロック表示 */
-    margin-top: 5px;          /* ボタンの下に余白 */
-    font-size: 0.9rem;        /* 文字サイズ */
-    color: #4caf50;           /* 文字色 */
+    cursor: pointer;
 }
