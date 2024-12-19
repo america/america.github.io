@@ -9,7 +9,6 @@ content/posts/my-second-post.md.bak
 
 # 自動生成されたCSSとJS
 assets/css/stylesheet.*.css
-#assets/jsconfig.json
 
 # 不要なコンテンツ
 docsy-example/
@@ -25,3 +24,6 @@ node_modules/
 package.json
 package-lock.json
 .hugo_build.lock
+
+baseof_diff.txt
+check_theme_updates.sh
