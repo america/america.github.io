@@ -27,7 +27,7 @@ jobs:
           ls -R assets/
 
       - name: Build site
-        run: hugo --minify --loglevel debug
+        run: hugo --minify --logLevel debug
 
       - name: Check public directory 
         run:  ls -R public/
