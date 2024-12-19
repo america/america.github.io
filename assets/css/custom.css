@@ -7,5 +7,15 @@
     top: 10px; /* 必要に応じて調整 */
     right: 10px; /* 必要に応じて調整 */
     padding: 5px 10px;
+    background-color: #007bff; /* ボタンの背景色 */
+    color: white; /* ボタンのテキスト色 */
+    border: none; /* ボーダーをなしに */
+    border-radius: 5px; /* 角を丸く */
     cursor: pointer;
+    font-size: 14px; /* フォントサイズ */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ボックスシャドウ */
+}
+
+.copy-btn:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
 }
