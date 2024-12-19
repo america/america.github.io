@@ -9,7 +9,7 @@ content/posts/my-second-post.md.bak
 
 # 自動生成されたCSSとJS
 assets/css/stylesheet.*.css
-assets/jsconfig.json
+#assets/jsconfig.json
 
 # 不要なコンテンツ
 docsy-example/
