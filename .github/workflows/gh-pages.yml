@@ -22,12 +22,12 @@ jobs:
           hugo-version: '0.140.0'
           extended: true
 
+      - name: Clear Hugo cache
+        run: hugo mod clean
+
       - name: Check file paths
         run: |
           ls -R assets/
-
-      - name: Clear Hugo cache
-        run: hugo mod clean
 
       - name: Build site
         run: hugo --minify --logLevel debug
