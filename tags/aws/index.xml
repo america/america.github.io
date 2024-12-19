@@ -17,14 +17,14 @@
 &lt;pre>
 &lt;code id="codeblock-0" class="language-bash">sudo ufw status&lt;/code>
 &lt;/pre>
-&lt;button class="copy-btn" onclick="copyToClipboard('codeblock-0')">Copy&lt;/button>
+&lt;button class="copy-btn" onclick="copyToClipboard('codeblock-0', this)">Copy&lt;/button>
 &lt;script>
-function copyToClipboard(id) {
+function copyToClipboard(id, button) {
 const codeBlock = document.getElementById(id);
 if (!codeBlock) return;
 const text = codeBlock.textContent.replace(/^\$\s/gm, "");
 navigator.clipboard.writeText(text).then(() => {
-alert("Copied!");
+button.textContent = "Copied!";
 }).catch(err => {
 console.error("Failed to copy: ", err);
 });
@@ -38,14 +38,14 @@ console.error("Failed to copy: ", err);
 &lt;pre>
 &lt;code id="codeblock-1" class="language-bash">sudo systemctl status ssh&lt;/code>
 &lt;/pre>
-&lt;button class="copy-btn" onclick="copyToClipboard('codeblock-1')">Copy&lt;/button>
+&lt;button class="copy-btn" onclick="copyToClipboard('codeblock-1', this)">Copy&lt;/button>
 &lt;script>
-function copyToClipboard(id) {
+function copyToClipboard(id, button) {
 const codeBlock = document.getElementById(id);
 if (!codeBlock) return;
 const text = codeBlock.textContent.replace(/^\$\s/gm, "");
 navigator.clipboard.writeText(text).then(() => {
-alert("Copied!");
+button.textContent = "Copied!";
 }).catch(err => {
 console.error("Failed to copy: ", err);
 });
@@ -54,55 +54,4 @@ console.error("Failed to copy: ", err);
 &lt;/div>
 &lt;/li>
 &lt;/ol>
-&lt;p>System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。&lt;/p></description></item><item><title>AWSでSSH接続できない問題を解決した話</title><link>https://america.github.io/posts/aws_ssh_issue/</link><pubDate>Wed, 20 Nov 2024 00:00:00 +0000</pubDate><guid>https://america.github.io/posts/aws_ssh_issue/</guid><description>&lt;h2 id="はじめに">はじめに&lt;/h2>
-&lt;p>先日、AWSで立てたEC2インスタンスにSSH接続できなくなる問題が発生しました。このトラブルの原因と解決方法を記録しておきます。同じ状況に陥った方の助けになれば幸いです。&lt;/p>
-&lt;hr>
-&lt;h2 id="問題の症状">問題の症状&lt;/h2>
-&lt;ul>
-&lt;li>EC2インスタンスにSSH接続を試みると、&lt;code>Connection timed out&lt;/code> のエラーが表示される。&lt;/li>
-&lt;li>AWSコンソール上では、インスタンスは正常に動作中。&lt;/li>
-&lt;li>ブラウザからの接続は可能（インスタンス内のApacheは稼働中）。&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="原因と解決方法">原因と解決方法&lt;/h2>
-&lt;p>調査の結果、以下の4つの原因が考えられました。&lt;/p>
-&lt;h3 id="原因1-セキュリティグループのルール設定ミス">&lt;strong>原因1: セキュリティグループのルール設定ミス&lt;/strong>&lt;/h3>
-&lt;p>&lt;strong>問題点&lt;/strong>&lt;br>
-セキュリティグループでポート22（SSH）が許可されていなかった。&lt;/p>
-&lt;p>&lt;strong>解決方法&lt;/strong>&lt;br>
-AWSコンソールのセキュリティグループ設定に以下のルールを追加：&lt;/p>
-&lt;ul>
-&lt;li>タイプ: SSH&lt;/li>
-&lt;li>プロトコル: TCP&lt;/li>
-&lt;li>ポート範囲: 22&lt;/li>
-&lt;li>ソース: 自分のグローバルIPアドレス（例: &lt;code>203.0.113.0/32&lt;/code>）&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h3 id="原因2-ufwuncomplicated-firewallがポート22を閉じていた">&lt;strong>原因2: UFW（Uncomplicated Firewall）がポート22を閉じていた&lt;/strong>&lt;/h3>
-&lt;p>&lt;strong>問題点&lt;/strong>&lt;br>
-EC2インスタンス内のUFW（ローカルファイアウォール）でポート22が閉じられていた。&lt;/p>
-&lt;p>&lt;strong>解決方法&lt;/strong>&lt;br>
-以下のコマンドを実行してポート22を許可し、設定を反映しました。&lt;/p>
-&lt;div class="codeblock-wrapper">
-&lt;pre>
-&lt;code id="codeblock-0" class="language-bash">sudo ufw allow 22
-sudo ufw reload&lt;/code>
-&lt;/pre>
-&lt;button class="copy-btn" onclick="copyToClipboard('codeblock-0')">Copy&lt;/button>
-&lt;script>
-function copyToClipboard(id) {
-const codeBlock = document.getElementById(id);
-if (!codeBlock) return;
-const text = codeBlock.textContent.replace(/^\$\s/gm, "");
-navigator.clipboard.writeText(text).then(() => {
-alert("Copied!");
-}).catch(err => {
-console.error("Failed to copy: ", err);
-});
-}
-&lt;/script>
-&lt;/div>
-&lt;hr>
-&lt;h3 id="原因3-グローバルipの変動">&lt;strong>原因3: グローバルIPの変動&lt;/strong>&lt;/h3>
-&lt;p>&lt;strong>問題点&lt;/strong>&lt;br>
-自分のグローバルIPアドレスが変更されたことで、セキュリティグループのルールが機能しなくなった。&lt;/p></description></item></channel></rss>
+&lt;p>System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。&lt;/p></description></item></channel></rss>
