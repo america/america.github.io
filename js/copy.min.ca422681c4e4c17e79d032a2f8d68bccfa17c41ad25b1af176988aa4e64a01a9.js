@@ -1,1 +1,0 @@
-function copyToClipboard(e){const t=document.getElementById(e).innerText;navigator.clipboard.writeText(t).then(()=>{console.log("Text copied to clipboard");const t=document.querySelector(`button[onclick="copyToClipboard('${e}')"]`);t&&(t.classList.add("copied"),setTimeout(()=>{t.classList.remove("copied")},2e3))}).catch(e=>{console.error("Failed to copy text: ",e)})}

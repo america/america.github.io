@@ -18,18 +18,6 @@
 &lt;code id="codeblock-0" class="language-bash">sudo ufw status&lt;/code>
 &lt;/pre>
 &lt;button class="copy-btn" onclick="copyToClipboard('codeblock-0', this)">Copy&lt;/button>
-&lt;script>
-function copyToClipboard(id, button) {
-const codeBlock = document.getElementById(id);
-if (!codeBlock) return;
-const text = codeBlock.textContent.replace(/^\$\s/gm, "");
-navigator.clipboard.writeText(text).then(() => {
-button.textContent = "Copied!";
-}).catch(err => {
-console.error("Failed to copy: ", err);
-});
-}
-&lt;/script>
 &lt;/div>
 &lt;/li>
 &lt;li>
@@ -39,19 +27,52 @@ console.error("Failed to copy: ", err);
 &lt;code id="codeblock-1" class="language-bash">sudo systemctl status ssh&lt;/code>
 &lt;/pre>
 &lt;button class="copy-btn" onclick="copyToClipboard('codeblock-1', this)">Copy&lt;/button>
-&lt;script>
-function copyToClipboard(id, button) {
-const codeBlock = document.getElementById(id);
-if (!codeBlock) return;
-const text = codeBlock.textContent.replace(/^\$\s/gm, "");
-navigator.clipboard.writeText(text).then(() => {
-button.textContent = "Copied!";
-}).catch(err => {
-console.error("Failed to copy: ", err);
-});
-}
-&lt;/script>
 &lt;/div>
 &lt;/li>
 &lt;/ol>
-&lt;p>System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。&lt;/p></description></item></channel></rss>
+&lt;p>System Managerは、セキュリティグループやファイアウォールの設定ミスが原因でSSH接続ができなくてもインスタンス内部にアクセスできるため、非常に有用です。&lt;/p>
+&lt;hr>
+&lt;h2 id="原因と解決方法">原因と解決方法&lt;/h2>
+&lt;p>調査の結果、以下の4つの原因が考えられました。&lt;/p>
+&lt;h3 id="原因1-セキュリティグループのルール設定ミス">&lt;strong>原因1: セキュリティグループのルール設定ミス&lt;/strong>&lt;/h3>
+&lt;p>&lt;strong>問題点&lt;/strong>&lt;br>
+セキュリティグループでポート22（SSH）が許可されていなかった。&lt;/p>
+&lt;p>&lt;strong>解決方法&lt;/strong>&lt;br>
+AWSコンソールのセキュリティグループ設定に以下のルールを追加：&lt;/p>
+&lt;ul>
+&lt;li>タイプ: SSH&lt;/li>
+&lt;li>プロトコル: TCP&lt;/li>
+&lt;li>ポート範囲: 22&lt;/li>
+&lt;li>ソース: 自分のグローバルIPアドレス（例: &lt;code>203.0.113.0/32&lt;/code>）&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="原因2-ufwuncomplicated-firewallがポート22を閉じていた">&lt;strong>原因2: UFW（Uncomplicated Firewall）がポート22を閉じていた&lt;/strong>&lt;/h3>
+&lt;p>&lt;strong>問題点&lt;/strong>&lt;br>
+EC2インスタンス内のUFW（ローカルファイアウォール）でポート22が閉じられていた。&lt;/p>
+&lt;p>&lt;strong>解決方法&lt;/strong>&lt;br>
+以下のコマンドを実行してポート22を許可し、設定を反映しました。&lt;/p>
+&lt;div class="codeblock-wrapper">
+&lt;pre>
+&lt;code id="codeblock-2" class="language-bash">sudo ufw allow 22
+sudo ufw reload&lt;/code>
+&lt;/pre>
+&lt;button class="copy-btn" onclick="copyToClipboard('codeblock-2', this)">Copy&lt;/button>
+&lt;/div>
+&lt;hr>
+&lt;h3 id="原因3-グローバルipの変動">&lt;strong>原因3: グローバルIPの変動&lt;/strong>&lt;/h3>
+&lt;p>&lt;strong>問題点&lt;/strong>&lt;br>
+自分のグローバルIPアドレスが変更されたことで、セキュリティグループのルールが機能しなくなった。&lt;/p>
+&lt;p>&lt;strong>解決方法&lt;/strong>&lt;br>
+新しいグローバルIPを確認し、セキュリティグループのSSHルールを更新しました。&lt;/p>
+&lt;div class="codeblock-wrapper">
+&lt;pre>
+&lt;code id="codeblock-3" class="language-bash">curl ifconfig.me&lt;/code>
+&lt;/pre>
+&lt;button class="copy-btn" onclick="copyToClipboard('codeblock-3', this)">Copy&lt;/button>
+&lt;/div>
+&lt;hr>
+&lt;h3 id="原因4-インターネットゲートウェイの設定ミス">&lt;strong>原因4: インターネットゲートウェイの設定ミス&lt;/strong>&lt;/h3>
+&lt;p>&lt;strong>問題点&lt;/strong>&lt;br>
+インターネットゲートウェイがVPCに正しくアタッチされていなかった。&lt;/p>
+&lt;p>&lt;strong>解決方法&lt;/strong>&lt;br>
+AWSコンソールのVPCダッシュボードで以下を確認しました：&lt;/p></description></item></channel></rss>
