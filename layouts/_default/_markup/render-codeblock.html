@@ -3,16 +3,16 @@
     <pre>
         <code id="{{ $id }}" class="language-{{ .Type }}">{{ .Inner | safeHTML }}</code>
     </pre>
-    <button class="copy-btn" onclick="copyToClipboard('{{ $id }}')">Copy</button>
+    <button class="copy-btn" onclick="copyToClipboard('{{ $id }}', this)">Copy</button>
 
     <script>
-        function copyToClipboard(id) {
+        function copyToClipboard(id, button) {
             const codeBlock = document.getElementById(id);
             if (!codeBlock) return;
 
             const text = codeBlock.textContent.replace(/^\$\s/gm, "");
             navigator.clipboard.writeText(text).then(() => {
-                alert("Copied!");
+                button.textContent = "Copied!";
             }).catch(err => {
                 console.error("Failed to copy: ", err);
             });
