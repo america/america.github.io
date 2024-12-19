@@ -1,0 +1,1 @@
+function copyToClipboard(e,t){const n=document.getElementById(e);if(!n)return;const s=n.textContent.replace(/^\$\s/gm,"");navigator.clipboard.writeText(s).then(()=>{const e=t.textContent;t.textContent="Copied!",setTimeout(()=>{t.textContent=e},2e3)}).catch(e=>{console.error("Failed to copy: ",e)})}
