@@ -25,9 +25,10 @@ jobs:
       - name: Check file paths
         run: |
           ls -R assets/
+          ls -R static/
 
       - name: Build site
-        run: hugo --minify 
+        run: hugo --minify --loglevel debug
 
       - name: Check public directory 
         run:  ls -R public/
