@@ -20,3 +20,17 @@ button.copy-btn:after {
 button.copy-btn.copied:after {
     opacity: 1;
 }
+
+button.copy-btn.copied {
+    background-color: #4caf50; /* 成功時の背景色（緑色） */
+    color: white;             /* 成功時の文字色 */
+    transition: background-color 0.3s ease;
+}
+
+button.copy-btn.copied:after {
+    content: 'Copied!';       /* "Copied!" の表示 */
+    display: block;           /* ブロック表示 */
+    margin-top: 5px;          /* ボタンの下に余白 */
+    font-size: 0.9rem;        /* 文字サイズ */
+    color: #4caf50;           /* 文字色 */
+}
