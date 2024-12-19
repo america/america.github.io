@@ -26,6 +26,9 @@ jobs:
         run: |
           ls -R assets/
 
+      - name: Clear Hugo cache
+        run: hugo mod clean
+
       - name: Build site
         run: hugo --minify --logLevel debug
 
