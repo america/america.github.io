@@ -1,6 +1,18 @@
+/* コードブロック全体のスタイル */
+.codeblock-wrapper {
+    position: relative; /* ボタンをコードブロック内に配置するため */
+    display: inline-block; /* コードブロックをボタンと一緒に扱う */
+}
+
+/* ボタンのスタイル */
 button.copy-btn {
     position: relative;
     transition: all 0.3s ease;
+}
+
+/* ボタンにホバーしたときのスタイル */
+button.copy-btn:hover {
+    background-color: #45a049; /* ホバー時の背景色 */
 }
 
 button.copy-btn:after {
