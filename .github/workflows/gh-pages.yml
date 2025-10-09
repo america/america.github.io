@@ -10,7 +10,6 @@ permissions:
   pages: write
   id-token: write
 
-# ブランチごとに分けて詰まり回避
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: false
@@ -39,9 +38,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10       # ← ここを追加（固着防止）
     environment:
-      name: github-pages
-      # 環境保護を無効にした上で使う。保護が必要なら reviewers を外してね
+      name: github-pages      # ← 環境は再作成される
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
