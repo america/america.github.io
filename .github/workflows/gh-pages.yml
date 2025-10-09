@@ -10,8 +10,9 @@ permissions:
   pages: write
   id-token: write
 
+# ブランチごとに分けて詰まり回避
 concurrency:
-  group: "pages"
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -23,16 +24,13 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
-
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.140.0'
           extended: true
-
       - name: Build
         run: hugo --minify
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -43,9 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      # 環境保護を無効にした上で使う。保護が必要なら reviewers を外してね
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
