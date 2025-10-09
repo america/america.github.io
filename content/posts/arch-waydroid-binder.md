@@ -1,103 +1,156 @@
----
-title: "Arch Linux + Waydroid の Binder / BinderFS トラブル完全メモ"
-date: 2025-10-09
-tags: ["Arch Linux", "Waydroid", "Binder", "Kernel", "Troubleshooting"]
-categories: ["Linux", "Android Integration"]
-description: "Arch Linux 上で Waydroid が起動しない原因を Binder / BinderFS の観点から徹底解説。キャラデバイスの理解も含め、Gentoo出身者向けにわかりやすくまとめました。"
----
-
-# 🧩 Arch Linux + Waydroid Binder/BinderFS トラブルメモ
-
-Waydroid は Android のプロセス間通信（IPC）を使って動作します。  
-その中核となるのが Linux カーネルの **Binder ドライバ**。  
-しかし、Arch Linux ではこの Binder 周りがやや複雑で、  
-binderfs の有無やカーネルの構成によって挙動が大きく変わります。
+了解 👍
+以下が、さっき説明した **Waydroid Binder/BinderFS 問題のまとめ記事**を
+そのまま **Hugo用 Markdownファイル**として貼れる内容だ。
+保存場所は：
+`content/posts/arch-waydroid-binder.md`
 
 ---
 
-## 🔧 1. Binder と BinderFS の違い
+```markdown
+---
+title: "Waydroidが起動しない原因とBinder/BinderFSの仕組み"
+date: 2025-10-09T10:30:00+09:00
+tags: ["Arch Linux", "Waydroid", "Kernel", "Binder", "BinderFS"]
+categories: ["Linux"]
+---
 
-| 名称 | 説明 | デバイス例 |
-|------|------|------------|
-| **binder** | 古い方式。`/dev/binder`, `/dev/hwbinder` などを直接作成 | `/dev/binder` |
-| **binderfs** | 新しい方式（Linux 5.0+）。Binderデバイスを仮想ファイルシステムとして `/dev/binderfs/` に管理 | `/dev/binderfs/binder` |
-
-Waydroid は原則として binderfs を優先的に使いますが、  
-binderfs が存在しない場合は binder にフォールバックします。
+## 概要
+Arch Linux で Waydroid を動かそうとした際、  
+「`Can't open /dev/anbox-binder: No such device or address`」というエラーが発生した。  
+原因は **カーネルが BinderFS を正しくマウントしていなかった**ことにあった。  
+ここでは、Binder/BinderFS の役割と、実際に動作させるまでの手順をまとめる。
 
 ---
 
-## 🧠 2. キャラデバイスとは？
+## 1. Binder と BinderFS の違い
+Android のアプリ間通信（IPC）は **Binder ドライバ**で実現されている。  
+Linux でこれを再現するためには、カーネルモジュールと特別な仮想ファイルシステムが必要になる。
 
-Linuxの `/dev` にあるデバイスには2種類あります：
+| 名称 | 説明 |
+|------|------|
+| `/dev/binder` | Android のプロセス間通信 (IPC) のコアデバイス |
+| `/dev/hwbinder` | ハードウェア抽象層 (HAL) 用 Binder |
+| `/dev/vndbinder` | ベンダーサービス用 Binder |
+| **BinderFS** | これらのデバイスノードを動的に管理するためのファイルシステム |
 
-| 種類 | 代表例 | 説明 |
-|------|---------|------|
-| **キャラクタデバイス (character device)** | `/dev/tty`, `/dev/input/event0`, `/dev/binder` | バイト単位でデータを順次読み書きする。リアルタイムI/O向け。 |
-| **ブロックデバイス (block device)** | `/dev/sda`, `/dev/nvme0n1` | 一定サイズのブロック単位で読み書きする。ストレージ系。 |
+昔の環境では `/dev/binder` を直接作っていたが、  
+最近の Waydroid や Mainline カーネルでは **BinderFS を使うのが標準**。
 
-Binder は Android のアプリ間通信をカーネルで扱う仕組みなので、  
-ブロックではなく **「メッセージストリーム」** を扱う＝キャラデバイスです。
+---
 
-例：
+## 2. エラーの原因
+Waydroid 起動時のログ：
+
+```
+
+[gbinder] ERROR: Can't open /dev/anbox-binder: No such device or address
+[08:49:18] Failed to add presence handler: None
+
+````
+
+これは、`/dev/anbox-binder` が存在しても中身が無効、  
+つまり **Binder デバイスがカーネル側で認識されていない**ことを意味する。
+
+---
+
+## 3. 実際の確認手順
+
+### カーネルモジュール確認
 ```bash
-crw-rw-rw- 1 root root 511, 0 /dev/binder
-
-## ⚙️ 3. よくある症状と原因
-
-| 症状                                       | 原因                                       |
-| ---------------------------------------- | ---------------------------------------- |
-| `grep binderfs /proc/filesystems` に何も出ない | binderfs がカーネルに組み込まれていない                 |
-| `/dev/anbox-binder: No such device`      | binderfs がマウントされていない、もしくは /dev/binder 不正 |
-| `/dev/binder` がファイル扱いで “c” がない           | binderドライバがロードされていない                     |
-| Waydroid が STOPPED のまま                   | binderデバイスが初期化されていない                     |
-
-## 🧩 4. 対処手順まとめ
-
-# カーネル設定を確認
+uname -r
 zgrep CONFIG_ANDROID /proc/config.gz | grep BINDER
+````
 
-# デバイスノードの状態を確認
-ls -l /dev/binder /dev/hwbinder /dev/vndbinder
+出力例：
 
-# binderfsを使う場合（任意）
-sudo mkdir -p /dev/binderfs
-sudo mount -t binder binder /dev/binderfs
+```
+CONFIG_ANDROID_BINDER_IPC=y
+CONFIG_ANDROID_BINDERFS=y
+```
 
-# Waydroid起動確認
-sudo systemctl start waydroid-container
-waydroid status
+BinderFS 対応 (`CONFIG_ANDROID_BINDERFS=y`) があればOK。
 
-# UI起動（HWC無効）
-WAYDROID_DISABLE_HWCOMPOSER=1 waydroid show-full-ui
+### ファイルシステム確認
 
----
+```bash
+cat /proc/filesystems | grep binder
+```
 
-## 🧭 5. 教訓と理解ポイント
+正常な場合：
 
-binderfsが出ない＝失敗 とは限らない。
-/dev/binder が動いていれば十分。
+```
+nodev   binder
+```
 
-“c” デバイスであるかどうか が肝心。
-
-複数カーネル（zen, lts, mainline, arch）環境では、起動カーネルごとにBinder挙動が違う。
-
-Gentoo のように built-in で組んでいれば initramfs 不要だが、
-Arch はモジュール分離構成のため mkinitcpio が必要。
+または `nodev   binderfs` と出る。
 
 ---
 
-## 🧩 6. まとめ
+## 4. 動かすまでの流れ（成功例）
 
-binderfs がなくても /dev/binder があれば Waydroid は動く。
+1. **Mainlineカーネルに切り替え**
 
-Waydroid は binderfs → binder の順に探す。
+   ```bash
+   sudo bootctl set-default arch-linux.conf
+   ```
 
-キャラデバイスを理解すると、Linux のデバイス管理の全体像が見える。
+   → 再起動
+
+2. **BinderFSの確認**
+
+   ```bash
+   cat /proc/filesystems | grep binder
+   ```
+
+3. **Waydroidコンテナ起動**
+
+   ```bash
+   sudo systemctl start waydroid-container
+   waydroid status
+   ```
+
+   出力例：
+
+   ```
+   Session:        RUNNING
+   Container:      RUNNING
+   Vendor type:    MAINLINE
+   IP address:     192.168.240.112
+   ```
+
+4. **UI起動**
+
+   ```bash
+   WAYDROID_DISABLE_HWCOMPOSER=1 waydroid show-full-ui
+   ```
 
 ---
 
-この記事は、Gentoo時代からLinuxを深く触ってきた筆者が、
-Arch + Waydroid 環境で発生した binderfs トラブルを完全解析した記録です。
+## 5. initramfs とは？
+
+`initramfs` は「初期RAMファイルシステム」。
+カーネルがブート時に最初に展開する仮想ルートファイルシステムで、
+ルートデバイスのマウントや暗号化ボリュームの解除など、
+「カーネルだけではできない初期処理」を行うためのもの。
+
+Gentoo のように静的に全部組み込むカーネルなら不要だが、
+Arch ではモジュール分離しているため **initramfs が必須**。
 
 ---
+
+## 6. 最後に
+
+* Arch Linux の mainline カーネル（6.17系）では `binder` が統合済み。
+  `binderfs` の行が出なくても問題なく動く。
+* もし Waydroid が止まる場合は、**`/dev/binder` が正しいリンク先か**を再確認。
+* `WAYDROID_DISABLE_HWCOMPOSER=1` を付けると GUI 表示が安定する。
+
+---
+
+## 参考リンク
+
+* [Waydroid Documentation](https://docs.waydro.id/)
+* [Linux Kernel: BinderFS](https://www.kernel.org/doc/html/latest/filesystems/binderfs.html)
+* [Arch Wiki: Waydroid](https://wiki.archlinux.org/title/Waydroid)
+
+```
