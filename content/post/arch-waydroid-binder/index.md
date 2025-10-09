@@ -7,6 +7,7 @@ draft: false
 type: "post"      # ← セクションを明示
 categories: ["Linux", "Waydroid"]
 tags: ["binderfs", "kernel", "troubleshooting"]
+
 cover:
   image: "./cover.jpg"
   alt: "Waydroid Binder/BinderFS"
@@ -136,5 +137,3 @@ Arch ではモジュール分離しているため **initramfs が必須**。
 - [Waydroid Documentation](https://docs.waydro.id/)
 - [Linux Kernel: BinderFS](https://www.kernel.org/doc/html/latest/filesystems/binderfs.html)
 - [Arch Wiki: Waydroid](https://wiki.archlinux.org/title/Waydroid)
-
-
