@@ -15,6 +15,26 @@ theme = "PaperMod"
   enableGitInfo = true # 更新日時を表示
   mainSections = ["post"]  # ホームに並べるセクション
 
+  # ホーム上部の紹介
+  [params.homeInfoParams]
+    Title = "雑記"
+    Content = "Linux / Arch / Waydroid などのメモ。備忘録でも、誰かの助けになりますように。"
+
+  [params.assets]
+  favicon = "/images/favicon.png"
+  apple_touch_icon = "/images/apple-touch-icon.png"
+
+# 抜粋の長さ（トップの要約）
+summaryLength = 140
+
+# 便利オプション（必要に応じて）
+[params]
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowCodeCopyButtons = true
+
 [menu]
   [[menu.main]]
     identifier = "categories"
