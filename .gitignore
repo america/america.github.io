@@ -27,3 +27,5 @@ package-lock.json
 
 baseof_diff.txt
 check_theme_updates.sh
+public/
+resources/_gen/
