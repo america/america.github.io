@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -11,33 +12,23 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: recursive   # テーマがサブモジュールでもOK
+          fetch-depth: 0          # .GitInfo / .Lastmod 用
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.140.0'
           extended: true
 
-      - name: Clear Hugo cache
-        run: hugo mod clean
-
-      - name: Check file paths
-        run: |
-          ls -R assets/
-
       - name: Build site
-        run: hugo --minify --logLevel debug
-
-      - name: Check public directory 
-        run:  ls -R public/
+        run: hugo --minify --logLevel info
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
