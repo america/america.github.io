@@ -19,7 +19,11 @@ theme = "PaperMod"
   ShowReadingTime = true
   ShowShareButtons = true
   ShowCodeCopyButtons = true
-
+  
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
   # ホーム上部の紹介
   [params.homeInfoParams]
