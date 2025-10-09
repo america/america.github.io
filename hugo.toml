@@ -14,6 +14,12 @@ theme = "PaperMod"
   disableSpecial1st = false # 特殊な1記事目デザインを無効化
   enableGitInfo = true # 更新日時を表示
   mainSections = ["post"]  # ホームに並べるセクション
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowCodeCopyButtons = true
+
 
   # ホーム上部の紹介
   [params.homeInfoParams]
@@ -28,12 +34,12 @@ theme = "PaperMod"
   summaryLength = 140
 
   # 便利オプション（必要に応じて）
-  [params]
-    ShowBreadCrumbs = true
-    ShowPostNavLinks = true
-    ShowReadingTime = true
-    ShowShareButtons = true
-    ShowCodeCopyButtons = true
+  #[params]
+  #  ShowBreadCrumbs = true
+  #  ShowPostNavLinks = true
+  #  ShowReadingTime = true
+  #  ShowShareButtons = true
+  #  ShowCodeCopyButtons = true
 
 [menu]
   [[menu.main]]
