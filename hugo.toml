@@ -24,16 +24,16 @@ theme = "PaperMod"
   favicon = "/images/favicon.png"
   apple_touch_icon = "/images/apple-touch-icon.png"
 
-# 抜粋の長さ（トップの要約）
-summaryLength = 140
+  # 抜粋の長さ（トップの要約）
+  summaryLength = 140
 
-# 便利オプション（必要に応じて）
-[params]
-  ShowBreadCrumbs = true
-  ShowPostNavLinks = true
-  ShowReadingTime = true
-  ShowShareButtons = true
-  ShowCodeCopyButtons = true
+  # 便利オプション（必要に応じて）
+  [params]
+    ShowBreadCrumbs = true
+    ShowPostNavLinks = true
+    ShowReadingTime = true
+    ShowShareButtons = true
+    ShowCodeCopyButtons = true
 
 [menu]
   [[menu.main]]
