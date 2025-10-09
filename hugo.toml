@@ -3,12 +3,15 @@ languageCode = 'ja'
 title = '雑記'
 theme = "PaperMod"
 
+paginate = 10                    # トップの件数
+
 [params]
   # 一部PaperMod固有の設定
   defaultTheme = "auto" # ダーク/ライトテーマの自動切り替え
   showReadingTime = true # 記事の読み時間を表示
   disableSpecial1st = false # 特殊な1記事目デザインを無効化
   enableGitInfo = true # 更新日時を表示
+  mainSections = ["post","posts"]  # ホームに並べるセクション
 #  customJS = ["js/copy.js"]
 #  copyCode = true
 #  customCSS = ["css/custom.css"]
