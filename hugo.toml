@@ -11,7 +11,7 @@ paginate = 10                    # トップの件数
   showReadingTime = true # 記事の読み時間を表示
   disableSpecial1st = false # 特殊な1記事目デザインを無効化
   enableGitInfo = true # 更新日時を表示
-  mainSections = ["post","posts"]  # ホームに並べるセクション
+  mainSections = ["post"]  # ホームに並べるセクション
 #  customJS = ["js/copy.js"]
 #  copyCode = true
 #  customCSS = ["css/custom.css"]
@@ -27,4 +27,3 @@ paginate = 10                    # トップの件数
 #  [languages.en]
 #    languageName = "English"
 #    weight = 2
-
