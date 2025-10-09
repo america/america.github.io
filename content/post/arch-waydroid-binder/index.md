@@ -5,6 +5,8 @@ tags: ["Arch Linux", "Waydroid", "Kernel", "Binder", "BinderFS"]
 categories: ["Linux"]
 draft: false
 type: "post"      # ← セクションを明示
+categories: ["Linux", "Waydroid"]
+tags: ["binderfs", "kernel", "troubleshooting"]
 ---
 
 ## 概要
