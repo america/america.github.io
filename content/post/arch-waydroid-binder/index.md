@@ -1,18 +1,16 @@
 ---
 title: "Waydroidが起動しない原因とBinder/BinderFSの仕組み"
 date: 2025-10-09T10:30:00+09:00
-tags: ["Arch Linux", "Waydroid", "Kernel", "Binder", "BinderFS"]
-categories: ["Linux"]
 draft: false
-type: "post"      # ← セクションを明示
+type: "post"
 categories: ["Linux", "Waydroid"]
-tags: ["binderfs", "kernel", "troubleshooting"]
+tags: ["Arch Linux", "Waydroid", "binderfs", "kernel", "troubleshooting"]
 
 cover:
-  image: "./cover.jpg"
+  image: "/post/arch-waydroid-binder/cover.jpg"
   alt: "Waydroid Binder/BinderFS"
   caption: "Waydroid 起動トラブルのメモ"
-  relative: true
+  relative: false
 ---
 
 ## 概要
