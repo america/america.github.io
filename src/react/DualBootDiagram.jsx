@@ -1,5 +1,5 @@
 // src/react/DualBootDiagram.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const steps = [
   {
@@ -21,6 +21,14 @@ const steps = [
 ];
 
 export function DualBootDiagram() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // ちょっとだけ待ってからアニメ開始
+    const t = setTimeout(() => setMounted(true), 30);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div
       style={{
@@ -29,20 +37,26 @@ export function DualBootDiagram() {
         padding: "16px 18px",
         margin: "18px 0",
         background: "var(--entry-bg, #0f172a)",
-        boxShadow: "0 10px 30px rgba(15, 23, 42, 0.4)",
+        boxShadow: mounted
+          ? "0 10px 30px rgba(15, 23, 42, 0.45)"
+          : "0 2px 10px rgba(15, 23, 42, 0.15)",
         color: "var(--content-fg, #e5e7eb)",
         fontSize: "0.95rem",
         position: "relative",
         overflow: "hidden",
+        transform: mounted ? "translateY(0px)" : "translateY(10px)",
+        opacity: mounted ? 1 : 0,
+        transition:
+          "transform 260ms ease-out, opacity 260ms ease-out, box-shadow 260ms ease-out",
       }}
     >
-      {/* 上のアクセントバー */}
+      {/* 背景のうっすらグラデーション */}
       <div
         style={{
           position: "absolute",
           inset: "0",
           background:
-            "radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.25), transparent 55%), radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.25), transparent 55%)",
+            "radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.22), transparent 55%), radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.24), transparent 55%)",
           pointerEvents: "none",
         }}
       />
@@ -97,7 +111,7 @@ export function DualBootDiagram() {
           </div>
         </div>
 
-        {/* タイムライン */}
+        {/* タイムライン本体 */}
         <ol
           style={{
             listStyle: "none",
@@ -113,9 +127,18 @@ export function DualBootDiagram() {
                 alignItems: "flex-start",
                 gap: "0.75rem",
                 marginBottom: index === steps.length - 1 ? 0 : "0.9rem",
+                opacity: mounted ? 1 : 0,
+                transform: mounted
+                  ? "translateY(0px)"
+                  : "translateY(6px)",
+                transition:
+                  "opacity 260ms ease-out, transform 260ms ease-out",
+                transitionDelay: mounted
+                  ? `${80 + index * 90}ms`
+                  : "0ms",
               }}
             >
-              {/* 番号バッジ + 縦ライン */}
+              {/* 番号バッジ + ライン */}
               <div
                 style={{
                   display: "flex",
@@ -135,7 +158,7 @@ export function DualBootDiagram() {
                     justifyContent: "center",
                     fontSize: "0.8rem",
                     fontWeight: 700,
-                    background: "rgba(15,23,42,0.95)",
+                    background: "rgba(15,23,42,0.96)",
                   }}
                 >
                   {index + 1}
