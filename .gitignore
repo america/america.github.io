@@ -14,14 +14,12 @@ assets/css/stylesheet.*.css
 docsy-example/
 content/en/
 content/ja/
-static
 
 # テーマの変更（未追跡・変更内容確認）
 themes/*
 
 # Node.js関連
 node_modules/
-package.json
 package-lock.json
 .hugo_build.lock
 
