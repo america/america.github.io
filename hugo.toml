@@ -19,6 +19,10 @@ theme = "PaperMod"
   ShowReadingTime = true
   ShowShareButtons = true
   ShowCodeCopyButtons = true
+  showtoc = true
+  tocopen = true
+  customJS = ["js/bundle.js"]
+ 
   
 [markup]
   [markup.goldmark]
