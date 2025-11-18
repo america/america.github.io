@@ -14,6 +14,8 @@ tags: ["Arch Linux", "Windows 11", "systemd-boot", "UEFI", "デュアルブー�
 - systemd-boot を使いたい
 - 変な EFI トラブルで何日も溶かしたくない
 
+{{< DualBootDiagram >}}
+
 という人向けの「基礎まとめ」です。  
 詳細なチュートリアルというより、**やってはいけないポイント** や **設計の考え方** を中心にしています。
 
@@ -81,8 +83,6 @@ tags: ["Arch Linux", "Windows 11", "systemd-boot", "UEFI", "デュアルブー�
 ## systemd-boot の基本イメージ
 
 systemd-boot は、EFI System Partition（ESP）内に置かれるシンプルなブートローダーです。
-
-{{< DualBootDiagram >}}
 
 これにより、各OSのエントリを loader/entries/*.conf として管理できます。
 
@@ -202,6 +202,10 @@ Windows 側の「高速スタートアップ」が有効だと、シャットダ
 
 「何が壊れたか分からない」という状態が一番つらいので、  
 どこからどこまでが Arch の責任範囲で、どこから先が Windows / UEFI の領域なのかを意識して見ると、少し気持ちが楽になります。
+
+## systemd-boot のメニュー構造（ざっくり図）
+
+{{< SystemdBootMenu >}}
 
 ## まとめ
 

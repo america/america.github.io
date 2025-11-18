@@ -233,6 +233,10 @@ bootctl status
 
 ---
 
+## Windows 11 の起動フローを図で整理
+
+{{< WindowsBootFlow >}}
+
 ## まとめ
 
 - Arch → 再起動 → Windows だけ起動失敗する
