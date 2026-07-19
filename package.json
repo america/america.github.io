@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-react": "esbuild src/react/index.jsx --bundle --minify --outfile=static/js/bundle.js"
+    "build-react": "node scripts/build-react.mjs" 
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,15 @@
   },
   "homepage": "https://github.com/america/america.github.io#readme",
   "devDependencies": {
+    "dotenv": "^17.4.2",
     "esbuild": "^0.27.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.86.0"
+  },
+  "allowScripts": {
+    "esbuild@0.27.0": true
   }
 }
