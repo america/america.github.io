@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { DualBootDiagram } from "./DualBootDiagram";
+import { KimberlyCombos } from "./KimberlyCombos";
 
 /**
  * 図用の共通カード UI
@@ -220,6 +221,7 @@ function mount() {
     dualboot: DualBootDiagram,
     windows: WindowsBootFlowDiagram,
     "systemd-menu": SystemdBootMenuDiagram,
+    "kimberly-combos": KimberlyCombos,
   };
 
   document.querySelectorAll("[data-diagram]").forEach((el) => {
