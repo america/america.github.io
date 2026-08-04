@@ -8,7 +8,7 @@ import * as THREE from "three";
 const DATA = [
   {
     title: "インパクトガード（壁ドン）始動",
-    items: ["インパクト＞壁＞2大P＞OD胴刎ね＞前JMP＞OD旋風＞SA2"],
+    items: ["インパクト＞壁＞2大P＞OD胴刎ね＞前J中P＞OD旋風＞SA2"],
   },
   {
     title: "無敵ブッパに対するおしおき",
@@ -42,13 +42,13 @@ const DATA = [
     items: [
       "OD早駆け→Kで壁当て",
       "強設置→前ジャンプ強K→登り弱Kです！",
-      "ODドロン空大K屈大P強一文字の方が減ります",
     ],
   },
   {
     title: "端",
     items: [
       "強Pパニカン▶ODドロン▶J強P▶2強P▶強一文字▶OD荒鵺▶OD胴撥ね▶弱1文字▶SA3で5555です",
+      "ODドロン空大K屈大P強一文字の方が減ります",
     ],
   },
   {
@@ -1268,3 +1268,5 @@ const CSS = `
   .kmbly-tagstamp{display:none;}
 }
 `;
+
+export default KimberlyCombos;
