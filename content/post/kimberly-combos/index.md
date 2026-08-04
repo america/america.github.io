@@ -14,6 +14,10 @@ ShowBreadCrumbs: false
 ShowReadingTime: false
 ShowPostNavLinks: false
 ShowShareButtons: false
+cover:
+    image: "cover.png"
+    alt: "Kimberly combo tags"
+    relative: true
 ---
 
 {{< KimberlyCombos >}}
