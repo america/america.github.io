@@ -19,15 +19,15 @@ function ShellCard({ title, subtitle, children }) {
   return (
     <div
       style={{
-        border: "1px solid rgba(148, 163, 184, 0.45)",
+        border: "1px solid var(--border, rgba(148, 163, 184, 0.45))",
         borderRadius: "18px",
         padding: "20px 22px",
         margin: "26px 0",
-        background: "rgba(15, 23, 42, 0.96)",
+        background: "var(--entry, rgba(15, 23, 42, 0.96))",
         boxShadow: mounted
-          ? "0 18px 40px rgba(0,0,0,0.55)"
-          : "0 4px 18px rgba(0,0,0,0.20)",
-        color: "var(--content-fg, #e5e7eb)",
+          ? "0 18px 40px rgba(0,0,0,0.18)"
+          : "0 4px 18px rgba(0,0,0,0.08)",
+        color: "var(--content, #e5e7eb)",
         transform: mounted ? "translateY(0px)" : "translateY(18px)",
         opacity: mounted ? 1 : 0,
         transition:

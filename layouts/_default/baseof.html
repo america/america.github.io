@@ -6,10 +6,10 @@
 <html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
 
 <head>
+    {{- partial "head.html" . }}
+
     {{ $styles := resources.Get "css/custom.css" | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $styles.Permalink }}">
-
-    {{- partial "head.html" . }}
 </head>
 
 <body class="

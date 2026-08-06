@@ -32,15 +32,15 @@ export function DualBootDiagram() {
   return (
     <div
       style={{
-        border: "1px solid rgba(148, 163, 184, 0.6)",
+        border: "1px solid var(--border, rgba(148, 163, 184, 0.6))",
         borderRadius: "14px",
         padding: "16px 18px",
         margin: "18px 0",
-        background: "var(--entry-bg, #0f172a)",
+        background: "var(--entry, #0f172a)",
         boxShadow: mounted
-          ? "0 10px 30px rgba(15, 23, 42, 0.45)"
-          : "0 2px 10px rgba(15, 23, 42, 0.15)",
-        color: "var(--content-fg, #e5e7eb)",
+          ? "0 10px 30px rgba(15, 23, 42, 0.18)"
+          : "0 2px 10px rgba(15, 23, 42, 0.08)",
+        color: "var(--content, #e5e7eb)",
         fontSize: "0.95rem",
         position: "relative",
         overflow: "hidden",
@@ -158,7 +158,7 @@ export function DualBootDiagram() {
                     justifyContent: "center",
                     fontSize: "0.8rem",
                     fontWeight: 700,
-                    background: "rgba(15,23,42,0.96)",
+                    background: "var(--theme, rgba(15,23,42,0.96))",
                   }}
                 >
                   {index + 1}

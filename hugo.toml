@@ -9,7 +9,7 @@ theme = "PaperMod"
 
 [params]
   # 一部PaperMod固有の設定
-  defaultTheme = "auto" # ダーク/ライトテーマの自動切り替え
+  defaultTheme = "light" # 常に明るいテーマをデフォルトにする(手動でダークに切り替え可能)
   showReadingTime = true # 記事の読み時間を表示
   disableSpecial1st = false # 特殊な1記事目デザインを無効化
   enableGitInfo = true # 更新日時を表示

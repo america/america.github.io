@@ -1,21 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap");
+
+/* ===== 洗練された配色・タイポグラフィへの上書き ===== */
+:root {
+    --radius: 14px;
+    --theme: #faf8f4;
+    --entry: #ffffff;
+    --primary: #20242c;
+    --secondary: #6b7280;
+    --tertiary: #e7e2d8;
+    --content: #34373e;
+    --code-block-bg: #1f2430;
+    --code-bg: #f1ede3;
+    --border: #ece7dd;
+    --accent: #3f6d5c;
+}
+
+:root[data-theme="dark"] {
+    --theme: #14161b;
+    --entry: #1c1f26;
+    --primary: #ece9e2;
+    --secondary: #9aa0ab;
+    --tertiary: #2a2e37;
+    --content: #cfd0d4;
+    --code-block-bg: #1a1d24;
+    --code-bg: #21252d;
+    --border: #262a32;
+    --accent: #86bfab;
+}
+
+body {
+    background:
+        radial-gradient(ellipse 60% 40% at 15% 0%, rgba(63, 109, 92, 0.06), transparent 60%),
+        radial-gradient(ellipse 50% 35% at 100% 10%, rgba(216, 169, 74, 0.05), transparent 60%),
+        var(--theme);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
+    letter-spacing: 0.001em;
+}
+
+:root[data-theme="dark"] body {
+    background:
+        radial-gradient(ellipse 55% 35% at 15% 0%, rgba(134, 191, 171, 0.05), transparent 60%),
+        radial-gradient(ellipse 45% 30% at 100% 5%, rgba(216, 169, 74, 0.04), transparent 60%),
+        var(--theme);
+}
+
+h1, h2, h3, h4, h5,
+.post-title, .entry-header h2 {
+    font-family: "Newsreader", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: 0.002em;
+}
+
+a {
+    color: var(--accent);
+}
+
+.post-content a {
+    text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    text-underline-offset: 3px;
+}
+
+/* ===== ページ読み込み時の弾む登場アニメーション(SF6記事のFramer Motion版に合わせたCSS版) ===== */
+@keyframes site-pop-in {
+    from {
+        opacity: 0;
+        transform: translateY(56px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.post-entry {
+    box-shadow: 0 1px 3px rgba(20, 20, 20, 0.04);
+    transition: box-shadow 180ms ease, transform 180ms ease;
+    animation: site-pop-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.post-entry:hover {
+    box-shadow: 0 10px 30px -12px rgba(20, 20, 20, 0.18);
+    transform: translateY(-2px);
+}
+
+.post-entry:nth-child(1) { animation-delay: 0.03s; }
+.post-entry:nth-child(2) { animation-delay: 0.08s; }
+.post-entry:nth-child(3) { animation-delay: 0.13s; }
+.post-entry:nth-child(4) { animation-delay: 0.18s; }
+.post-entry:nth-child(5) { animation-delay: 0.23s; }
+.post-entry:nth-child(6) { animation-delay: 0.28s; }
+.post-entry:nth-child(7) { animation-delay: 0.33s; }
+.post-entry:nth-child(8) { animation-delay: 0.38s; }
+.post-entry:nth-child(9) { animation-delay: 0.43s; }
+.post-entry:nth-child(n+10) { animation-delay: 0.48s; }
+
+.post-single .post-title,
+.page .post-title {
+    animation: site-pop-in 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.post-single .post-content > *:first-child {
+    animation: site-pop-in 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: 0.08s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-entry,
+    .post-title,
+    .post-content > *:first-child {
+        animation: none !important;
+    }
+}
+
+:root[data-theme="dark"] .post-entry {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .post-entry:hover {
+    box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.55);
+}
+
+/* ===== コピーボタン ===== */
 .codeblock-wrapper {
     position: relative;
 }
 
 .copy-btn {
     position: absolute;
-    top: 10px; /* 必要に応じて調整 */
-    right: 10px; /* 必要に応じて調整 */
+    top: 10px;
+    right: 10px;
     padding: 5px 10px;
-    background-color: #007bff; /* ボタンの背景色 */
-    color: white; /* ボタンのテキスト色 */
-    border: none; /* ボーダーをなしに */
-    border-radius: 5px; /* 角を丸く */
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 14px; /* フォントサイズ */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ボックスシャドウ */
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: opacity 150ms ease;
 }
 
 .copy-btn:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
+    opacity: 0.85;
 }
