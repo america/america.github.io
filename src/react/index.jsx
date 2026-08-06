@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { DualBootDiagram } from "./DualBootDiagram";
 import { KimberlyCombos } from "./KimberlyCombos";
+import { SF6MozcInvestigation } from "./SF6MozcInvestigation";
 
 /**
  * 図用の共通カード UI
@@ -222,6 +223,7 @@ function mount() {
     windows: WindowsBootFlowDiagram,
     "systemd-menu": SystemdBootMenuDiagram,
     "kimberly-combos": KimberlyCombos,
+    "sf6-mozc-investigation": SF6MozcInvestigation,
   };
 
   document.querySelectorAll("[data-diagram]").forEach((el) => {
