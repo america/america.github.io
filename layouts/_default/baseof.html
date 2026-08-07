@@ -28,6 +28,8 @@
     <!-- JSファイルを読み込む -->
     {{ $scripts := resources.Get "js/copy.js" | resources.Minify | resources.Fingerprint }}
     <script src="{{ $scripts.Permalink }}"></script>
+    {{ $reveal := resources.Get "js/scroll-reveal.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $reveal.Permalink }}"></script>
 </body>
 
 </html>
