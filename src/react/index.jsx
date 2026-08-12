@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { DualBootDiagram } from "./DualBootDiagram";
 import { KimberlyCombos } from "./KimberlyCombos";
 import { SF6MozcInvestigation } from "./SF6MozcInvestigation";
+import { FireflyCover } from "./FireflyCover";
 
 /**
  * 図用の共通カード UI
@@ -224,6 +225,7 @@ function mount() {
     "systemd-menu": SystemdBootMenuDiagram,
     "kimberly-combos": KimberlyCombos,
     "sf6-mozc-investigation": SF6MozcInvestigation,
+    "firefly-cover": FireflyCover,
   };
 
   document.querySelectorAll("[data-diagram]").forEach((el) => {
