@@ -25,6 +25,7 @@
 - Supabase側に `reactions` テーブル(`slug`, `reaction`, `count`)と `increment_reaction` RPC(SECURITY DEFINERでinsert/update)が必要。**`anon`ロール向けのSELECT用RLSポリシーが無いと、クリック直後は正しい数字が見えても、ページをリロードすると常に0/…に戻る**(RPCはRLSを回避して書き込めるが、初回ロードの直接SELECTはRLSでブロックされるため)。2026-08-12時点で `create policy "Allow public read of reaction counts" on reactions for select to anon using (true);` を追加済み。
 - Supabaseの無料プランは非アクティブが続くと自動的にプロジェクトが一時停止(pause)し、その間はプロジェクト固有のURLごとDNSが引けなくなる。ダッシュボードで「Restore project」すれば数分で復帰する。
 - `.env` の `SUPABASE_ANON_KEY` は一度、先頭の`e`が欠落した状態でコミットされかけたことがある(JWTなので`eyJ...`で始まるはず)。値を入れ替えるときは先頭文字まで含めて完全一致しているか確認すること。
+- リアクション種別は `ReactionButton.tsx` 内の `REACTIONS` 配列(`like`👍 / `laugh`😂 / `sad`😢)で定義。`increment_reaction` RPCは `p_reaction` を汎用的にupsertする実装(reaction名を決め打ちしていない)なので、種別を増やす場合はDB側の変更は不要で `REACTIONS` 配列に追加するだけでよい。1記事1レコードではなく `(slug, reaction)` の組で行が分かれる点に注意。
 
 ## scroll-reveal.js の threshold トラップ(2026-08-12修正)
 
