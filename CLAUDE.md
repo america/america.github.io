@@ -9,6 +9,13 @@
 - ビルドには `SUPABASE_URL` / `SUPABASE_ANON_KEY` 環境変数が必要(`.env` 経由、`.env.example` 参照)。未設定だとビルドスクリプトはエラー終了する。
 - 純粋なMarkdown記事(Reactマウントポイントを使わないもの)のみの変更ならReactビルドは不要。
 
+## アクセス解析(Cloudflare Web Analytics)
+
+- `layouts/partials/extend_head.html` に、Cloudflare Web Analyticsのビーコンスクリプトを埋め込み済み(2026-08-12)。PaperModの`head.html`が`extend_head.html`を呼ぶ拡張ポイントなので、全ページの`<head>`に自動で入る。
+- Cookieを使わず個人を特定しない集計方式のため、GDPR同意バナー等の追加対応は不要という判断。GAのような個人単位トラッキングは使っていない。
+- 管理画面: Cloudflareダッシュボード(`dreamers.ball66@gmail.com`アカウント) → Analytics → Web analytics → `america.github.io`。DNSをCloudflareに向けているわけではない(GitHub Pagesのまま)、JSスニペットによる手動セットアップ。同アカウントには無関係の別サイト`america66.work`も登録されているので混同しないこと。
+- `data-cf-beacon`のトークンは公開ビーコン用で秘匿情報ではない(HTMLに埋め込まれて配信される前提のもの)ため、リポジトリにコミットして問題ない。
+
 ## GitHub Pagesデプロイが `Deployment cancelled` で失敗する場合
 
 `Deploy Hugo site to GitHub Pages` ワークフローの `deploy` ジョブが `##[error]Deployment cancelled.` で失敗することがある(例: run #82, 2026-08-06)。
