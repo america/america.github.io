@@ -19,10 +19,16 @@
 - 頻発するようであれば、デプロイ失敗時の自動リトライステップの追加を検討する。
 - 2026-08-06中に「Deployment cancelled」(朝)と「deployment_in_progressが数分続く」(深夜、最終的には自動成功)の2回、同種の詰まりを経験した。ホスティング自体をCloudflare Pages/Netlify/Vercelなどに乗り換える案も出たが、今すぐ移行する話にはなっていない。今後また頻発するようなら移行を検討する。
 
-## 未完了タスク
+## リアクションボタン(Supabase連携)
 
-- `src/react/ReactionButton.tsx` / `src/react/supabaseClient.ts`(Supabase連携のいいねボタン)はまだ `src/react/index.jsx` のmount対象に登録されておらず、どのページにも配置されていない。Supabase側の `reactions` テーブルと `increment_reaction` RPC関数の存在確認も未実施。
-- **上記に伴い、`.env.example` / `scripts/build-react.mjs` / `src/react/ReactionButton.tsx` / `src/react/supabaseClient.ts` はコミットしないこと。** リアクションボタン機能が完成する(index.jsxへの組み込み・実配置・Supabase側の動作確認まで終わる)まで、これらのファイルはuntrackedのまま維持する。機能が完成したら、この一文は削除してまとめてコミットしてよい。
+- `src/react/ReactionButton.tsx` / `src/react/supabaseClient.ts` で実装。`layouts/partials/extend_post_content.html`(PaperModの拡張ポイント)経由で `type: post` の全記事本文末尾に自動配置される(`data-slug` はページの `RelPermalink`)。個別記事に手動でshortcodeを置く必要はない。
+- Supabase側に `reactions` テーブル(`slug`, `reaction`, `count`)と `increment_reaction` RPC(SECURITY DEFINERでinsert/update)が必要。**`anon`ロール向けのSELECT用RLSポリシーが無いと、クリック直後は正しい数字が見えても、ページをリロードすると常に0/…に戻る**(RPCはRLSを回避して書き込めるが、初回ロードの直接SELECTはRLSでブロックされるため)。2026-08-12時点で `create policy "Allow public read of reaction counts" on reactions for select to anon using (true);` を追加済み。
+- Supabaseの無料プランは非アクティブが続くと自動的にプロジェクトが一時停止(pause)し、その間はプロジェクト固有のURLごとDNSが引けなくなる。ダッシュボードで「Restore project」すれば数分で復帰する。
+- `.env` の `SUPABASE_ANON_KEY` は一度、先頭の`e`が欠落した状態でコミットされかけたことがある(JWTなので`eyJ...`で始まるはず)。値を入れ替えるときは先頭文字まで含めて完全一致しているか確認すること。
+
+## scroll-reveal.js の threshold トラップ(2026-08-12修正)
+
+- `assets/js/scroll-reveal.js` はスクロールで視界に入った要素に `reveal-in` を付けて `site-pop-in` アニメーションを発火させる(`.post-content > *:first-child` などが対象)。`IntersectionObserver` の `threshold` を `0.15` にしていたが、これは「要素の高さの15%以上が同時にビューポートに入る」ことを要求するため、**ビューポートの6〜7倍を超える高さのコンポーネント(KimberlyCombosなど)では物理的に閾値へ到達できず、`opacity:0`のまま永久に非表示になる**バグがあった。DOM上には存在しコンソールエラーも出ないため発見しづらい。`threshold: 0` に変更して修正済み。今後、縦に長いReactコンポーネントを `.post-content` の最初の子要素として追加する場合はこの点に注意。
 
 ## アニメーション実装方針(2026-08-07時点)
 

@@ -180,3 +180,38 @@ a {
 .copy-btn:hover {
     opacity: 0.85;
 }
+
+/* ===== リアクションボタン ===== */
+.reaction-mount {
+    margin: 2rem 0 0.5rem;
+}
+
+.reaction-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.8rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--entry);
+    color: var(--content);
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.reaction-button:hover:not(:disabled) {
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px -10px rgba(63, 109, 92, 0.35);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.reaction-button:active:not(:disabled) {
+    transform: translateY(0) scale(0.97);
+}
+
+.reaction-button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}

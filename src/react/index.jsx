@@ -5,6 +5,7 @@ import { KimberlyCombos } from "./KimberlyCombos";
 import { SF6MozcInvestigation } from "./SF6MozcInvestigation";
 import { SwayfxScratchpadInvestigation } from "./SwayfxScratchpadInvestigation";
 import { FireflyCover } from "./FireflyCover";
+import { ReactionButton } from "./ReactionButton";
 
 /**
  * 図用の共通カード UI
@@ -232,9 +233,18 @@ function mount() {
 
   document.querySelectorAll("[data-diagram]").forEach((el) => {
     const key = el.getAttribute("data-diagram");
+    if (el.dataset.mounted === "true") return;
+
+    if (key === "reaction") {
+      const slug = el.getAttribute("data-slug");
+      if (!slug) return;
+      el.dataset.mounted = "true";
+      createRoot(el).render(<ReactionButton slug={slug} />);
+      return;
+    }
+
     const Comp = map[key];
     if (!Comp) return;
-    if (el.dataset.mounted === "true") return;
     el.dataset.mounted = "true";
     createRoot(el).render(<Comp />);
   });
