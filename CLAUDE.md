@@ -16,6 +16,15 @@
 - 管理画面: Cloudflareダッシュボード(`dreamers.ball66@gmail.com`アカウント) → Analytics → Web analytics → `america.github.io`。DNSをCloudflareに向けているわけではない(GitHub Pagesのまま)、JSスニペットによる手動セットアップ。同アカウントには無関係の別サイト`america66.work`も登録されているので混同しないこと。
 - `data-cf-beacon`のトークンは公開ビーコン用で秘匿情報ではない(HTMLに埋め込まれて配信される前提のもの)ため、リポジトリにコミットして問題ない。
 
+## OGPカバー画像(cover.png)は毎回作る
+
+- ページバンドル形式(`content/post/<slug>/index.md`)の新規記事には、**聞かれる前に毎回**`cover.png`(1200×630)を作ること。「前回面倒だったから今回は省略する」は禁止(2026-08-14に実際にそれをやって指摘された)。
+- PaperModテーマは記事のページバンドル内にある`*cover*`という名前を含む画像ファイルを自動検出し、`og:image`(OGP/Twitterカード用)として使う。frontmatterに`cover:`キーは不要。
+- 画像の作り方: HTML/CSSでデザイン→`python3 -m http.server`でローカル配信→`chromium --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1200,630 --screenshot=out.png URL`でheadless Chromiumから直接スクリーンショット。これで1200×630ぴったり、端まで欠けなく撮れる。
+  - **`mcp__claude-in-chrome`のブラウザ拡張機能(`resize_window`→スクリーンショット/`zoom`)は使わないこと**。このユーザーの環境(Sway/swayfxのタイリングWM)では`resize_window`が実際のウィンドウ幅に反映されず、指定サイズと違う範囲がキャプチャされて画像の端が欠ける(実際に一度これで失敗した)。
+  - サーバー起動時、zshの`noclobber`設定により`command > 既存のログファイル`のリダイレクトが失敗することがある。ログは`/dev/null`に捨てるか、事前に`rm -f`しておく。
+- ユーザーはPSN(PlayStation Network)のチャットでリンクを貼ってプレビューを確認することが多い。PSNのリンクプレビューキャッシュは**クエリパラメータ(`?v=2`等)でのキャッシュ回避が効かない**(URL正規化で無視される可能性)。画像を直したのにPSN側のプレビューが更新されない場合は、**画像ファイル名自体を変える**(`cover.png`→`cover-v2.png`など)とキャッシュを回避できた実績がある。
+
 ## GitHub Pagesデプロイが `Deployment cancelled` で失敗する場合
 
 `Deploy Hugo site to GitHub Pages` ワークフローの `deploy` ジョブが `##[error]Deployment cancelled.` で失敗することがある(例: run #82, 2026-08-06)。
