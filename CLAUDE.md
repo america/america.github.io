@@ -45,6 +45,14 @@
 - `.env` の `SUPABASE_ANON_KEY` は一度、先頭の`e`が欠落した状態でコミットされかけたことがある(JWTなので`eyJ...`で始まるはず)。値を入れ替えるときは先頭文字まで含めて完全一致しているか確認すること。
 - リアクション種別は `ReactionButton.tsx` 内の `REACTIONS` 配列(`like`👍 / `laugh`😂 / `sad`😢)で定義。`increment_reaction` RPCは `p_reaction` を汎用的にupsertする実装(reaction名を決め打ちしていない)なので、種別を増やす場合はDB側の変更は不要で `REACTIONS` 配列に追加するだけでよい。1記事1レコードではなく `(slug, reaction)` の組で行が分かれる点に注意。
 
+## コメント機能(Supabase連携、2026-08-15追加)
+
+- `src/react/CommentSection.tsx` で実装。リアクションボタンと同じ `layouts/partials/extend_post_content.html` の拡張ポイントに `data-diagram="comments" data-slug="{{ .RelPermalink }}"` として配置され、`type: post` の全記事に自動で付く。
+- Supabase側に `comments` テーブル(`id`, `slug`, `author_name`, `body`, `approved` boolean default false, `created_at`)が必要。SQLは会話ログ参照(2026-08-15にSQL Editorで作成済み)。
+- **投稿は承認制**。`anon`のINSERTポリシーは `with check (approved = false)` で、投稿者が自分でapproved=trueにして即表示させることはできない。`anon`のSELECTポリシーは `using (approved = true)` で、未承認のコメントは他の閲覧者には一切見えない。新しいコメントを表示するには、Supabaseダッシュボード(またはSQL Editorで `update comments set approved = true where id = '...'`)で手動承認する運用。
+- フォームには画面上非表示のハニーポット用input(`comment-honeypot`クラス、`tabIndex={-1}`, `aria-hidden`)があり、ここに値が入っていたら送信をUI上は成功したように見せつつ実際にはSupabaseへ送信しない(単純なbot対策、人間はこのフィールドに触れない前提)。
+- 2026-08-15、ローカルのHugoサーバーで実際に投稿→リロードで非表示確認→SQL Editorで`approved = true`に更新→リロードで表示確認、という一連の流れを実機で確認済み。
+
 ## scroll-reveal.js の threshold トラップ(2026-08-12修正)
 
 - `assets/js/scroll-reveal.js` はスクロールで視界に入った要素に `reveal-in` を付けて `site-pop-in` アニメーションを発火させる(`.post-content > *:first-child` などが対象)。`IntersectionObserver` の `threshold` を `0.15` にしていたが、これは「要素の高さの15%以上が同時にビューポートに入る」ことを要求するため、**ビューポートの6〜7倍を超える高さのコンポーネント(KimberlyCombosなど)では物理的に閾値へ到達できず、`opacity:0`のまま永久に非表示になる**バグがあった。DOM上には存在しコンソールエラーも出ないため発見しづらい。`threshold: 0` に変更して修正済み。今後、縦に長いReactコンポーネントを `.post-content` の最初の子要素として追加する場合はこの点に注意。
