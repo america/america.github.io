@@ -6,6 +6,7 @@ import { SF6MozcInvestigation } from "./SF6MozcInvestigation";
 import { SwayfxScratchpadInvestigation } from "./SwayfxScratchpadInvestigation";
 import { FireflyCover } from "./FireflyCover";
 import { ReactionButton } from "./ReactionButton";
+import { CommentSection } from "./CommentSection";
 
 /**
  * 図用の共通カード UI
@@ -240,6 +241,14 @@ function mount() {
       if (!slug) return;
       el.dataset.mounted = "true";
       createRoot(el).render(<ReactionButton slug={slug} />);
+      return;
+    }
+
+    if (key === "comments") {
+      const slug = el.getAttribute("data-slug");
+      if (!slug) return;
+      el.dataset.mounted = "true";
+      createRoot(el).render(<CommentSection slug={slug} />);
       return;
     }
 
