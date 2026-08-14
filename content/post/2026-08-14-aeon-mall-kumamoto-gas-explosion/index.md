@@ -11,8 +11,6 @@ tags:
   - 文字起こし
 ---
 
-{{< FireflyCover >}}
-
 > **要約元**
 >
 > - **投稿**：[YouTube](https://www.youtube.com/watch?v=cWOQrvCcfF4)(「うがや」と名乗る配信者によるライブ配信、約2時間34分)
