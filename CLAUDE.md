@@ -52,6 +52,7 @@
 - **投稿は承認制**。`anon`のINSERTポリシーは `with check (approved = false)` で、投稿者が自分でapproved=trueにして即表示させることはできない。`anon`のSELECTポリシーは `using (approved = true)` で、未承認のコメントは他の閲覧者には一切見えない。新しいコメントを表示するには、Supabaseダッシュボード(またはSQL Editorで `update comments set approved = true where id = '...'`)で手動承認する運用。
 - フォームには画面上非表示のハニーポット用input(`comment-honeypot`クラス、`tabIndex={-1}`, `aria-hidden`)があり、ここに値が入っていたら送信をUI上は成功したように見せつつ実際にはSupabaseへ送信しない(単純なbot対策、人間はこのフィールドに触れない前提)。
 - 2026-08-15、ローカルのHugoサーバーで実際に投稿→リロードで非表示確認→SQL Editorで`approved = true`に更新→リロードで表示確認、という一連の流れを実機で確認済み。
+- **新規コメント投稿時のメール通知(2026-08-15追加)**: Supabaseダッシュボードを開かないと新着コメントに気づけない問題への対策として、`comments`テーブルへのINSERT時にResend([resend.com](https://resend.com)、無料枠)経由でメール通知を送るPostgresトリガーを設定済み。Edge Functionは使わず、`pg_net`拡張(`net.http_post`)でSupabase Postgres上のトリガー関数から直接Resend APIを呼ぶ構成。APIキーはSupabase Vault(`vault.create_secret` / `vault.decrypted_secrets`)に保存し、平文でSQLや会話に残さない運用。送信元は`onboarding@resend.dev`(ドメイン認証なしで使えるResendのテスト送信元)、宛先は`dreamers.ball66@gmail.com`固定。トリガー関数名は`notify_new_comment`、トリガー名は`on_new_comment`。2026-08-15、ローカルでテストコメントを投稿し、実際にGmailへ通知メール(件名「新しいコメントが届きました」)が届くことを確認済み。
 
 ## scroll-reveal.js の threshold トラップ(2026-08-12修正)
 
