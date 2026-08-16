@@ -1,0 +1,30 @@
+{{- $categories := site.Taxonomies.categories }}
+{{- $tags := site.Taxonomies.tags }}
+{{- if or $categories $tags }}
+<aside class="taxonomy-sidebar">
+    {{- with $categories }}
+    <div class="taxonomy-sidebar-group">
+        <h3>カテゴリ</h3>
+        <ul>
+            {{- range .Alphabetical }}
+            {{- with site.GetPage (printf "/categories/%s" .Name) }}
+            <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+            {{- end }}
+            {{- end }}
+        </ul>
+    </div>
+    {{- end }}
+    {{- with $tags }}
+    <div class="taxonomy-sidebar-group">
+        <h3>タグ</h3>
+        <ul>
+            {{- range .Alphabetical }}
+            {{- with site.GetPage (printf "/tags/%s" .Name) }}
+            <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+            {{- end }}
+            {{- end }}
+        </ul>
+    </div>
+    {{- end }}
+</aside>
+{{- end }}

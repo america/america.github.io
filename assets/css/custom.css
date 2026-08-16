@@ -157,6 +157,81 @@ a {
     box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.55);
 }
 
+/* ===== 記事一覧カードのタグ表示 ===== */
+.entry-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 0.8rem;
+    row-gap: 0.4rem;
+}
+
+.entry-tags {
+    margin: 0;
+    justify-content: flex-end;
+}
+
+.entry-tags a {
+    font-size: 12px;
+    line-height: 26px;
+    padding: 0 10px;
+}
+
+/* ===== 右余白のカテゴリ・タグ一覧サイドバー ===== */
+/* コンテンツ幅(--nav-width: 1024px)の外側に十分な余白がある広い画面でのみ表示する */
+.taxonomy-sidebar {
+    display: none;
+}
+
+@media (min-width: 1700px) {
+    .taxonomy-sidebar {
+        display: block;
+        position: fixed;
+        top: 140px;
+        right: 32px;
+        width: 260px;
+        max-height: calc(100vh - 180px);
+        overflow-y: auto;
+    }
+
+    .taxonomy-sidebar-group {
+        margin-bottom: 1.8rem;
+    }
+
+    .taxonomy-sidebar-group h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 0 0 0.8rem;
+    }
+
+    .taxonomy-sidebar-group ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .taxonomy-sidebar-group a {
+        display: inline-block;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        color: var(--secondary);
+        font-size: 0.95rem;
+        text-decoration: none;
+    }
+
+    .taxonomy-sidebar-group a:hover {
+        background: var(--border);
+        color: var(--content);
+    }
+}
+
 /* ===== コピーボタン ===== */
 .codeblock-wrapper {
     position: relative;
