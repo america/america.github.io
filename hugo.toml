@@ -3,6 +3,11 @@ locale = 'ja-JP'
 title = 'オブライエンの日誌'
 theme = "PaperMod"
 
+# 日本語をデフォルト言語とし、URLに /ja/ プレフィックスは付けない(既存記事のURLを変えないため)。
+# 英語版は /en/ 配下に置かれる。翻訳ファイルは <slug>.en.md (または index.en.md) として追加する。
+defaultContentLanguage = 'ja'
+defaultContentLanguageInSubdir = false
+
 [pagination]
   pagerSize = 10
 
@@ -62,10 +67,12 @@ theme = "PaperMod"
 #  [markup.highlight]
 #    noClasses = false
 
-#[languages]
-#  [languages.ja]
-#    languageName = "日本語"
-#    weight = 1
-#  [languages.en]
-#    languageName = "English"
-#    weight = 2
+[languages]
+  [languages.ja]
+    label = "日本語"
+    locale = "ja-JP"
+    weight = 1
+  [languages.en]
+    label = "English"
+    locale = "en-US"
+    weight = 2
