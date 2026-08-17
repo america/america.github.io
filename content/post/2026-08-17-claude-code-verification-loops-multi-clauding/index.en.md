@@ -4,9 +4,9 @@ date: 2026-08-17T00:00:00+09:00
 draft: false
 description: "A summary of a Claude Code engineering team conference talk, covering three techniques — verification loops, multi-clauding, and background loops — for turning Claude from something you supervise into something you can trust with real work."
 tags:
-  - Claude Code
-  - AI Development
-  - Transcript
+  - claude-code
+  - ai-development
+  - transcript
 ---
 
 > **Source**

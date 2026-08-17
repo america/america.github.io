@@ -4,9 +4,9 @@ date: 2026-08-17T00:00:00+09:00
 draft: false
 description: "Claude Codeチームのカンファレンストークを要約。検証ループ、マルチクロード、バックグラウンドループという3つの技術を積み重ねることで、Claudeを『見張る』開発から『任せる』開発へ変えていく考え方をまとめる。"
 tags:
-  - Claude Code
-  - AI開発
-  - 文字起こし
+  - claude-code
+  - ai-development
+  - transcript
 ---
 
 > **要約元**

@@ -7,7 +7,7 @@ tags:
   - 人生
   - 記憶
   - 優しさ
-  - 文字起こし
+  - transcript
 ---
 
 {{< FireflyCover >}}
