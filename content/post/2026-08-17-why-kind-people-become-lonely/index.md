@@ -4,9 +4,9 @@ date: 2026-08-17T00:00:00+09:00
 draft: false
 description: "優しい人ほど孤独になりやすい理由を、心理的な積み重ねとして描いたInstagram動画の内容を要約する。"
 tags:
-  - 心理学
-  - 孤独
-  - 人間関係
+  - psychology
+  - loneliness
+  - relationships
   - transcript
 ---
 
