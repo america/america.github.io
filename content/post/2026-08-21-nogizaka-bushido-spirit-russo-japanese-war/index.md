@@ -4,9 +4,9 @@ date: 2026-08-21T00:00:00+09:00
 draft: false
 description: "明治神宮や乃木神社を舞台に、日露戦争における日本の武士道精神(乃木希典大将とステッセル将軍のエピソード)を紹介し、地名『乃木坂』の由来にも触れるInstagram動画の内容を要約する。"
 tags:
-  - 歴史
-  - 戦争
-  - 武士道
+  - history
+  - war
+  - bushido
   - transcript
 ---
 

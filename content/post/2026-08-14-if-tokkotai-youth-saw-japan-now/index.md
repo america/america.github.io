@@ -4,8 +4,8 @@ date: 2026-08-14T22:00:00+09:00
 draft: false
 description: "特攻隊の若者たちが守ろうとしたものと、今の日本が抱える課題を重ねて問いかけるInstagram動画の内容を要約する。"
 tags:
-  - 歴史
-  - 戦争
+  - history
+  - war
   - 特攻隊
   - transcript
 ---

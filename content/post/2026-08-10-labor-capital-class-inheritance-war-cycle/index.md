@@ -9,7 +9,7 @@ tags:
   - 労働者階級
   - 世襲
   - 再分配
-  - 戦争
+  - war
   - transcript
 ---
 
