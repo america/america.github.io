@@ -2,6 +2,7 @@ baseURL = 'https://america.github.io/'
 locale = 'ja-JP'
 title = 'オブライエンの日誌'
 theme = "PaperMod"
+enableRobotsTXT = true
 
 # 日本語をデフォルト言語とし、URLに /ja/ プレフィックスは付けない(既存記事のURLを変えないため)。
 # 英語版は /en/ 配下に置かれる。翻訳ファイルは <slug>.en.md (または index.en.md) として追加する。
