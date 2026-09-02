@@ -79,10 +79,11 @@ defaultContentLanguageInSubdir = false
     weight = 2
 
 
+[outputs]
+  home = ["HTML", "RSS", "Sitemap"]
+
+# サイトマップにすべての言語を含めるための記述
 [sitemap]
   changefreq = 'weekly'
   filename = 'sitemap.xml'
   priority = 0.5
-  # 以下の1行を追加して、すべての言語のURLを1つのsitemap.xmlに集約させる
-  disableLangInRoot = true 
-
