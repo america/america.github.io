@@ -79,10 +79,9 @@ defaultContentLanguageInSubdir = false
     weight = 2
 
 
-[outputs]
-  home = ["HTML", "RSS", "Sitemap"]
-
-# サイトマップにすべての言語を含めるための記述
+# 多言語サイトマップは Hugo 標準の挙動に任せる。
+# /sitemap.xml がインデックスになり /ja/sitemap.xml・/en/sitemap.xml を指す。
+# [outputs] home に "Sitemap" を足すと home 直下2ページ分しか出ないバグになるため付けない。
 [sitemap]
   changefreq = 'weekly'
   filename = 'sitemap.xml'
