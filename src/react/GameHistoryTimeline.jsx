@@ -4,97 +4,134 @@ import { motion, MotionConfig } from "framer-motion";
 /**
  * 格ゲー & モンハン 30年のタイムライン。
  * 中央のスパインを挟んで、格ゲー(左)とモンハン(右)を交互に並べる。
- * スクロールで視界に入ると、各カードがそれぞれの側から
- * spring で勢いよく差し込まれる(サイトの「シュイーン」系モーションに合わせる)。
+ * スクロールで視界に入ると、各カードがそれぞれの側から spring で差し込まれる。
+ * 文字列は [日本語, English] のペア。lang prop で切り替える。
  */
 
 const ENTRIES = [
   {
     year: "1995",
     track: "fg",
-    title: "スーパーII 系 → ZERO / ZERO2 / ZERO3",
-    note: "ゲーメストを毎月。当たり前に台に座っていた。",
+    title: ["スーパーII 系 → ZERO / ZERO2 / ZERO3", "Super SF II → ZERO / ZERO2 / ZERO3"],
+    note: [
+      "ゲーメストを毎月。当たり前に台に座っていた。",
+      "Gamest every month. Sat at the cabinet like everyone.",
+    ],
   },
   {
     year: "1999",
     track: "fg",
-    title: "スト III → 2nd → 3rd、ヴァンパイア(ビシャモン)",
-    note: "SNK も KOF・サムスピ・餓狼を追いかけていた。",
+    title: [
+      "スト III → 2nd → 3rd、ヴァンパイア(ビシャモン)",
+      "SF III → 2nd → 3rd; Darkstalkers (Bishamon)",
+    ],
+    note: [
+      "SNK も KOF・サムスピ・餓狼を追いかけていた。",
+      "On the SNK side: KOF, Samurai Shodown, Fatal Fury.",
+    ],
   },
   {
     year: "2001",
     track: "fg",
-    title: "3rd を引退(大学)",
-    note: "以後ゲーセンは、人の対戦を観て、タバコを吸う場所になった。",
+    title: ["3rd を引退(大学)", "Retired from 3rd Strike (university)"],
+    note: [
+      "以後ゲーセンは、人の対戦を観て、タバコを吸う場所になった。",
+      "After that, the arcade was a place to watch and smoke.",
+    ],
   },
   {
     year: "2006",
     track: "mh",
-    title: "MH2(ドス) / PS2",
-    note: "ネットワークアダプターを挿してオンライン。すぐやめた。",
+    title: ["MH2(ドス) / PS2", "MH2 (Dos) / PS2"],
+    note: [
+      "ネットワークアダプターを挿してオンライン。すぐやめた。",
+      "Plugged in the Network Adaptor for online. Quit soon.",
+    ],
   },
   {
     year: "2008",
     track: "mh",
-    title: "MHP2 / MHP2G(PSP)",
-    note: "友達とPSPを持ち寄って、菓子を食って、土曜から日曜の朝まで。",
-    highlight: "ここが一番よかった",
+    title: ["MHP2 / MHP2G(PSP)", "MHP 2 / 2nd G (PSP)"],
+    note: [
+      "友達とPSPを持ち寄って、菓子を食って、土曜から日曜の朝まで。",
+      "Friends bringing PSPs, snacks, Saturday to Sunday morning.",
+    ],
+    highlight: ["ここが一番よかった", "the best of it"],
   },
   {
     year: "2010",
     track: "mh",
-    title: "MHP3rd(PSP)",
-    note: "持ち寄り期の、もう一つの軸。",
+    title: ["MHP3rd(PSP)", "MHP 3rd (PSP)"],
+    note: ["持ち寄り期の、もう一つの軸。", "The other pillar of the huddle era."],
   },
   {
     year: "2012",
     track: "mh",
-    title: "MH3G(3DS) / MH3G HD(Wii U)",
-    note: "HD版のためだけに Wii U 本体を買った。",
+    title: ["MH3G(3DS) / MH3G HD(Wii U)", "MH3 Ultimate (3DS) / HD (Wii U)"],
+    note: [
+      "HD版のためだけに Wii U 本体を買った。",
+      "Bought a Wii U just for the HD version.",
+    ],
   },
   {
     year: "2014",
     track: "mh",
-    title: "MH4 / MH4G(3DS)",
-    note: "4G の発掘装備と100周回のグラインドで、一度離れかけた。",
+    title: ["MH4 / MH4G(3DS)", "MH4 / MH4 Ultimate (3DS)"],
+    note: [
+      "4G の発掘装備と100周回のグラインドで、一度離れかけた。",
+      "4G's relic-gear grind almost drove me off.",
+    ],
   },
   {
     year: "2014",
     track: "fg",
-    title: "ウル4",
-    note: "少しだけ触った。",
+    title: ["ウル4", "USF4"],
+    note: ["少しだけ触った。", "Touched it a little."],
   },
   {
     year: "2016",
     track: "fg",
-    title: "スト5(いぶき)",
-    note: "ここで本格的に復帰。",
+    title: ["スト5(いぶき)", "SF V (Ibuki)"],
+    note: ["ここで本格的に復帰。", "Came back for real here."],
   },
   {
     year: "2019",
     track: "mh",
-    title: "MHW / アイスボーン(PS4)",
-    note: "ワールド＋アイスボーンで、一つの完成形。",
+    title: ["MHW / アイスボーン(PS4)", "MHW / Iceborne (PS4)"],
+    note: [
+      "ワールド＋アイスボーンで、一つの完成形。",
+      "World + Iceborne — one complete form.",
+    ],
   },
   {
     year: "2021",
     track: "mh",
-    title: "MHライズ → サンブレイク(PC)",
-    note: "ここから PC に移行。",
+    title: ["MHライズ → サンブレイク(PC)", "MH Rise → Sunbreak (PC)"],
+    note: ["ここから PC に移行。", "Moved to PC from here."],
   },
   {
     year: "2023",
     track: "fg",
-    title: "スト6(キンバリー)",
-    note: "競技シーンも追っている。",
+    title: ["スト6(キンバリー)", "SF6 (Kimberly)"],
+    note: ["競技シーンも追っている。", "Following the competitive scene too."],
   },
   {
     year: "2025",
     track: "mh",
-    title: "MHワイルズ(PC)",
-    note: "いまのところ、ここまで。",
+    title: ["MHワイルズ(PC)", "MH Wilds (PC)"],
+    note: ["いまのところ、ここまで。", "As far as it goes, for now."],
   },
 ];
+
+const TEXT = {
+  head: ["格ゲー & モンハン — 30年", "Fighting Games & Monster Hunter — 30 Years"],
+  legendFg: ["格闘ゲーム", "Fighting games"],
+  legendMh: ["モンスターハンター", "Monster Hunter"],
+  foot: [
+    "ゲームは進化した。あの部屋は、もう戻ってこない。",
+    "The games advanced. The room isn't coming back.",
+  ],
+};
 
 const listVariants = {
   hidden: {},
@@ -120,20 +157,22 @@ const dotVariants = {
   },
 };
 
-export function GameHistoryTimeline() {
+export function GameHistoryTimeline({ lang = "ja" }) {
+  const L = lang === "en" ? 1 : 0;
+
   return (
     <MotionConfig reducedMotion="user">
       <div className="ghtl-root">
         <style>{CSS}</style>
 
         <div className="ghtl-head">
-          <span className="ghtl-head-title">格ゲー &amp; モンハン — 30年</span>
+          <span className="ghtl-head-title">{TEXT.head[L]}</span>
           <span className="ghtl-legend">
             <span className="ghtl-legend-item ghtl-fg">
-              <i /> 格闘ゲーム
+              <i /> {TEXT.legendFg[L]}
             </span>
             <span className="ghtl-legend-item ghtl-mh">
-              <i /> モンスターハンター
+              <i /> {TEXT.legendMh[L]}
             </span>
           </span>
         </div>
@@ -160,10 +199,10 @@ export function GameHistoryTimeline() {
               >
                 <div className="ghtl-card">
                   {e.highlight && (
-                    <span className="ghtl-hl-tag">{e.highlight}</span>
+                    <span className="ghtl-hl-tag">{e.highlight[L]}</span>
                   )}
-                  <div className="ghtl-card-title">{e.title}</div>
-                  <div className="ghtl-card-note">{e.note}</div>
+                  <div className="ghtl-card-title">{e.title[L]}</div>
+                  <div className="ghtl-card-note">{e.note[L]}</div>
                 </div>
 
                 <div className="ghtl-mid">
@@ -177,9 +216,7 @@ export function GameHistoryTimeline() {
           })}
         </motion.ol>
 
-        <p className="ghtl-foot">
-          ゲームは進化した。あの部屋は、もう戻ってこない。
-        </p>
+        <p className="ghtl-foot">{TEXT.foot[L]}</p>
       </div>
     </MotionConfig>
   );

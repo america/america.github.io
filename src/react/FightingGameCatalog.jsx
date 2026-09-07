@@ -2,108 +2,163 @@ import React from "react";
 import { motion, MotionConfig } from "framer-motion";
 
 /**
- * 「触った対戦格闘、省略なし」を、素のリストではなく
- * シリーズ別のカタログカードで見せる版。
+ * 「触った対戦格闘、省略なし」をシリーズ別のカタログカードで見せる。
  * スクロールで各カードが下からせり上がり(spring)、
  * 未プレイのタイトルは打ち消し線＋淡色で「境界」として残す。
+ * 文字列は [日本語, English] のペア。lang prop で切り替える。
  */
 
 const CATALOG = [
   {
-    label: "ストリートファイター",
+    label: ["ストリートファイター", "Street Fighter"],
     accent: "#c2564d",
     titles: [
-      { name: "II", year: "1991" },
-      { name: "II'", year: "1992" },
-      { name: "II' TURBO(ダッシュターボ)", year: "1992" },
-      { name: "スーパーII", year: "1993" },
-      { name: "スーパーII X", year: "1994" },
-      { name: "ZERO", year: "1995" },
-      { name: "ZERO2", year: "1996" },
-      { name: "ZERO3", year: "1998" },
-      { name: "III", year: "1997" },
-      { name: "III 2nd Impact", year: "1997" },
-      { name: "III 3rd Strike", year: "1999" },
-      { name: "IV(ウル4)", year: "2014", tag: "少しだけ" },
-      { name: "V(いぶき)", year: "2016" },
-      { name: "6(キンバリー)", year: "2023" },
+      { name: ["II", "II"], year: "1991" },
+      { name: ["II'", "II'"], year: "1992" },
+      { name: ["II' TURBO(ダッシュターボ)", "II' TURBO (Hyper Fighting)"], year: "1992" },
+      { name: ["スーパーII", "Super II"], year: "1993" },
+      { name: ["スーパーII X", "Super II Turbo"], year: "1994" },
+      { name: ["ZERO", "Alpha"], year: "1995" },
+      { name: ["ZERO2", "Alpha 2"], year: "1996" },
+      { name: ["ZERO3", "Alpha 3"], year: "1998" },
+      { name: ["III", "III: New Generation"], year: "1997" },
+      { name: ["III 2nd Impact", "III: 2nd Impact"], year: "1997" },
+      { name: ["III 3rd Strike", "III: 3rd Strike"], year: "1999" },
+      { name: ["IV(ウル4)", "IV (USF4)"], year: "2014", tag: ["少しだけ", "a little"] },
+      { name: ["V(いぶき)", "V (Ibuki)"], year: "2016" },
+      { name: ["6(キンバリー)", "6 (Kimberly)"], year: "2023" },
     ],
   },
   {
-    label: "ヴァンパイア",
+    label: ["ヴァンパイア", "Darkstalkers"],
     accent: "#7c5cd6",
     titles: [
-      { name: "ヴァンパイア", year: "1994" },
-      { name: "ヴァンパイア ハンター", year: "1995" },
-      { name: "ヴァンパイア セイヴァー", year: "1997", tag: "ビシャモン" },
-      { name: "セイヴァー以降", skip: true },
+      { name: ["ヴァンパイア", "Darkstalkers: The Night Warriors"], year: "1994" },
+      { name: ["ヴァンパイア ハンター", "Night Warriors: Darkstalkers' Revenge"], year: "1995" },
+      {
+        name: ["ヴァンパイア セイヴァー", "Vampire Savior"],
+        year: "1997",
+        tag: ["ビシャモン", "Bishamon main"],
+      },
+      { name: ["セイヴァー以降", "After Savior"], skip: true },
     ],
   },
   {
-    label: "VS. シリーズ(カプコン)",
+    label: ["VS. シリーズ(カプコン)", "VS. Series (Capcom)"],
     accent: "#c07a1e",
     titles: [
-      { name: "X-MEN VS. STREET FIGHTER", year: "1996" },
-      { name: "MARVEL VS. CAPCOM: CLASH OF SUPER HEROES", year: "1998" },
-      { name: "MARVEL VS. CAPCOM 2: New Age of Heroes", year: "2000" },
-      { name: "MARVEL VS. CAPCOM 3: Fate of Two Worlds", year: "2011", skip: true },
+      { name: ["X-MEN VS. STREET FIGHTER", "X-MEN VS. STREET FIGHTER"], year: "1996" },
+      {
+        name: [
+          "MARVEL VS. CAPCOM: CLASH OF SUPER HEROES",
+          "MARVEL VS. CAPCOM: CLASH OF SUPER HEROES",
+        ],
+        year: "1998",
+      },
+      {
+        name: [
+          "MARVEL VS. CAPCOM 2: New Age of Heroes",
+          "MARVEL VS. CAPCOM 2: New Age of Heroes",
+        ],
+        year: "2000",
+      },
+      {
+        name: [
+          "MARVEL VS. CAPCOM 3: Fate of Two Worlds",
+          "MARVEL VS. CAPCOM 3: Fate of Two Worlds",
+        ],
+        year: "2011",
+        skip: true,
+      },
     ],
   },
   {
-    label: "CAPCOM VS. SNK",
+    label: ["CAPCOM VS. SNK", "CAPCOM VS. SNK"],
     accent: "#1f83a6",
     titles: [
-      { name: "MILLENNIUM FIGHT 2000", year: "2000" },
-      { name: "CAPCOM VS. SNK 2: MILLIONAIRE FIGHTING 2001", year: "2001", skip: true },
+      { name: ["MILLENNIUM FIGHT 2000", "MILLENNIUM FIGHT 2000"], year: "2000" },
+      {
+        name: [
+          "CAPCOM VS. SNK 2: MILLIONAIRE FIGHTING 2001",
+          "CAPCOM VS. SNK 2: MILLIONAIRE FIGHTING 2001",
+        ],
+        year: "2001",
+        skip: true,
+      },
     ],
   },
   {
-    label: "THE KING OF FIGHTERS",
+    label: ["THE KING OF FIGHTERS", "THE KING OF FIGHTERS"],
     accent: "#4f46c9",
     titles: [
-      { name: "'94", year: "1994" },
-      { name: "'95", year: "1995" },
-      { name: "'96", year: "1996" },
-      { name: "'97", year: "1997" },
-      { name: "'98", year: "1998" },
-      { name: "'99", year: "1999" },
-      { name: "2000 以降", skip: true },
+      { name: ["'94", "'94"], year: "1994" },
+      { name: ["'95", "'95"], year: "1995" },
+      { name: ["'96", "'96"], year: "1996" },
+      { name: ["'97", "'97"], year: "1997" },
+      { name: ["'98", "'98"], year: "1998" },
+      { name: ["'99", "'99"], year: "1999" },
+      { name: ["2000 以降", "2000 onward"], skip: true },
     ],
   },
   {
-    label: "サムライスピリッツ",
+    label: ["サムライスピリッツ", "Samurai Shodown"],
     accent: "#a9631a",
     titles: [
-      { name: "真SAMURAI SPIRITS 覇王丸地獄変", year: "1994" },
-      { name: "サムライスピリッツ 斬紅郎無双剣", year: "1995" },
-      { name: "サムライスピリッツ 天草降臨", year: "1996" },
-      { name: "これ以降", skip: true },
+      { name: ["真SAMURAI SPIRITS 覇王丸地獄変", "Samurai Shodown II"], year: "1994" },
+      { name: ["サムライスピリッツ 斬紅郎無双剣", "Samurai Shodown III"], year: "1995" },
+      {
+        name: ["サムライスピリッツ 天草降臨", "Samurai Shodown IV: Amakusa's Revenge"],
+        year: "1996",
+      },
+      { name: ["これ以降", "After this"], skip: true },
     ],
   },
   {
-    label: "餓狼伝説",
+    label: ["餓狼伝説", "Fatal Fury"],
     accent: "#4b7a53",
     titles: [
-      { name: "餓狼伝説 宿命の闘い", year: "1991" },
-      { name: "餓狼伝説2 新たなる闘い", year: "1992" },
-      { name: "餓狼伝説SPECIAL", year: "1993" },
-      { name: "餓狼伝説3 遥かなる闘い", year: "1995" },
-      { name: "REAL BOUT 餓狼伝説", year: "1995" },
-      { name: "REAL BOUT 餓狼伝説SPECIAL", year: "1997" },
-      { name: "リアルバウト餓狼伝説2 ～THE NEWCOMERS～", year: "1998" },
-      { name: "餓狼 -MARK OF THE WOLVES-", year: "1999" },
-      { name: "餓狼伝説 City of the Wolves", year: "2025", skip: true },
+      { name: ["餓狼伝説 宿命の闘い", "Fatal Fury: King of Fighters"], year: "1991" },
+      { name: ["餓狼伝説2 新たなる闘い", "Fatal Fury 2"], year: "1992" },
+      { name: ["餓狼伝説SPECIAL", "Fatal Fury Special"], year: "1993" },
+      { name: ["餓狼伝説3 遥かなる闘い", "Fatal Fury 3"], year: "1995" },
+      { name: ["REAL BOUT 餓狼伝説", "Real Bout Fatal Fury"], year: "1995" },
+      { name: ["REAL BOUT 餓狼伝説SPECIAL", "Real Bout Fatal Fury Special"], year: "1997" },
+      {
+        name: ["リアルバウト餓狼伝説2 ～THE NEWCOMERS～", "Real Bout Fatal Fury 2: The Newcomers"],
+        year: "1998",
+      },
+      { name: ["餓狼 -MARK OF THE WOLVES-", "Garou: Mark of the Wolves"], year: "1999" },
+      {
+        name: ["餓狼伝説 City of the Wolves", "Fatal Fury: City of the Wolves"],
+        year: "2025",
+        skip: true,
+      },
     ],
   },
   {
-    label: "月華の剣士(幕末浪漫)",
+    label: ["月華の剣士(幕末浪漫)", "The Last Blade"],
     accent: "#a01c56",
     titles: [
-      { name: "幕末浪漫 月華の剣士", year: "1997" },
-      { name: "幕末浪漫第二幕 月華の剣士 ～月に咲く華、散りゆく花～", year: "1998" },
+      { name: ["幕末浪漫 月華の剣士", "The Last Blade"], year: "1997" },
+      {
+        name: [
+          "幕末浪漫第二幕 月華の剣士 ～月に咲く華、散りゆく花～",
+          "The Last Blade 2",
+        ],
+        year: "1998",
+      },
     ],
   },
 ];
+
+const TEXT = {
+  head: ["触った対戦格闘、省略なし", "Every fighting game I played"],
+  count: [
+    (n) => `${n} タイトル ／ 8 シリーズ`,
+    (n) => `${n} titles / 8 series`,
+  ],
+  skip: ["未プレイ", "didn't play"],
+};
 
 const gridVariants = {
   hidden: {},
@@ -120,7 +175,8 @@ const cardVariants = {
   },
 };
 
-export function FightingGameCatalog() {
+export function FightingGameCatalog({ lang = "ja" }) {
+  const L = lang === "en" ? 1 : 0;
   const total = CATALOG.reduce(
     (n, s) => n + s.titles.filter((t) => !t.skip).length,
     0
@@ -132,8 +188,8 @@ export function FightingGameCatalog() {
         <style>{CSS}</style>
 
         <div className="fgc-head">
-          <span className="fgc-head-title">触った対戦格闘、省略なし</span>
-          <span className="fgc-count">{total} タイトル ／ 8 シリーズ</span>
+          <span className="fgc-head-title">{TEXT.head[L]}</span>
+          <span className="fgc-count">{TEXT.count[L](total)}</span>
         </div>
 
         <motion.div
@@ -145,14 +201,14 @@ export function FightingGameCatalog() {
         >
           {CATALOG.map((series) => (
             <motion.section
-              key={series.label}
+              key={series.label[0]}
               className="fgc-card"
               variants={cardVariants}
               style={{ "--accent": series.accent }}
             >
               <header className="fgc-card-head">
                 <span className="fgc-bar" />
-                <span className="fgc-card-label">{series.label}</span>
+                <span className="fgc-card-label">{series.label[L]}</span>
               </header>
 
               <ul className="fgc-list">
@@ -164,9 +220,9 @@ export function FightingGameCatalog() {
                     <span className="fgc-year">
                       {t.skip ? "—" : t.year || ""}
                     </span>
-                    <span className="fgc-name">{t.name}</span>
-                    {t.tag && <span className="fgc-tag">{t.tag}</span>}
-                    {t.skip && <span className="fgc-skip-tag">未プレイ</span>}
+                    <span className="fgc-name">{t.name[L]}</span>
+                    {t.tag && <span className="fgc-tag">{t.tag[L]}</span>}
+                    {t.skip && <span className="fgc-skip-tag">{TEXT.skip[L]}</span>}
                   </li>
                 ))}
               </ul>

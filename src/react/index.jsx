@@ -261,7 +261,12 @@ function mount() {
     const Comp = map[key];
     if (!Comp) return;
     el.dataset.mounted = "true";
-    createRoot(el).render(<Comp />);
+    const lang = (document.documentElement.lang || "ja")
+      .toLowerCase()
+      .startsWith("en")
+      ? "en"
+      : "ja";
+    createRoot(el).render(<Comp lang={lang} />);
   });
 }
 

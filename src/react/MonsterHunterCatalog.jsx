@@ -5,69 +5,76 @@ import { motion, MotionConfig } from "framer-motion";
  * モンハンのタイトル遍歴を、機種(ハード)別のカタログカードで見せる。
  * 「モンハンが出るハードは全部買った」という話がそのまま構造になる。
  * スクロールで各カードが下からせり上がる(spring)。未発売は skip 行。
+ * 文字列は [日本語, English] のペア。lang prop で切り替える。
  */
 
 const CATALOG = [
   {
-    label: "PSP",
+    label: ["PSP", "PSP"],
     accent: "#4c74c9",
     titles: [
-      { name: "モンスターハンター ポータブル", year: "2005" },
-      { name: "モンスターハンター ポータブル 2nd", year: "2007", tag: "ティガレックス初登場" },
-      { name: "モンスターハンター ポータブル 2nd G", year: "2008", tag: "PSPで最多販売" },
-      { name: "モンスターハンター ポータブル 3rd", year: "2010" },
+      { name: ["モンスターハンター ポータブル", "Monster Hunter Freedom"], year: "2005" },
+      { name: ["モンスターハンター ポータブル 2nd", "Monster Hunter Freedom 2"], year: "2007", tag: ["ティガレックス初登場", "Tigrex debut"] },
+      { name: ["モンスターハンター ポータブル 2nd G", "Monster Hunter Freedom Unite"], year: "2008", tag: ["PSPで最多販売", "best-selling on PSP"] },
+      { name: ["モンスターハンター ポータブル 3rd", "Monster Hunter Portable 3rd"], year: "2010" },
     ],
   },
   {
-    label: "PS2",
+    label: ["PS2", "PS2"],
     accent: "#2f5fa8",
     titles: [
-      { name: "モンスターハンター2(ドス)", year: "2006", tag: "ここから／すぐやめた" },
+      { name: ["モンスターハンター2(ドス)", "Monster Hunter 2 (Dos)"], year: "2006", tag: ["ここから／すぐやめた", "started here / quit soon"] },
     ],
   },
   {
-    label: "Wii",
+    label: ["Wii", "Wii"],
     accent: "#3f9e6a",
-    titles: [{ name: "モンスターハンター3(トライ)", year: "2009" }],
+    titles: [{ name: ["モンスターハンター3(トライ)", "Monster Hunter Tri"], year: "2009" }],
   },
   {
-    label: "ニンテンドー3DS",
+    label: ["ニンテンドー3DS", "Nintendo 3DS"],
     accent: "#c2564d",
     titles: [
-      { name: "モンスターハンター3G", year: "2011" },
-      { name: "モンスターハンター4", year: "2013" },
-      { name: "モンスターハンター4G", year: "2014", tag: "グラインドで敬遠" },
-      { name: "モンスターハンタークロス", year: "2015" },
-      { name: "モンスターハンターダブルクロス", year: "2017" },
+      { name: ["モンスターハンター3G", "Monster Hunter 3 Ultimate"], year: "2011" },
+      { name: ["モンスターハンター4", "Monster Hunter 4"], year: "2013" },
+      { name: ["モンスターハンター4G", "Monster Hunter 4 Ultimate"], year: "2014", tag: ["グラインドで敬遠", "skipped it — the grind"] },
+      { name: ["モンスターハンタークロス", "Monster Hunter Generations"], year: "2015" },
+      { name: ["モンスターハンターダブルクロス", "Monster Hunter Generations Ultimate"], year: "2017" },
     ],
   },
   {
-    label: "Wii U",
+    label: ["Wii U", "Wii U"],
     accent: "#c07a1e",
     titles: [
-      { name: "モンスターハンター3G HD Ver.", year: "2012", tag: "このために本体を買った" },
+      { name: ["モンスターハンター3G HD Ver.", "MH3 Ultimate (Wii U)"], year: "2012", tag: ["このために本体を買った", "bought the console just for this"] },
     ],
   },
   {
-    label: "PS4",
+    label: ["PS4", "PS4"],
     accent: "#2455b0",
     titles: [
-      { name: "モンスターハンター：ワールド", year: "2018" },
-      { name: "モンスターハンターワールド：アイスボーン", year: "2019", tag: "一つの完成形" },
+      { name: ["モンスターハンター：ワールド", "Monster Hunter: World"], year: "2018" },
+      { name: ["モンスターハンターワールド：アイスボーン", "Monster Hunter World: Iceborne"], year: "2019", tag: ["一つの完成形", "one complete form"] },
     ],
   },
   {
-    label: "PC",
+    label: ["PC", "PC"],
     accent: "#5b6472",
     titles: [
-      { name: "モンスターハンター フロンティア", year: "2007", tag: "課金＋Nコース" },
-      { name: "モンスターハンターライズ", year: "2022", tag: "PC版" },
-      { name: "モンスターハンターライズ：サンブレイク", year: "2022", tag: "今はやってない" },
-      { name: "モンスターハンターワイルズ", year: "2025", tag: "クソだった" },
-      { name: "モンスターハンターワイルズ：アセンダンス", year: "2027", skip: true },
+      { name: ["モンスターハンター フロンティア", "Monster Hunter Frontier"], year: "2007", tag: ["課金＋Nコース", "subs + N Course"] },
+      { name: ["モンスターハンターライズ", "Monster Hunter Rise"], year: "2022", tag: ["PC版", "PC version"] },
+      { name: ["モンスターハンターライズ：サンブレイク", "Monster Hunter Rise: Sunbreak"], year: "2022", tag: ["今はやってない", "not playing anymore"] },
+      { name: ["モンスターハンターワイルズ", "Monster Hunter Wilds"], year: "2025", tag: ["クソだった", "was rough"] },
+      { name: ["モンスターハンターワイルズ：アセンダンス", "Monster Hunter Wilds: Ascendance"], year: "2027", skip: true },
     ],
   },
 ];
+
+const TEXT = {
+  head: ["モンハン タイトル遍歴", "Monster Hunter — the full run"],
+  count: [(n) => `${n} 本 ／ 7 ハード`, (n) => `${n} titles / 7 platforms`],
+  skip: ["未発売", "unreleased"],
+};
 
 const gridVariants = {
   hidden: {},
@@ -84,7 +91,8 @@ const cardVariants = {
   },
 };
 
-export function MonsterHunterCatalog() {
+export function MonsterHunterCatalog({ lang = "ja" }) {
+  const L = lang === "en" ? 1 : 0;
   const total = CATALOG.reduce(
     (n, s) => n + s.titles.filter((t) => !t.skip).length,
     0
@@ -96,8 +104,8 @@ export function MonsterHunterCatalog() {
         <style>{CSS}</style>
 
         <div className="mhc-head">
-          <span className="mhc-head-title">モンハン タイトル遍歴</span>
-          <span className="mhc-count">{total} 本 ／ 7 ハード</span>
+          <span className="mhc-head-title">{TEXT.head[L]}</span>
+          <span className="mhc-count">{TEXT.count[L](total)}</span>
         </div>
 
         <motion.div
@@ -109,14 +117,14 @@ export function MonsterHunterCatalog() {
         >
           {CATALOG.map((series) => (
             <motion.section
-              key={series.label}
+              key={series.label[0]}
               className="mhc-card"
               variants={cardVariants}
               style={{ "--accent": series.accent }}
             >
               <header className="mhc-card-head">
                 <span className="mhc-bar" />
-                <span className="mhc-card-label">{series.label}</span>
+                <span className="mhc-card-label">{series.label[L]}</span>
               </header>
 
               <ul className="mhc-list">
@@ -126,9 +134,9 @@ export function MonsterHunterCatalog() {
                     className={`mhc-row${t.skip ? " mhc-row-skip" : ""}`}
                   >
                     <span className="mhc-year">{t.year || ""}</span>
-                    <span className="mhc-name">{t.name}</span>
-                    {t.tag && <span className="mhc-tag">{t.tag}</span>}
-                    {t.skip && <span className="mhc-skip-tag">未発売</span>}
+                    <span className="mhc-name">{t.name[L]}</span>
+                    {t.tag && <span className="mhc-tag">{t.tag[L]}</span>}
+                    {t.skip && <span className="mhc-skip-tag">{TEXT.skip[L]}</span>}
                   </li>
                 ))}
               </ul>
