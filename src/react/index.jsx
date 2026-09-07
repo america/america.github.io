@@ -4,6 +4,9 @@ import { DualBootDiagram } from "./DualBootDiagram";
 import { KimberlyCombos } from "./KimberlyCombos";
 import { SF6MozcInvestigation } from "./SF6MozcInvestigation";
 import { SwayfxScratchpadInvestigation } from "./SwayfxScratchpadInvestigation";
+import { GameHistoryTimeline } from "./GameHistoryTimeline";
+import { FightingGameCatalog } from "./FightingGameCatalog";
+import { MonsterHunterCatalog } from "./MonsterHunterCatalog";
 import { FireflyCover } from "./FireflyCover";
 import { ReactionButton } from "./ReactionButton";
 import { CommentSection } from "./CommentSection";
@@ -229,6 +232,9 @@ function mount() {
     "kimberly-combos": KimberlyCombos,
     "sf6-mozc-investigation": SF6MozcInvestigation,
     "swayfx-scratchpad-investigation": SwayfxScratchpadInvestigation,
+    "game-history-timeline": GameHistoryTimeline,
+    "fighting-game-catalog": FightingGameCatalog,
+    "monster-hunter-catalog": MonsterHunterCatalog,
     "firefly-cover": FireflyCover,
   };
 
