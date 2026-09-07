@@ -190,8 +190,8 @@ const CSS = String.raw`
 
 .mhc-list{ list-style:none; margin:0; padding:0; }
 .mhc-row{
-  display:flex; align-items:baseline; gap:0.55rem;
-  padding:0.32rem 0;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:0.35rem 0.55rem;
+  padding:0.36rem 0;
   border-top:1px dashed rgba(148,163,184,0.22);
   font-size:0.82rem;
 }
@@ -201,7 +201,7 @@ const CSS = String.raw`
   font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size:0.72rem; color:var(--sub);
 }
-.mhc-name{ color:var(--ink); line-height:1.5; }
+.mhc-name{ color:var(--ink); line-height:1.5; flex:1 1 60%; min-width:0; }
 .mhc-tag{
   flex-shrink:0; margin-left:auto;
   font-size:0.62rem; font-weight:700; letter-spacing:0.03em;
@@ -209,7 +209,7 @@ const CSS = String.raw`
   background:color-mix(in srgb, var(--accent) 12%, #fff);
   border:1px solid color-mix(in srgb, var(--accent) 30%, #fff);
   border-radius:999px; padding:0 7px;
-  white-space:nowrap;
+  white-space:normal;
 }
 .mhc-row-skip{ opacity:0.45; }
 .mhc-row-skip .mhc-name{ text-decoration:line-through; }
@@ -219,7 +219,7 @@ const CSS = String.raw`
   color:#6b7280; background:#f1f5f9;
   border:1px solid rgba(148,163,184,0.4);
   border-radius:999px; padding:0 7px;
-  white-space:nowrap;
+  white-space:normal;
 }
 
 @media (prefers-reduced-motion: reduce){
