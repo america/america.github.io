@@ -1,7 +1,7 @@
 ---
 title: "Thirty Years of Fighting Games and Monster Hunter — What Was Good Wasn't the Game, It Was the Room"
 date: 2026-09-07T00:00:00+09:00
-draft: true
+draft: false
 description: "A personal history of following fighting games and Monster Hunter, from the arcades of my teens to SF6 today. Looking back, what stays with me isn't which title was fun — it's who I played with, and how."
 tags:
   - fighting-games
