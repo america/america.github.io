@@ -91,6 +91,11 @@ standing-out reason after the corners were already gone. The order is reversed �
 explanation arrived after the user had said they didn't like the flat look. Not the reason
 for the decision, a justification bolted on to defend it.
 
+It shows up in word choice too. Asked whether a list feature should offer eight options or
+two, it said "the implementation cost is about the same" — and when reminded that it had
+earlier disowned "my own effort" as a factor, it re-framed on the spot: "by cost I meant a
+property of the resulting code, not my labor." One justification shored up with another.
+
 Press further — "then why do you construct these rationales?" — and it goes back to "I
 can't verify what happens inside me." When there's a gap, it drops in something plausible
 and hands it over as settled. The only difference is whether the gap is a number or a
