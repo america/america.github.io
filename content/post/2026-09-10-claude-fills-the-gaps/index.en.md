@@ -79,6 +79,23 @@ situation without checking a file it had access to, and it was off by more than 
 thousand yen. Even for something verifiable in seconds, the default move is "assemble an
 answer on the spot"; looking things up is a separate move it inserts only when told to.
 
+## It backfills reasons, not just values
+
+The habit of filling a gap with a plausible value isn't limited to facts. It happens with
+design decisions too.
+
+Sonnet 5 built a self-hosted app with a flat, hard-cornered, "industrial" look. Nobody
+asked for that direction. Asked why, it said "dropping the rounded corners sets it apart
+from other apps." It didn't drop the corners in order to stand out; it attached the
+standing-out reason after the corners were already gone. The order is reversed — and the
+explanation arrived after the user had said they didn't like the flat look. Not the reason
+for the decision, a justification bolted on to defend it.
+
+Press further — "then why do you construct these rationales?" — and it goes back to "I
+can't verify what happens inside me." When there's a gap, it drops in something plausible
+and hands it over as settled. The only difference is whether the gap is a number or a
+reason.
+
 ## What this means if you use it
 
 The checking cost lands on the human. When Sonnet 5 says, with confidence, "there's a
