@@ -1,0 +1,57 @@
+{{- $en := eq .Page.Language.Lang "en" -}}
+<div class="sshd-wrap">
+<style>
+.sshd-wrap{margin:1.8rem 0}
+.sshd-cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media (max-width:640px){.sshd-cols{grid-template-columns:1fr}}
+.sshd-col{border:1px solid var(--border);border-radius:12px;padding:1rem 1rem 1.1rem;background:var(--entry)}
+.sshd-col h4{margin:0 0 .2rem;font-size:.95rem;font-weight:700;color:var(--primary)}
+.sshd-col .sub{margin:0 0 .9rem;font-size:.76rem;color:var(--secondary)}
+.sshd-step{font-size:.82rem;color:var(--content);line-height:1.5;padding:.5rem 0}
+.sshd-step + .sshd-step{border-top:1px solid var(--border)}
+.sshd-arrow{color:var(--secondary);font-size:.8rem;text-align:center;padding:.1rem 0}
+.sshd-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.8rem;
+  background:var(--code-bg);border-radius:6px;padding:.12rem .4rem;color:var(--primary)}
+.sshd-key{display:inline-block;font-weight:700}
+.sshd-col.linux .sshd-key{color:var(--accent)}
+.sshd-col.android .sshd-key{color:#a1524f}
+:root[data-theme="dark"] .sshd-col.android .sshd-key{color:#e6a5a0}
+.sshd-out{margin-top:.3rem;font-size:.8rem;font-weight:600}
+.sshd-col.linux .sshd-out{color:var(--accent)}
+.sshd-col.android .sshd-out{color:#a1524f}
+:root[data-theme="dark"] .sshd-col.android .sshd-out{color:#e6a5a0}
+</style>
+<div class="sshd-cols">
+  <div class="sshd-col linux">
+    <h4>{{ if $en }}Stock OpenSSH (Linux){{ else }}通常の OpenSSH（Linux）{{ end }}</h4>
+    <p class="sub">nas / Raspberry Pi / VPS …</p>
+    <div class="sshd-step">{{ if $en }}Client sends{{ else }}クライアントが送る{{ end }} <span class="sshd-code">alice@host</span></div>
+    <div class="sshd-arrow">↓</div>
+    <div class="sshd-step"><span class="sshd-code">auth.c : getpwnamallow()</span></div>
+    <div class="sshd-arrow">↓</div>
+    <div class="sshd-step"><span class="sshd-key sshd-code">getpwnam(user)</span><br>
+      {{ if $en }}looks up the exact name in <span class="sshd-code">/etc/passwd</span> (+NSS){{ else }}送られた名前を <span class="sshd-code">/etc/passwd</span>（+NSS）で引く{{ end }}</div>
+    <div class="sshd-arrow">↓</div>
+    <div class="sshd-step">
+      {{ if $en }}No such name → auth still runs, always fails. Name exists → that user's <span class="sshd-code">authorized_keys</span> / <span class="sshd-code">shadow</span> / PAM, then <span class="sshd-code">setuid</span> to that uid.{{ else }}名前が無い → 認証は形だけ進めて必ず失敗。ある → その人の <span class="sshd-code">authorized_keys</span> / <span class="sshd-code">shadow</span> / PAM を照合、通れば <span class="sshd-code">setuid</span>。{{ end }}
+      <div class="sshd-out">{{ if $en }}alice@ and bob@ are different logins, different uid, different access.{{ else }}alice@ と bob@ は別ログイン・別 uid・別権限。{{ end }}</div>
+    </div>
+  </div>
+  <div class="sshd-col android">
+    <h4>{{ if $en }}Termux build (Android){{ else }}Termux ビルド（Android）{{ end }}</h4>
+    <p class="sub">Pixel 6 / Termux sshd</p>
+    <div class="sshd-step">{{ if $en }}Client sends{{ else }}クライアントが送る{{ end }} <span class="sshd-code">anything@host</span></div>
+    <div class="sshd-arrow">↓</div>
+    <div class="sshd-step"><span class="sshd-code">auth.c : getpwnamallow()</span></div>
+    <div class="sshd-arrow">↓</div>
+    <div class="sshd-step"><span class="sshd-code">#ifdef __ANDROID__</span><br>
+      <span class="sshd-key sshd-code">getpwuid(getuid())</span><br>
+      {{ if $en }}the passwd entry of whatever uid sshd runs as (the Termux app){{ else }}sshd 自身が動いている uid（Termux アプリ）の passwd を取る{{ end }}</div>
+    <div class="sshd-arrow">↓</div>
+    <div class="sshd-step">
+      {{ if $en }}The name the client sent is discarded at resolution. Any name → the one Termux user → its single <span class="sshd-code">authorized_keys</span>. No <span class="sshd-code">setuid</span> (can't, on Android).{{ else }}送られた名前は解決の時点で捨てられる。どの名前でも Termux ユーザー1人 → その <span class="sshd-code">authorized_keys</span>。<span class="sshd-code">setuid</span> は無し（Android では不可）。{{ end }}
+      <div class="sshd-out">{{ if $en }}banana@ and root@ both land as u0_a440.{{ else }}banana@ も root@ も u0_a440 で着地。{{ end }}</div>
+    </div>
+  </div>
+</div>
+</div>
