@@ -1,0 +1,16 @@
+{{- /* Markdown のパイプ表を、枠・角丸・ヘッダ地・ゼブラで装飾して囲む。
+       サイトの CSS 変数を使うので dark テーマも自動対応。JS・ビルド不要。
+       使い方: {{< boxtable >}} の次の行から | 表 | を書く（インデントしない） {{< /boxtable >}} */ -}}
+<div class="bt-wrap">
+<style>
+.bt-wrap{margin:1.7rem 0;border:1px solid var(--border);border-radius:12px;overflow:auto}
+.bt-wrap table{border-collapse:collapse;width:100%;margin:0;font-size:.9rem;line-height:1.55}
+.bt-wrap thead th{background:color-mix(in srgb,var(--accent) 12%,var(--entry));color:var(--primary);font-weight:600;text-align:left;white-space:nowrap}
+.bt-wrap th,.bt-wrap td{padding:.62rem .9rem;border-bottom:1px solid var(--border);vertical-align:top}
+.bt-wrap tbody tr:last-child td{border-bottom:0}
+.bt-wrap tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--tertiary) 26%,transparent)}
+.bt-wrap td:first-child{white-space:nowrap;font-weight:600;color:var(--primary)}
+.bt-wrap code{white-space:nowrap}
+</style>
+{{ .Inner | markdownify }}
+</div>

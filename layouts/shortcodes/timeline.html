@@ -1,0 +1,16 @@
+{{- /* 縦型タイムライン。JS なし・ビルド不要。サイトの CSS 変数を使うのでダークテーマも自動対応。
+       使い方: {{< timeline >}} の中に <li>…</li> を並べる（.hit クラスで丸を塗りつぶし）。 */ -}}
+<div class="rt-wrap">
+<style>
+.rt-wrap{margin:2rem 0}
+.rt-wrap ol{margin:0;padding:0;list-style:none;position:relative}
+.rt-wrap ol::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.rt-wrap li{position:relative;padding:0 0 1.4rem 2.4rem}
+.rt-wrap li:last-child{padding-bottom:0}
+.rt-wrap li::before{content:"";position:absolute;left:2px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--entry);border:2px solid var(--accent);box-sizing:border-box}
+.rt-wrap li.hit::before{background:var(--accent)}
+.rt-wrap .t{display:block;font-size:.78rem;letter-spacing:.03em;text-transform:uppercase;color:var(--secondary);margin-bottom:.15rem}
+.rt-wrap .d{color:var(--content)}
+</style>
+<ol>{{ .Inner | safeHTML }}</ol>
+</div>

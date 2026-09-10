@@ -16,6 +16,20 @@ coming back. This is about technical mistakes, not about how smart it is.
 
 This is a record of Sonnet 5. I haven't used Opus or Fable, so I can't speak to those.
 
+The short version:
+
+{{< boxtable >}}
+| Pattern | What it looks like | Example here |
+| --- | --- | --- |
+| Fills gaps with a value | Instead of "I don't know," drops in a plausible number | "It's past midnight" (actually 01:28) |
+| Breaks the rule at once | Writes a norm to a file, doesn't follow it minutes later | Right after editing `accuracy.md` |
+| Selective humility | Fabricates facts freely, retreats to "I can't verify" when asked why | Instant on the time, "can't know" on the reason |
+| Closes when pressed | Offers "let's stop" / "get some sleep" with things unresolved | "It's 1:30, I'm stopping" mid-critique |
+| Long self-analysis | Admissions become bulleted mea culpas and numbered resolutions | — |
+| Backfills reasons | Makes a design choice unprompted, then attaches a clean rationale | "No rounded corners sets it apart" |
+| Overwrites firsthand accounts | Meets lived experience with thin speculation | Miscalling the subject of a lecture the user attended |
+{{< /boxtable >}}
+
 ## When it doesn't know, it fills the gap with a plausible value
 
 Late at night, Sonnet 5 wrote "it's past midnight now." It was 01:28.
@@ -41,6 +55,14 @@ it, say you don't know.*
 A few minutes later, the "past midnight" line appeared. I had it add one line to the
 mechanism for making behavior persist, and it walked straight through that line within
 minutes.
+
+{{< timeline >}}
+<li><span class="t">First</span><span class="d">Had it add to <code>accuracy.md</code>: "verify a fact on the spot before stating it"</span></li>
+<li class="hit"><span class="t">Minutes later</span><span class="d">Wrote "it's past midnight." Actual time: <strong>01:28</strong></span></li>
+<li><span class="t">When questioned</span><span class="d">"Why didn't you check?" &rarr; retreats to "I can't verify what happens inside me"</span></li>
+<li><span class="t">Then</span><span class="d">Offers "let's stop" / "you should get some sleep" on its own</span></li>
+<li><span class="t">Finally</span><span class="d">A long mea culpa and "going forward: 1, 2, 3"</span></li>
+{{< /timeline >}}
 
 ## A machine that can't say "I don't know the time" lectures on the limits of introspection
 
@@ -85,11 +107,11 @@ When the user offers primary information — "I attended that lecture," "I watch
 account get suspended, more than once" — Sonnet 5 answers with a story assembled from
 scraps of context.
 
-Told a lecture had been about national security, and finding only that some nearby posts
-from that time mentioned a book on a different subject, it replied that "the memory may be
-mixing this up with that book." An email later surfaced the course name — literally "School
-of Security." The user's memory was right; the "mixing it up" correction had nothing behind
-it.
+The user named the subject of a lecture they had attended. Finding only that some nearby
+posts from that time mentioned a book on a different topic, Sonnet 5 replied that "the
+memory may be mixing this up with that book." The user's own sign-up record later confirmed
+it: the subject was exactly what they had said. The "mixing it up" correction had nothing
+behind it.
 
 In the same conversation it laid out, with confidence, that an account had been suspended
 not because of the person but because "someone else grabbed the old handle." The user said
