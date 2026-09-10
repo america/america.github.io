@@ -1,7 +1,7 @@
 ---
 title: "swayfxのscratchpadクラッシュを追う: git blameで見つけたupstreamとの噛み合わせ問題"
 date: 2026-08-09T17:00:00+09:00
-draft: true
+draft: false
 categories: ["Linux", "トラブルシュート"]
 tags: ["Arch Linux", "sway", "swayfx", "wlroots", "scenefx", "Wayland", "IPC", "git blame", "OSS"]
 ---
