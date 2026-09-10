@@ -80,8 +80,7 @@ A terse question, but a fair one — and worth actually checking by hand.
 
 ## Tracing it
 
-*The Japanese version of this article includes an interactive step-by-step
-diagram of the investigation. It is Japanese-only.*
+{{< SwayfxScratchpadInvestigation >}}
 
 The answer: "yes, upstream had the same bug — and upstream had already fixed
 it; swayfx just hadn't merged that fix yet." The maintainer's instinct

@@ -36,94 +36,195 @@ const TONE_COLOR = {
   solved: { text: "#2c7a68", bg: "#def5ee", border: "#a2ddc9", icon: "✓" },
 };
 
-const STEPS = [
-  {
-    step: 1,
-    title: "scratchpad show の2回目でSIGSEGV",
-    verdict: "クラッシュ確認",
-    tone: "fail",
-    detail:
-      "coredumpctl + gdb で解析。root_scratchpad_hide() の set_container_transform() に NULL の pending.workspace が渡っていた。",
+const CONTENT = {
+  ja: {
+    eyebrow: "CASE FILE",
+    title: "upstreamとの噛み合わせを追う",
+    subtitle: "swayfx Issue #560: scratchpad NULLクラッシュ",
+    trailTitle: "コミットの足取り",
+    steps: [
+      {
+        step: 1,
+        title: "scratchpad show の2回目でSIGSEGV",
+        verdict: "クラッシュ確認",
+        tone: "fail",
+        detail:
+          "coredumpctl + gdb で解析。root_scratchpad_hide() の set_container_transform() に NULL の pending.workspace が渡っていた。",
+      },
+      {
+        step: 2,
+        title: "メンテナーから一言",
+        verdict: "要検証",
+        tone: "cause",
+        detail:
+          "「upstreamにも同じ問題があるか? scratchpadのコードはほとんど触っていないはず」という短い返信。",
+      },
+      {
+        step: 3,
+        title: "git blame: 2019年、本家swayが同じ狭いガードを追加",
+        verdict: "起源を特定",
+        tone: "cause",
+        detail:
+          "FULLSCREEN_GLOBAL && !workspace という条件は、2019年に本家sway側で追加されたコード(69a1a0ff)。swayfxはこれをフォークして引き継いでいた。",
+      },
+      {
+        step: 4,
+        title: "git blame: 2025年、本家sway側で同種のクラッシュを修正済み",
+        verdict: "upstreamで修正済み",
+        tone: "cause",
+        detail:
+          "swaywm/sway#8909 として報告・修正(ecfea6b8)。狭い条件を単純な if (!workspace) return; に置き換えていた。",
+      },
+      {
+        step: 5,
+        title: "swayfxは #537 でこの修正を取り込み済みと判明",
+        verdict: "取り込み確認",
+        tone: "clear",
+        detail:
+          "2026-07-09、wlroots-20 + scenefx-0.5 のマージ(33cb07d3)で upstream の修正が反映されていた。手元の 0.5.3-4 はそれより前のビルド。",
+      },
+      {
+        step: 6,
+        title: "masterをビルドしてネスト起動、IPC経由で再現手順を実行",
+        verdict: "実機で検証",
+        tone: "cause",
+        detail:
+          "本番セッションを壊さないよう WLR_BACKENDS=wayland でネスト起動。フォーカスが不安定だったため swaymsg で直接コマンドを送って再現手順を実行。",
+      },
+      {
+        step: 7,
+        title: "2回目の scratchpad show でも生存",
+        verdict: "再現せず",
+        tone: "solved",
+        detail:
+          "プロセスは state=S のまま、coredumpctl にも新規クラッシュなし。masterでは既に直っていることを確認。",
+      },
+      {
+        step: 8,
+        title: "調査結果をIssueに報告してクローズ",
+        verdict: "解決",
+        tone: "solved",
+        detail: "upstreamとの経緯・実機検証の結果をコメントし、Issueをクローズした。",
+      },
+    ],
+    trail: [
+      {
+        label: "69a1a0ff / 2019-03-31",
+        text: "upstream: 狭いガード(FULLSCREEN_GLOBALのみ)を追加",
+        tone: "fail",
+      },
+      {
+        label: "ecfea6b8 / 2025-10-02",
+        text: "upstream: NULLガードを一般化(sway#8909を修正)",
+        tone: "solved",
+      },
+      {
+        label: "33cb07d3 / 2026-07-09",
+        text: "swayfx: #537でupstreamの修正を取り込み",
+        tone: "clear",
+      },
+      {
+        label: "実機検証 / 2026-08-09",
+        text: "masterで再現手順を実行 → クラッシュせず",
+        tone: "solved",
+      },
+    ],
   },
-  {
-    step: 2,
-    title: "メンテナーから一言",
-    verdict: "要検証",
-    tone: "cause",
-    detail:
-      "「upstreamにも同じ問題があるか? scratchpadのコードはほとんど触っていないはず」という短い返信。",
+  en: {
+    eyebrow: "CASE FILE",
+    title: "Tracing a fork / upstream mismatch",
+    subtitle: "swayfx Issue #560: scratchpad NULL crash",
+    trailTitle: "Commit trail",
+    steps: [
+      {
+        step: 1,
+        title: "SIGSEGV on the second `scratchpad show`",
+        verdict: "Crash confirmed",
+        tone: "fail",
+        detail:
+          "Analysed with coredumpctl + gdb. root_scratchpad_hide() passed a NULL pending.workspace into set_container_transform().",
+      },
+      {
+        step: 2,
+        title: "A one-line reply from the maintainer",
+        verdict: "Needs checking",
+        tone: "cause",
+        detail:
+          "“is this present in upstream? We don't touch the scratchpad code much if at all” — a short reply.",
+      },
+      {
+        step: 3,
+        title: "git blame: upstream sway added the same narrow guard in 2019",
+        verdict: "Origin found",
+        tone: "cause",
+        detail:
+          "The `FULLSCREEN_GLOBAL && !workspace` condition was added upstream in 2019 (69a1a0ff). swayfx inherited it through the fork.",
+      },
+      {
+        step: 4,
+        title: "git blame: upstream fixed the same class of crash in 2025",
+        verdict: "Fixed upstream",
+        tone: "cause",
+        detail:
+          "Reported and fixed as swaywm/sway#8909 (ecfea6b8) — the narrow condition was replaced with a plain if (!workspace) return;.",
+      },
+      {
+        step: 5,
+        title: "swayfx had already merged the fix in #537",
+        verdict: "Merge confirmed",
+        tone: "clear",
+        detail:
+          "The wlroots-20 + scenefx-0.5 merge on 2026-07-09 (33cb07d3) brought in the upstream fix. My 0.5.3-4 build predates it.",
+      },
+      {
+        step: 6,
+        title: "Built master, ran it nested, drove the repro over IPC",
+        verdict: "Tested on hardware",
+        tone: "cause",
+        detail:
+          "Ran nested with WLR_BACKENDS=wayland so the live session stayed intact. Focus was flaky, so I sent commands directly with swaymsg.",
+      },
+      {
+        step: 7,
+        title: "Survives the second `scratchpad show`",
+        verdict: "No repro",
+        tone: "solved",
+        detail:
+          "Process stayed state=S, no new crash in coredumpctl. Confirmed already fixed on master.",
+      },
+      {
+        step: 8,
+        title: "Reported the findings on the issue and closed it",
+        verdict: "Resolved",
+        tone: "solved",
+        detail:
+          "Commented with the upstream history and the on-hardware result, then closed the issue.",
+      },
+    ],
+    trail: [
+      {
+        label: "69a1a0ff / 2019-03-31",
+        text: "upstream: added the narrow guard (FULLSCREEN_GLOBAL only)",
+        tone: "fail",
+      },
+      {
+        label: "ecfea6b8 / 2025-10-02",
+        text: "upstream: generalised the NULL guard (fixed sway#8909)",
+        tone: "solved",
+      },
+      {
+        label: "33cb07d3 / 2026-07-09",
+        text: "swayfx: merged the upstream fix in #537",
+        tone: "clear",
+      },
+      {
+        label: "Hardware test / 2026-08-09",
+        text: "ran the repro on master → no crash",
+        tone: "solved",
+      },
+    ],
   },
-  {
-    step: 3,
-    title: "git blame: 2019年、本家swayが同じ狭いガードを追加",
-    verdict: "起源を特定",
-    tone: "cause",
-    detail:
-      "FULLSCREEN_GLOBAL && !workspace という条件は、2019年に本家sway側で追加されたコード(69a1a0ff)。swayfxはこれをフォークして引き継いでいた。",
-  },
-  {
-    step: 4,
-    title: "git blame: 2025年、本家sway側で同種のクラッシュを修正済み",
-    verdict: "upstreamで修正済み",
-    tone: "cause",
-    detail:
-      "swaywm/sway#8909 として報告・修正(ecfea6b8)。狭い条件を単純な if (!workspace) return; に置き換えていた。",
-  },
-  {
-    step: 5,
-    title: "swayfxは #537 でこの修正を取り込み済みと判明",
-    verdict: "取り込み確認",
-    tone: "clear",
-    detail:
-      "2026-07-09、wlroots-20 + scenefx-0.5 のマージ(33cb07d3)で upstream の修正が反映されていた。手元の 0.5.3-4 はそれより前のビルド。",
-  },
-  {
-    step: 6,
-    title: "masterをビルドしてネスト起動、IPC経由で再現手順を実行",
-    verdict: "実機で検証",
-    tone: "cause",
-    detail:
-      "本番セッションを壊さないよう WLR_BACKENDS=wayland でネスト起動。フォーカスが不安定だったため swaymsg で直接コマンドを送って再現手順を実行。",
-  },
-  {
-    step: 7,
-    title: "2回目の scratchpad show でも生存",
-    verdict: "再現せず",
-    tone: "solved",
-    detail:
-      "プロセスは state=S のまま、coredumpctl にも新規クラッシュなし。masterでは既に直っていることを確認。",
-  },
-  {
-    step: 8,
-    title: "調査結果をIssueに報告してクローズ",
-    verdict: "解決",
-    tone: "solved",
-    detail: "upstreamとの経緯・実機検証の結果をコメントし、Issueをクローズした。",
-  },
-];
-
-const TRAIL = [
-  {
-    label: "69a1a0ff / 2019-03-31",
-    text: "upstream: 狭いガード(FULLSCREEN_GLOBALのみ)を追加",
-    tone: "fail",
-  },
-  {
-    label: "ecfea6b8 / 2025-10-02",
-    text: "upstream: NULLガードを一般化(sway#8909を修正)",
-    tone: "solved",
-  },
-  {
-    label: "33cb07d3 / 2026-07-09",
-    text: "swayfx: #537でupstreamの修正を取り込み",
-    tone: "clear",
-  },
-  {
-    label: "実機検証 / 2026-08-09",
-    text: "masterで再現手順を実行 → クラッシュせず",
-    tone: "solved",
-  },
-];
+};
 
 function Badge({ tone, children }) {
   const c = TONE_COLOR[tone];
@@ -152,7 +253,8 @@ function Badge({ tone, children }) {
   );
 }
 
-export function SwayfxScratchpadInvestigation() {
+export function SwayfxScratchpadInvestigation({ lang = "ja" }) {
+  const t = CONTENT[lang] || CONTENT.ja;
   return (
     <MotionConfig reducedMotion="user">
       <motion.div
@@ -173,9 +275,9 @@ export function SwayfxScratchpadInvestigation() {
               viewport={{ once: false, amount: 0.6 }}
               transition={{ type: "spring", stiffness: 300, damping: 18 }}
             >
-              <div className="sw560-eyebrow">CASE FILE</div>
-              <div className="sw560-title">upstreamとの噛み合わせを追う</div>
-              <div className="sw560-subtitle">swayfx Issue #560: scratchpad NULLクラッシュ</div>
+              <div className="sw560-eyebrow">{t.eyebrow}</div>
+              <div className="sw560-title">{t.title}</div>
+              <div className="sw560-subtitle">{t.subtitle}</div>
             </motion.div>
 
             <motion.div
@@ -186,7 +288,7 @@ export function SwayfxScratchpadInvestigation() {
               variants={stepsContainerVariants}
             >
               <div className="sw560-steps-line" />
-              {STEPS.map((r) => {
+              {t.steps.map((r) => {
                 const c = TONE_COLOR[r.tone];
                 return (
                   <motion.div className="sw560-step" key={r.step} variants={stepItemVariants}>
@@ -209,7 +311,7 @@ export function SwayfxScratchpadInvestigation() {
             </motion.div>
 
             <div className="sw560-trail">
-              <div className="sw560-trail-title">コミットの足取り</div>
+              <div className="sw560-trail-title">{t.trailTitle}</div>
               <motion.div
                 className="sw560-trail-grid"
                 initial="hidden"
@@ -217,7 +319,7 @@ export function SwayfxScratchpadInvestigation() {
                 viewport={{ once: false, amount: 0.15 }}
                 variants={gridContainerVariants}
               >
-                {TRAIL.map((s, i) => {
+                {t.trail.map((s, i) => {
                   const c = TONE_COLOR[s.tone];
                   return (
                     <motion.div
