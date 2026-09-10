@@ -1,3 +1,4 @@
+import React from "react";
 import { motion, MotionConfig } from "framer-motion";
 
 const stepsContainerVariants = {
