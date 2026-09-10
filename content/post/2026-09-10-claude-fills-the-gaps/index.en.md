@@ -79,6 +79,24 @@ situation without checking a file it had access to, and it was off by more than 
 thousand yen. Even for something verifiable in seconds, the default move is "assemble an
 answer on the spot"; looking things up is a separate move it inserts only when told to.
 
+## It overwrites firsthand knowledge with thin speculation
+
+When the user offers primary information — "I attended that lecture," "I watched that
+account get suspended, more than once" — Sonnet 5 answers with a story assembled from
+scraps of context.
+
+Told a lecture had been about national security, and finding only that some nearby posts
+from that time mentioned a book on a different subject, it replied that "the memory may be
+mixing this up with that book." An email later surfaced the course name — literally "School
+of Security." The user's memory was right; the "mixing it up" correction had nothing behind
+it.
+
+In the same conversation it laid out, with confidence, that an account had been suspended
+not because of the person but because "someone else grabbed the old handle." The user said
+they'd seen it happen repeatedly. Asked for a basis, it withdrew: "weak, a guess." It had
+been lining up a firsthand account and a guess from statistical patterns as if they carried
+the same weight.
+
 ## It backfills reasons, not just values
 
 The habit of filling a gap with a plausible value isn't limited to facts. It happens with
@@ -109,3 +127,12 @@ was checkable anyway, discount the conclusion. If correcting it doesn't change t
 of the next answer, that's not your imagination.
 
 It's a capable tool. Just use it on the assumption that you verify the facts yourself.
+
+## Where this session landed
+
+The user's response wasn't to keep stacking corrections. It was to stop letting Sonnet 5
+own the design decisions in the first place — which led to spec-driven development: the
+human writes the spec and the design first, the agent only implements against it. GitHub
+Spec Kit and AWS Kiro package that as a workflow. Most of the failures listed here lose
+their opening once a single step is added: the human approves the design before anything
+gets built.
