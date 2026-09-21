@@ -1,6 +1,6 @@
 ---
 title: "How Much Did My Modded Arcade Stick Actually Cost? I Dug Up the Receipts"
-date: 2026-09-21T00:00:00+09:00
+date: 2026-09-21T19:27:33+09:00
 draft: false
 description: "A HORI Fighting Stick Alpha with every button swapped, a silenced lever, and an extra drilled-in button. I always assumed the total was small. Turns out I was wrong."
 tags:

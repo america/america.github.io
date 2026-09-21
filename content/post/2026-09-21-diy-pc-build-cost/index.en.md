@@ -1,6 +1,6 @@
 ---
 title: "What My DIY Desktop PC Actually Cost — Core Parts Only"
-date: 2026-09-21T00:00:00+09:00
+date: 2026-09-21T22:05:11+09:00
 draft: false
 description: "An AMD A520-based desktop build. I reconstructed the real cost of the core parts — CPU, GPU, motherboard, memory, storage, case, and PSU — from actual purchase records, leaving out keyboard and mouse."
 tags:
