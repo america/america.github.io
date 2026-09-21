@@ -68,3 +68,16 @@ partition GUIDs confirmed that SSD 1 (the 256GB SATA drive) really is the boot d
 for **Windows** specifically — the running Linux/GRUB boots from SSD 2 (the NVMe drive)
 instead. This is a dual-boot machine, so both facts are simultaneously true; there was
 no actual contradiction.
+
+While I was at it, I checked the filesystem on all four drives with `lsblk -f` and
+mapped out which OS lives where:
+
+| Drive | Role |
+|---|---|
+| SSD 1 (256GB SATA) | Windows boot drive (NTFS) |
+| SSD 2 (500GB NVMe) | Arch Linux (the currently running main OS, `/` and `/boot`) |
+| SSD 3 (1TB SATA) | ~500GB Windows storage (NTFS), the other ~500GB is Gentoo Linux (btrfs, labeled `gentoo`) |
+| SSD 4 (500GB SATA) | Windows storage (NTFS, unmounted, otherwise unconfirmed) |
+
+Turns out this one machine has been quietly hosting three operating systems at once:
+Windows, Arch Linux, and Gentoo Linux.

@@ -62,3 +62,14 @@ Crucial MX500 500GB)が見つかった。2018年にAmazonで購入した記録�
 ところ、SSD①(256GB SATA)は確かに**Windows 11の**起動ドライブで合っていた。現在稼働中の
 Linux/GRUBはSSD②(NVMe)から起動しており、これはデュアルブート構成で両方が同時に正しい、
 矛盾のない話だった。
+
+ついでに`lsblk -f`で4台全部のファイルシステムを確認して、OSの割り当てを一覧にした:
+
+| ドライブ | 用途 |
+|---|---|
+| SSD①(256GB SATA) | Windowsの起動ドライブ(NTFS) |
+| SSD②(500GB NVMe) | Arch Linux(現在稼働中のメインOS、`/`と`/boot`) |
+| SSD③(1TB SATA) | 約500GBがWindows領域(NTFS)、残り約500GBがGentoo Linux(btrfs、ラベル`gentoo`) |
+| SSD④(500GB SATA) | Windows領域(NTFS、未マウント・詳細未確認) |
+
+1台のマシンにWindows・Arch Linux・Gentoo Linuxの3つのOSが同居してた。
