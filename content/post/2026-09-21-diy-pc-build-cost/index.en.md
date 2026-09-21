@@ -22,9 +22,10 @@ and the model numbers match the purchase receipts.
 | GPU | SAPPHIRE PULSE Radeon RX 6600 XT GAMING OC 8G GDDR6 | Janpara (Akihabara) | 2024-02-11 | ¥28,450 | ¥27,980 minus ¥300 discount plus ¥770 shipping, 1-month member warranty, paid via Paidy |
 | RAM | CFD Standard DDR4-3200 16GB×2, 288-pin DIMM | Amazon | 2023-12-23 | ¥8,883 | Same order as motherboard |
 | Motherboard | ASRock A520M Pro4 (AMD A520 / Socket AM4 / Micro ATX, official Japan distributor) | Amazon | 2023-12-23 | ¥8,845 | Same order as RAM |
-| SSD 1 (boot drive) | CFD 256GB 2.5" SATA (Toshiba) | Amazon | 2015-07-06 | ¥13,979 | My first-ever SSD, currently the Windows 11 boot drive, carried over from the previous PC |
+| SSD 1 (Windows boot drive) | CFD 256GB 2.5" SATA (Toshiba) | Amazon | 2015-07-06 | ¥13,979 | My first-ever SSD, currently the Windows 11 boot drive, carried over from the previous PC |
 | SSD 2 | Crucial P2 500GB M.2 NVMe (official distributor warranty, 5-year) | Amazon | 2022-01-04 | ¥5,515 | Listed at ¥5,555, minus ¥40 in Amazon points |
 | SSD 3 (added) | Crucial BX500 1TB 2.5" SATA (3-year warranty, parallel import) | Amazon | 2025-08-05 | ¥9,500 | Paid via Paidy |
+| SSD 4 (unused, unmounted) | Crucial MX500 500GB 2.5" SATA | Amazon | 2018-04-01 | unknown | Missing entirely from the original parts list; found via `lsblk` on the actual machine. Currently unmounted with no confirmed use, and the cost isn't listed in the Amazon order history |
 | Case | DEEPCOOL CC560 V2 (ATX / glass panel / black, Dospara-exclusive model) | Dospara | 2024-07-07 | ¥8,027 | 3-year extended warranty plan |
 | CPU cooler | DEEPCOOL AK400 (120mm fan / LGA1851-1150 & AM4 compatible) | Biccamera.com | 2025-02-23 | ¥3,270 | Paid in full by credit card |
 | PSU | Kuroutoshikou KRPW-PT700W/92+ REV2.0 (700W / 80 PLUS Platinum) | Unknown (likely Yahoo Auctions, no record) | unknown | est. ¥12,000–15,000 | Carried over from the previous PC. Model identified directly from the unit's label; no purchase record survives, so the cost is estimated from period market pricing, not confirmed |
@@ -54,3 +55,16 @@ recollection is "probably Yahoo Auctions." Since it's a part carried over from a
 PC, the purchase itself happened a long time ago, so I left the cost as an estimate based
 on period market pricing rather than a confirmed figure. Every other part in this table
 is nailed down from an actual receipt or order history; this is the one exception.
+
+## Update (2026-09-22): a missing SSD, and a boot-drive misunderstanding
+
+After this post went up, checking the actual machine with `lsblk` turned up a drive
+**entirely missing from the parts list above** (SSD 4 in the table, a Crucial MX500
+500GB). There's an Amazon purchase record from 2018, but no listed price.
+
+Separately, someone pointed out that the currently running Linux system should be
+booting from the NVMe drive, not "SSD 1." Cross-checking `efibootmgr` against the
+partition GUIDs confirmed that SSD 1 (the 256GB SATA drive) really is the boot drive
+for **Windows** specifically — the running Linux/GRUB boots from SSD 2 (the NVMe drive)
+instead. This is a dual-boot machine, so both facts are simultaneously true; there was
+no actual contradiction.
