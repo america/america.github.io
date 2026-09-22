@@ -24,7 +24,7 @@ tags:
 | SSD①(Windows起動ドライブ) | CFD販売 256GB 2.5" SATA(東芝製) | Amazon | 2015-07-06 | ¥13,979 | 初めて買ったSSD、現在のWindows 11起動ドライブ。前PCから流用 |
 | SSD② | Crucial P2 500GB M.2 NVMe(正規代理店保証品・5年保証) | Amazon | 2022-01-04 | ¥5,515 | 表示価格¥5,555、Amazonポイント-¥40 |
 | SSD③(増設) | Crucial BX500 1TB 2.5" SATA(3年保証・並行輸入品) | Amazon | 2025-08-05 | ¥9,500 | あと払い(Paidy) |
-| SSD④(未使用・未マウント) | Crucial MX500 500GB 2.5" SATA | Amazon | 2018-04-01 | 不明 | 当初のパーツ一覧に丸ごと抜けていたが、実機の`lsblk`で存在が判明。現在マウントされておらず用途未確認、金額もAmazonの購入履歴に記載がなく不明 |
+| SSD④(Windows用、使用中) | Crucial MX500 500GB 2.5" SATA | Amazon | 2018-04-01 | 不明 | 当初のパーツ一覧に丸ごと抜けていたが、実機の`lsblk`で存在が判明。手動マウントして中身を確認したところ、実際に使われているWindows用のデータドライブだった。金額はAmazonの購入履歴に記載がなく不明 |
 | PCケース | DEEPCOOL CC560 V2(ATX / ガラスパネル / ブラック、ドスパラ限定モデル) | ドスパラ | 2024-07-07 | ¥8,027 | 安心ワイド保証プラス3年 |
 | CPUクーラー | DEEPCOOL AK400(120mmファン / LGA1851-1150・AM4対応) | ビックカメラ.com | 2025-02-23 | ¥3,270 | クレカ一括 |
 | 電源 | 玄人志向 KRPW-PT700W/92+ REV2.0(700W / 80PLUS PLATINUM) | 不明(たぶんヤフオク、記録なし) | 不明 | 推定¥12,000〜15,000 | 前のPCから流用。型番は電源本体の銘板で確認。購入記録が残っておらず、金額は新品当時の相場からの推定であって確定額ではない |
@@ -70,6 +70,6 @@ Linux/GRUBはSSD②(NVMe)から起動しており、これはデュアルブー�
 | SSD①(256GB SATA) | Windowsの起動ドライブ(NTFS) |
 | SSD②(500GB NVMe) | Arch Linux(現在稼働中のメインOS、`/`と`/boot`) |
 | SSD③(1TB SATA) | 約500GBがWindows領域(NTFS)、残り約500GBがGentoo Linux(btrfs、ラベル`gentoo`) |
-| SSD④(500GB SATA) | Windows領域(NTFS、未マウント・詳細未確認) |
+| SSD④(500GB SATA) | Windows領域(NTFS、実際に使用中。手動マウントしてゲームライブラリなどの実データを確認) |
 
 1台のマシンにWindows・Arch Linux・Gentoo Linuxの3つのOSが同居してた。

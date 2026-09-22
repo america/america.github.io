@@ -25,7 +25,7 @@ and the model numbers match the purchase receipts.
 | SSD 1 (Windows boot drive) | CFD 256GB 2.5" SATA (Toshiba) | Amazon | 2015-07-06 | ¥13,979 | My first-ever SSD, currently the Windows 11 boot drive, carried over from the previous PC |
 | SSD 2 | Crucial P2 500GB M.2 NVMe (official distributor warranty, 5-year) | Amazon | 2022-01-04 | ¥5,515 | Listed at ¥5,555, minus ¥40 in Amazon points |
 | SSD 3 (added) | Crucial BX500 1TB 2.5" SATA (3-year warranty, parallel import) | Amazon | 2025-08-05 | ¥9,500 | Paid via Paidy |
-| SSD 4 (unused, unmounted) | Crucial MX500 500GB 2.5" SATA | Amazon | 2018-04-01 | unknown | Missing entirely from the original parts list; found via `lsblk` on the actual machine. Currently unmounted with no confirmed use, and the cost isn't listed in the Amazon order history |
+| SSD 4 (Windows, in active use) | Crucial MX500 500GB 2.5" SATA | Amazon | 2018-04-01 | unknown | Missing entirely from the original parts list; found via `lsblk` on the actual machine. Manually mounting it revealed an actively-used Windows data drive. The cost isn't listed in the Amazon order history |
 | Case | DEEPCOOL CC560 V2 (ATX / glass panel / black, Dospara-exclusive model) | Dospara | 2024-07-07 | ¥8,027 | 3-year extended warranty plan |
 | CPU cooler | DEEPCOOL AK400 (120mm fan / LGA1851-1150 & AM4 compatible) | Biccamera.com | 2025-02-23 | ¥3,270 | Paid in full by credit card |
 | PSU | Kuroutoshikou KRPW-PT700W/92+ REV2.0 (700W / 80 PLUS Platinum) | Unknown (likely Yahoo Auctions, no record) | unknown | est. ¥12,000–15,000 | Carried over from the previous PC. Model identified directly from the unit's label; no purchase record survives, so the cost is estimated from period market pricing, not confirmed |
@@ -77,7 +77,7 @@ mapped out which OS lives where:
 | SSD 1 (256GB SATA) | Windows boot drive (NTFS) |
 | SSD 2 (500GB NVMe) | Arch Linux (the currently running main OS, `/` and `/boot`) |
 | SSD 3 (1TB SATA) | ~500GB Windows storage (NTFS), the other ~500GB is Gentoo Linux (btrfs, labeled `gentoo`) |
-| SSD 4 (500GB SATA) | Windows storage (NTFS, unmounted, otherwise unconfirmed) |
+| SSD 4 (500GB SATA) | Windows storage (NTFS, actively used — mounting it manually turned up a real game library and other data) |
 
 Turns out this one machine has been quietly hosting three operating systems at once:
 Windows, Arch Linux, and Gentoo Linux.
