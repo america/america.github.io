@@ -27,7 +27,83 @@ const CATALOG = [
       { name: ["IV(ウル4)", "IV (USF4)"], year: "2014", tag: ["少しだけ", "a little"] },
       { name: ["V(いぶき)", "V (Ibuki)"], year: "2016" },
       { name: ["6(キンバリー)", "6 (Kimberly)"], year: "2023" },
+      { name: ["ZERO3 アッパー", "Zero3 Upper"], year: "2001", skip: true },
+      {
+        name: ["ZERO3 ダブルアッパー", "Zero3 Double Upper"],
+        year: "2006",
+        skip: true,
+      },
+      { name: ["X 鉄拳", "X Tekken"], year: "2012", skip: true },
+      {
+        name: [
+          "リアルバトル オン フィルム(未プレイ、クソゲーの噂だけ知ってる)",
+          "Real Battle on Film (never played, only heard it's bad)",
+        ],
+        year: "1995",
+        skip: true,
+      },
     ],
+  },
+  {
+    label: ["ストリートファイターEX(アリカ)", "Street Fighter EX (Arika)"],
+    accent: "#2e8f6f",
+    titles: [
+      {
+        name: ["EX", "EX"],
+        year: "1996",
+        tag: ["ゲーセンにもあった", "also in arcades"],
+      },
+      {
+        name: ["EX2", "EX2"],
+        year: "1998",
+        tag: ["シャロン", "Sharon"],
+      },
+      {
+        name: ["EX PLUS α(家庭用)", "EX Plus α (home)"],
+        year: "1997",
+      },
+      { name: ["EX3", "EX3"], year: "2000", skip: true },
+    ],
+  },
+  {
+    label: ["ギルティギア", "Guilty Gear"],
+    accent: "#8e2a44",
+    titles: [
+      {
+        name: ["無印(ドリームキャスト)", "Guilty Gear (Dreamcast)"],
+        year: "1998",
+      },
+      { name: ["X", "X"], year: "2000", skip: true },
+      { name: ["X2(XX)", "X2 (XX)"], year: "2002", skip: true },
+      { name: ["イスカ", "Isuka"], year: "2003", skip: true },
+      { name: ["2 オーバチュア", "2: Overture"], year: "2007", skip: true },
+      { name: ["Xrd -SIGN-", "Xrd -SIGN-"], year: "2014", skip: true },
+      { name: ["Xrd -REVELATOR-", "Xrd -REVELATOR-"], year: "2016", skip: true },
+      { name: ["Xrd REV2", "Xrd REV2"], year: "2017", skip: true },
+      { name: ["ストライヴ", "Strive"], year: "2021", skip: true },
+    ],
+  },
+  {
+    label: ["龍虎の拳", "Art of Fighting"],
+    accent: "#b8452c",
+    titles: [
+      { name: ["龍虎の拳", "Art of Fighting"], year: "1992" },
+      {
+        name: ["龍虎の拳2", "Art of Fighting 2"],
+        year: "1994",
+        tag: ["ユリ", "Yuri"],
+      },
+      {
+        name: ["龍虎の拳外伝(3)", "Art of Fighting 3"],
+        year: "1996",
+        skip: true,
+      },
+    ],
+  },
+  {
+    label: ["ポケットファイター", "Pocket Fighter"],
+    accent: "#d68a2e",
+    titles: [{ name: ["ポケットファイター", "Pocket Fighter"], year: "1997" }],
   },
   {
     label: ["ヴァンパイア", "Darkstalkers"],
@@ -40,7 +116,8 @@ const CATALOG = [
         year: "1997",
         tag: ["ビシャモン", "Bishamon main"],
       },
-      { name: ["セイヴァー以降", "After Savior"], skip: true },
+      { name: ["ヴァンパイア ハンター2", "Darkstalkers' Revenge 2"], year: "1997", skip: true },
+      { name: ["ヴァンパイア セイヴァー2", "Vampire Savior 2"], year: "1997", skip: true },
     ],
   },
   {
@@ -97,20 +174,64 @@ const CATALOG = [
       { name: ["'97", "'97"], year: "1997" },
       { name: ["'98", "'98"], year: "1998" },
       { name: ["'99", "'99"], year: "1999" },
-      { name: ["2000 以降", "2000 onward"], skip: true },
+      { name: ["2000", "2000"], year: "2000", skip: true },
+      { name: ["2001", "2001"], year: "2001", skip: true },
+      { name: ["2002", "2002"], year: "2002", skip: true },
+      { name: ["2003", "2003"], year: "2003", skip: true },
+      { name: ["XI", "XI"], year: "2005", skip: true },
+      { name: ["XII", "XII"], year: "2009", skip: true },
+      { name: ["XIII", "XIII"], year: "2010", skip: true },
+      { name: ["XIV", "XIV"], year: "2016", skip: true },
+      { name: ["XV", "XV"], year: "2022", skip: true },
     ],
   },
   {
     label: ["サムライスピリッツ", "Samurai Shodown"],
     accent: "#a9631a",
     titles: [
+      { name: ["SAMURAI SPIRITS(初代)", "Samurai Shodown"], year: "1993" },
       { name: ["真SAMURAI SPIRITS 覇王丸地獄変", "Samurai Shodown II"], year: "1994" },
       { name: ["サムライスピリッツ 斬紅郎無双剣", "Samurai Shodown III"], year: "1995" },
       {
         name: ["サムライスピリッツ 天草降臨", "Samurai Shodown IV: Amakusa's Revenge"],
         year: "1996",
       },
-      { name: ["これ以降", "After this"], skip: true },
+      {
+        name: ["SAMURAI SPIRITS 〜侍魂〜", "Samurai Shodown V"],
+        year: "1997",
+        skip: true,
+      },
+      {
+        name: ["SAMURAI SPIRITS 2 〜アスラ斬魔伝〜", "Samurai Shodown 2: Asura Zanmaden"],
+        year: "1998",
+        skip: true,
+      },
+      {
+        name: [
+          "剣客異聞録 甦りし蒼紅の刃 サムライスピリッツ新章",
+          "Samurai Shodown: Warrior's Rage",
+        ],
+        year: "1999",
+        skip: true,
+      },
+      { name: ["サムライスピリッツ零", "Samurai Shodown VI"], year: "2003", skip: true },
+      {
+        name: ["サムライスピリッツ零SPECIAL", "Samurai Shodown VI Special"],
+        year: "2004",
+        skip: true,
+      },
+      {
+        name: ["サムライスピリッツ 天下一剣客伝", "Samurai Shodown Tenkaichi Kenkakuden"],
+        year: "2005",
+        skip: true,
+      },
+      { name: ["サムライスピリッツ閃", "Samurai Shodown Sen"], year: "2008", skip: true },
+      { name: ["SAMURAI SPIRITS(2019)", "Samurai Shodown (2019)"], year: "2019", skip: true },
+      {
+        name: ["サムライスピリッツ零SPECIAL完全版", "Samurai Shodown VI Special Complete Edition"],
+        year: "2022",
+        skip: true,
+      },
     ],
   },
   {
@@ -154,8 +275,8 @@ const CATALOG = [
 const TEXT = {
   head: ["触った対戦格闘、省略なし", "Every fighting game I played"],
   count: [
-    (n) => `${n} タイトル ／ 8 シリーズ`,
-    (n) => `${n} titles / 8 series`,
+    (n) => `${n} タイトル ／ 12 シリーズ`,
+    (n) => `${n} titles / 12 series`,
   ],
   skip: ["未プレイ", "didn't play"],
 };
@@ -217,9 +338,7 @@ export function FightingGameCatalog({ lang = "ja" }) {
                     key={i}
                     className={`fgc-row${t.skip ? " fgc-row-skip" : ""}`}
                   >
-                    <span className="fgc-year">
-                      {t.skip ? "—" : t.year || ""}
-                    </span>
+                    <span className="fgc-year">{t.year || (t.skip ? "—" : "")}</span>
                     <span className="fgc-name">{t.name[L]}</span>
                     {t.tag && <span className="fgc-tag">{t.tag[L]}</span>}
                     {t.skip && <span className="fgc-skip-tag">{TEXT.skip[L]}</span>}

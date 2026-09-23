@@ -32,6 +32,14 @@ Samurai Shodown, Fatal Fury, and The Last Blade. Tekken only 2 and 3, and I bare
 know Virtua Fighter. I went through pretty much all of the 90s fighting games —
 the full list is in the appendix at the end.
 
+There was also Arika's polygon-based Street Fighter EX, which I played at the
+arcade too. I remember Skullomania, Doctrine Dark, and a character with a bat
+(forgot his name). I also played EX Plus α on console. On Dreamcast I touched
+the original Guilty Gear, though I never followed the series after that. I also played Pocket Fighter. I never played Zero3 Upper, Zero3 Double Upper, EX3, or
+Street Fighter X Tekken. Not a game, but I also watched the "Street Fighter II V"
+anime that aired Monday nights at 7:30pm on NTV (Ken was more or less the lead,
+voiced by Kenji Haga).
+
 I knew Umehara's name back then too. From the ZERO3 era, I have a memory — on TV or
 online — of him beating an American top player with V-Akuma. Back then I was sitting
 at the cabinet like everyone else. I wasn't strong, but I was all in.
