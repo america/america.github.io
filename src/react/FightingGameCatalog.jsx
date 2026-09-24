@@ -174,7 +174,12 @@ const CATALOG = [
       { name: ["'97", "'97"], year: "1997" },
       { name: ["'98", "'98"], year: "1998" },
       { name: ["'99", "'99"], year: "1999" },
-      { name: ["2000", "2000"], year: "2000", skip: true },
+      {
+        name: ["2000", "2000"],
+        year: "2000",
+        tag: ["エミュで少しだけ", "a little, via emulator"],
+      },
+      { name: ["XV", "XV"], year: "2022", tag: ["少しだけ", "a little"] },
       { name: ["2001", "2001"], year: "2001", skip: true },
       { name: ["2002", "2002"], year: "2002", skip: true },
       { name: ["2003", "2003"], year: "2003", skip: true },
@@ -182,7 +187,6 @@ const CATALOG = [
       { name: ["XII", "XII"], year: "2009", skip: true },
       { name: ["XIII", "XIII"], year: "2010", skip: true },
       { name: ["XIV", "XIV"], year: "2016", skip: true },
-      { name: ["XV", "XV"], year: "2022", skip: true },
     ],
   },
   {
@@ -270,13 +274,39 @@ const CATALOG = [
       },
     ],
   },
+  {
+    label: ["鉄拳", "Tekken"],
+    accent: "#b8901f",
+    titles: [
+      { name: ["2", "2"], year: "1995", tag: ["家庭用でかなり", "a lot, on console"] },
+      { name: ["3", "3"], year: "1997", tag: ["家庭用でかなり", "a lot, on console"] },
+      {
+        name: ["タッグトーナメント2", "Tag Tournament 2"],
+        year: "2011",
+        tag: ["少しだけ", "a little"],
+      },
+      {
+        name: ["8", "8"],
+        year: "2024",
+        tag: ["ファランで少しだけ", "a little, as Fahkumram"],
+      },
+      { name: ["鉄拳(初代)", "Tekken"], year: "1994", skip: true },
+      { name: ["タッグトーナメント", "Tag Tournament"], year: "1999", skip: true },
+      { name: ["4", "4"], year: "2001", skip: true },
+      { name: ["5", "5"], year: "2004", skip: true },
+      { name: ["5 DARK RESURRECTION", "5: Dark Resurrection"], year: "2005", skip: true },
+      { name: ["6", "6"], year: "2007", skip: true },
+      { name: ["6 BLOODLINE REBELLION", "6: Bloodline Rebellion"], year: "2008", skip: true },
+      { name: ["7", "7"], year: "2015", skip: true },
+    ],
+  },
 ];
 
 const TEXT = {
   head: ["触った対戦格闘、省略なし", "Every fighting game I played"],
   count: [
-    (n) => `${n} タイトル ／ 12 シリーズ`,
-    (n) => `${n} titles / 12 series`,
+    (n) => `${n} タイトル ／ 13 シリーズ`,
+    (n) => `${n} titles / 13 series`,
   ],
   skip: ["未プレイ", "didn't play"],
 };
