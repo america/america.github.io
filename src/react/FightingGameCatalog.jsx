@@ -300,13 +300,91 @@ const CATALOG = [
       { name: ["7", "7"], year: "2015", skip: true },
     ],
   },
+  {
+    label: ["ジャスティス学園", "Rival Schools"],
+    accent: "#2f5fa8",
+    titles: [
+      {
+        name: ["私立ジャスティス学園 LEGION OF HEROES", "Rival Schools: United by Fate"],
+        year: "1997",
+        tag: ["結構やり込んだ", "played a lot"],
+      },
+      {
+        name: ["燃えろ!ジャスティス学園", "Project Justice"],
+        year: "2000",
+        tag: ["少しだけ", "a little"],
+      },
+      {
+        name: [
+          "私立ジャスティス学園 熱血青春日記2",
+          "Rival Schools: Nekketsu Seishun Nikki 2 (PS, Japan only)",
+        ],
+        year: "1999",
+        skip: true,
+      },
+    ],
+  },
+  {
+    label: ["豪血寺一族", "Power Instinct"],
+    accent: "#c2417a",
+    titles: [
+      { name: ["豪血寺一族", "Power Instinct"], year: "1993", skip: true },
+      { name: ["豪血寺一族2", "Power Instinct 2"], year: "1994", skip: true },
+      { name: ["豪血寺外伝 最強伝説", "Gogetsuji Legends"], year: "1995", skip: true },
+      {
+        name: ["グルーヴ オン ファイト 豪血寺一族3", "Groove on Fight: Gouketsuji Ichizoku 3"],
+        year: "1997",
+        skip: true,
+      },
+      {
+        name: ["新豪血寺一族 闘婚 -Matrimelee-", "Power Instinct Matrimelee"],
+        year: "2003",
+        skip: true,
+      },
+      {
+        name: ["新・豪血寺一族 -煩悩開放-", "Shin Gouketsuji Ichizoku: Bonnou Kaihou (PS2)"],
+        year: "2006",
+        skip: true,
+      },
+      {
+        name: ["豪血寺一族 先祖供養", "Gouketsuji Ichizoku: Senzokuyou"],
+        year: "2009",
+        skip: true,
+      },
+    ],
+  },
+  {
+    label: ["天外魔境(対戦格闘のみ)", "Tengai Makyou (fighting games only)"],
+    accent: "#2b8a8a",
+    titles: [
+      { name: ["カブキ一刀涼談", "カブキ一刀涼談 (PC Engine)"], year: "1995", skip: true },
+      { name: ["天外魔境 真伝", "天外魔境 真伝 (Neo Geo)"], year: "1995", skip: true },
+      {
+        name: ["天外魔境 電脳絡繰格闘伝", "天外魔境 電脳絡繰格闘伝 (PC-FX)"],
+        year: "1995",
+        skip: true,
+      },
+    ],
+  },
+  {
+    label: ["ダブルドラゴン(対戦格闘のみ)", "Double Dragon (fighting games only)"],
+    accent: "#6b6f76",
+    titles: [
+      {
+        name: ["Double Dragon V: The Shadow Falls(日本未発売)", "Double Dragon V: The Shadow Falls (not released in Japan)"],
+        year: "1994",
+        skip: true,
+      },
+      { name: ["ダブルドラゴン(ネオジオ版)", "Double Dragon (Neo Geo)"], year: "1995", skip: true },
+    ],
+  },
 ];
 
 const TEXT = {
   head: ["触った対戦格闘、省略なし", "Every fighting game I played"],
   count: [
-    (n) => `${n} タイトル ／ 13 シリーズ`,
-    (n) => `${n} titles / 13 series`,
+    (n) => `${n} タイトル ／ 17 シリーズ`,
+    (n) => `${n} titles / 17 series`,
   ],
   skip: ["未プレイ", "didn't play"],
 };
