@@ -38,6 +38,13 @@
 - **Search Consoleの画面の状態(「読み込めなかった」「登録済み」など)は、サイト側の確認だけでは断定できない。** 画面の数字か、ユーザーが見せたスクリーンショットを根拠にする。確認せずに「古い状態が残っているだけ」「記事は全部登録されている」と言わない(2026-09-07と09-14に言って、誤りだった)。
 - `hugo.toml`の`[outputs] home`に`"Sitemap"`を足さない(サイトマップがホーム直下の2ページしか出なくなる。2026-09-03に直した)。
 
+## ホスティング(2026-09-26〜): GitHub PagesとCloudflare Workersの両方に配信している
+
+- **本番は `https://america66.jp/`(Cloudflare Workers、静的アセット)。** `america.github.io`(GitHub Pages)も、消さずに残してある(同じ内容が2か所にある)。詳細はObsidianの`18_Reference/04_技術メモ/search-console-sitemap.md`。
+- Cloudflare側のビルドは、ダッシュボードのBuild commandで`hugo --minify -b https://america66.jp`と、`baseURL`を上書きしている(`HUGO_VERSION=0.163.3`)。**`hugo.toml`の`baseURL`は、GitHub Pages用に`america.github.io`のまま。変えない。** 設定は`wrangler.jsonc`(Worker名`america-github-io`、配信するのは`./public`)。
+- pushすると、GitHub PagesとCloudflareの両方のビルドが走る。空コミット(`git commit --allow-empty`)でも、Cloudflareのビルドを再実行できる。
+- ブログの見た目や内容を確認するときは、`america66.jp`を見る。`america.github.io`と`workers.dev`は、同じ内容を返すが、canonicalなどのURLが違う。
+
 ## アクセス解析(Cloudflare Web Analytics)
 
 - `layouts/partials/extend_head.html` に、Cloudflare Web Analyticsのビーコンスクリプトを埋め込み済み(2026-08-12)。PaperModの`head.html`が`extend_head.html`を呼ぶ拡張ポイントなので、全ページの`<head>`に自動で入る。
