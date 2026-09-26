@@ -26,6 +26,14 @@
   自分で起動したものだけを、確認後に止める。この段取りは私の判断で書いた。
 - pushは、ユーザーが「push」と言ってから行う(これまでどおり)。
 
+## Search Console・サイトマップ(2026-09-26時点。詳細はObsidianの`18_Reference/04_技術メモ/search-console-sitemap.md`)
+
+- **サイトマップ自体は正常だと確認済み。ゼロから検証し直さない。** `/sitemap.xml`(`/ja/`と`/en/`を指すインデックス)、`/ja/sitemap.xml`、`/en/sitemap.xml`は、XMLとして正しく、載っている全182 URLが200で、canonicalも一致し、noindexも無い。それでもSearch Consoleでは「取得できませんでした」が続いている。Googleが処理していない理由は、分かっていない。
+- **Search Consoleに登録するのは`/sitemap.xml`だけでよい**(`f94a868`のコミットメッセージに記載)。`/ja/`・`/en/`を別々に送る必要は無い。
+- `hugo --minify`でHTMLの属性の引用符が省かれる(`<link rel=canonical href=https://…>`)。canonicalやrobotsを正規表現で検証するときは、引用符なしにも対応する。引用符付きだけ探すと、「canonicalが無い」と誤判定する(2026-09-26にやった)。
+- **Search Consoleの画面の状態(「読み込めなかった」「登録済み」など)は、サイト側の確認だけでは断定できない。** 画面の数字か、ユーザーが見せたスクリーンショットを根拠にする。確認せずに「古い状態が残っているだけ」「記事は全部登録されている」と言わない(2026-09-07と09-14に言って、誤りだった)。
+- `hugo.toml`の`[outputs] home`に`"Sitemap"`を足さない(サイトマップがホーム直下の2ページしか出なくなる。2026-09-03に直した)。
+
 ## アクセス解析(Cloudflare Web Analytics)
 
 - `layouts/partials/extend_head.html` に、Cloudflare Web Analyticsのビーコンスクリプトを埋め込み済み(2026-08-12)。PaperModの`head.html`が`extend_head.html`を呼ぶ拡張ポイントなので、全ページの`<head>`に自動で入る。
