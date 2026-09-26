@@ -1,0 +1,47 @@
+{{- define "main" }}
+{{- $en := eq site.Language.Lang "en" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+</header>
+
+<div class="post-content">
+  {{- $posts := where site.RegularPages "Section" "post" }}
+  <h2>{{ if $en }}Posts{{ else }}記事{{ end }} ({{ len $posts }})</h2>
+  <ul>
+    {{- range $posts.ByDate.Reverse }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <small>{{ .Date.Format "2006-01-02" }}</small></li>
+    {{- end }}
+  </ul>
+
+  {{- $others := where (where site.RegularPages "Section" "ne" "post") "Layout" "ne" "all-pages" }}
+  {{- if $others }}
+  <h2>{{ if $en }}Other pages{{ else }}その他のページ{{ end }}</h2>
+  <ul>
+    {{- range $others }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+
+  {{- with site.Taxonomies.tags }}
+  <h2>{{ if $en }}Tags{{ else }}タグ{{ end }} ({{ len . }})</h2>
+  <ul>
+    {{- range .Alphabetical }}
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a> <small>({{ .Count }})</small></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+
+  {{- with site.Taxonomies.categories }}
+  <h2>{{ if $en }}Categories{{ else }}カテゴリ{{ end }} ({{ len . }})</h2>
+  <ul>
+    {{- range .Alphabetical }}
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a> <small>({{ .Count }})</small></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</div>
+{{- end }}{{/* end main */}}

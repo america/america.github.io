@@ -19,6 +19,8 @@
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
         <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
     </span>
+    {{- print " · "}}
+    <span><a href="{{ "all-pages/" | absLangURL }}">{{ if eq site.Language.Lang "en" }}All pages{{ else }}全ページ一覧{{ end }}</a></span>
 </footer>
 {{- end }}
 
