@@ -29,6 +29,7 @@
 ## Search Console・サイトマップ(2026-09-26時点。詳細はObsidianの`18_Reference/04_技術メモ/search-console-sitemap.md`)
 
 - **サイトマップ自体は正常だと確認済み。ゼロから検証し直さない。** `/sitemap.xml`(`/ja/`と`/en/`を指すインデックス)、`/ja/sitemap.xml`、`/en/sitemap.xml`は、XMLとして正しく、載っている全182 URLが200で、canonicalも一致し、noindexも無い。それでもSearch Consoleでは「取得できませんでした」が続いている。Googleが処理していない理由は、分かっていない。
+- **`content-type`の問題(GitHub Pagesがサイトマップを`text/html`で返すというZennの記事)は否定済み。** 2026-09-26 16:18、URL検査の「公開URLをテスト」で、Googleが受け取った`sitemap.xml`は、`application/xml`・200 OKだった。再調査しない。
 - **Search Consoleに登録するのは`/sitemap.xml`だけでよい**(`f94a868`のコミットメッセージに記載)。`/ja/`・`/en/`を別々に送る必要は無い。
 - `hugo --minify`でHTMLの属性の引用符が省かれる(`<link rel=canonical href=https://…>`)。canonicalやrobotsを正規表現で検証するときは、引用符なしにも対応する。引用符付きだけ探すと、「canonicalが無い」と誤判定する(2026-09-26にやった)。
 - **Search Consoleの画面の状態(「読み込めなかった」「登録済み」など)は、サイト側の確認だけでは断定できない。** 画面の数字か、ユーザーが見せたスクリーンショットを根拠にする。確認せずに「古い状態が残っているだけ」「記事は全部登録されている」と言わない(2026-09-07と09-14に言って、誤りだった)。
