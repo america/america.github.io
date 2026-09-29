@@ -43,7 +43,7 @@ I checked every automation running locally — no systemd timer, no cron job dep
 
 The answer was on a different machine: a small PC at home running NAS duties (I'll call it "NAS" here). A script called `backup-arch` rsyncs `/home`, `/boot`, and `/etc` from this PC to NAS every night, and it was running `sudo rsync` on this PC over SSH to do it. After a backup finished, it also used to `sudo systemctl stop/start` a container, and finally `sudo poweroff` to shut this machine down automatically.
 
-The first commit of `backup-arch` dates back to October 2025, built with a different AI assistant at the time, and it was designed around SSH-triggered `sudo` from the start. The `systemctl` step — stopping a container around the backup window — had already been removed in a later commit, once it turned out the thing it was pausing wasn't even inside the backup scope. But the broad sudoers permission was never tightened to match.
+The first commit of `backup-arch` dates back to October 2025. I had a coding agent write it back then, and it was designed around SSH-triggered `sudo` from the start. The `systemctl` step — stopping a container around the backup window — had already been removed in a later commit, once it turned out the thing it was pausing wasn't even inside the backup scope. But the broad sudoers permission was never tightened to match.
 
 ## Narrowing it down: rrsync and SSH forced commands
 
