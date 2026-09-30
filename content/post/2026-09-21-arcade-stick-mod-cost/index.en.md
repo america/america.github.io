@@ -23,7 +23,7 @@ It was higher than I expected.
 
 | Item | Cost | Purchased |
 |---|---|---|
-| Base unit (used, Yahoo Auctions) | ¥13,000 | unknown |
+| Base unit (used, Mercari) | ¥13,000 | 2025-10 |
 | GamerFinger 30mm ×6 | ¥5,040 | 2021-09 |
 | GamerFinger 30mm ×2 (extra) | ¥1,460 | unknown (estimated at 2021 unit price) |
 | GamerFinger 24mm ×2 (black, custom art) | ¥2,245 | unknown |
