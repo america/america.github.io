@@ -1,7 +1,7 @@
 ---
 title: "I fact-checked the claim that Wall Street is skeptical of NVIDIA's GPU-collateral financing"
 date: 2026-10-03T00:00:00+09:00
-draft: false
+draft: true
 description: "A record of fact-checking an X post claiming NVIDIA launched a scheme to raise money using its AI chips as collateral, and that Wall Street is cold toward it. I separate what's verified fact from what's opinion dressed up as fact."
 tags:
   - nvidia
@@ -12,7 +12,7 @@ tags:
 
 I saw a post on X that went something like this:
 
-> NVIDIA has proposed creating a massive market where its AI chips can be used as collateral to raise capital. But I don't think its cutting-edge chips, or the infrastructure around them, are worth that much. Wall Street is cold on this. I agree. AI is an overvalued bubble, and the odds are high it'll cool down eventually.
+> NVIDIA has proposed creating a massive market where its AI chips can be used as collateral to raise capital. But I don't think its cutting-edge chips, or the infrastructure around them, are worth that much. Wall Street is cold on this. AI is an overvalued bubble, and the odds are high it'll cool down eventually.
 
 I'd been getting irritated lately by how every IT engineer around me won't shut up about AI, so I decided to check this claim myself rather than just nod along.
 
@@ -52,7 +52,7 @@ The post ends with: "AI is an overvalued bubble, and the odds are high it'll coo
 
 First: "Wall Street is conservative about how long GPU collateral will hold its value in this specific financing structure" and "AI as a whole is a bubble that's going to collapse" are **two different claims**. The first is a narrow, technical concern from finance professionals about the design of one financial product. The second is a much bigger claim about the entire AI sector's market cap being disconnected from reality.
 
-The person who wrote the post (and who quoted author/individual investor Kaji Shoichi agreeing with him) is known for historical-conspiracy-themed books about the Meiji Restoration — not a finance or semiconductor professional. His "it's a bubble" conclusion should be read as personal opinion, carrying nowhere near the weight of the named finance professionals quoted above.
+The person who wrote the post is not a finance or semiconductor professional. Their "it's a bubble" conclusion should be read as personal opinion, carrying nowhere near the weight of the named finance professionals quoted above.
 
 That said, the "AI bubble" thesis isn't baseless either, so I looked into it separately.
 
