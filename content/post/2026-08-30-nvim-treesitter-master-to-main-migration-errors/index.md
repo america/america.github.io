@@ -9,6 +9,8 @@ tags:
   - neovim
   - treesitter
   - lua
+cover:
+  image: "cover.png"
 ---
 
 Neovim を `0.12.4` に上げたあたりから、`nvim-treesitter` 関連のエラーが立て続けに出るようになった。原因を追っていくと、**`nvim-treesitter` の `master` ブランチがすでに EOL で Neovim 0.12 に付いてこられていない**という一点に行き着く。`main` ブランチへ移行して解決したが、その過程と、移行後にもう一段踏んだ落とし穴をまとめておく。

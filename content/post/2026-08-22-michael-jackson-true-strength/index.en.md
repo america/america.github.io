@@ -7,6 +7,8 @@ tags:
   - psychology
   - michael-jackson
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **Source**

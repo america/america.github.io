@@ -6,6 +6,8 @@ description: "HORI ファイティングスティックαをベースに、ボ�
 tags:
   - fighting-games
   - arcade-stick
+cover:
+  image: "cover.png"
 ---
 
 ![改造したファイティングスティックαのボタン配置](akecon.jpg)

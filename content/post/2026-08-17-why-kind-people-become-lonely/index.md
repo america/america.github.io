@@ -8,6 +8,8 @@ tags:
   - loneliness
   - relationships
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **要約元**

@@ -9,6 +9,8 @@ tags:
   - ssh
   - sudo
   - reverse-engineering
+cover:
+  image: "cover.png"
 ---
 
 `sudo systemctl restart bluetooth`と打ったら、パスワードを聞かれずに通った。何かがおかしい。ここから、GTFOBinsの調査、SSH鍵の作り直し、rrsyncとの格闘、そしてOpenSSHのソースコードを読むところまで進んだ調査の記録。最後には、原因が分からないままPCが2回勝手に落ちるという、後味の悪いオチが付く。

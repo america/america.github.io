@@ -8,6 +8,8 @@ tags:
   - ai-bubble
   - finance
   - ai-development
+cover:
+  image: "cover.png"
 ---
 
 I saw a post on X that went something like this:

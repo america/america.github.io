@@ -6,6 +6,8 @@ description: "ジャーナリスト・烏賀陽弘道氏が、AI開発企業の�
 tags:
   - ai-development
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **要約元**

@@ -6,6 +6,8 @@ description: "AMD A520構成の自作デスクトップ機。CPU・GPU・マザ�
 tags:
   - IT
   - pc-build
+cover:
+  image: "cover.png"
 ---
 
 自作デスクトップ機(母艦 takashi-pc)の本体パーツ構成と費用を、購入時のレシート・注文記録

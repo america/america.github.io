@@ -6,6 +6,8 @@ description: "2015年、烏賀陽弘道の『ヒロシマからフクシマへ �
 tags:
   - memoir
   - history
+cover:
+  image: "cover.png"
 ---
 
 <!-- 下書き。骨子だけ。記憶をもう少し掘ってから公開する。 -->

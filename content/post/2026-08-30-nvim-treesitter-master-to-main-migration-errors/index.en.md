@@ -9,6 +9,8 @@ tags:
   - neovim
   - treesitter
   - lua
+cover:
+  image: "cover.png"
 ---
 
 Around the time I bumped Neovim to `0.12.4`, `nvim-treesitter` errors started piling up one after another. Tracing them all leads back to a single fact: **`nvim-treesitter`'s `master` branch is already EOL and can't keep up with Neovim 0.12.** Migrating to the `main` branch fixed it, but here's the path there — plus one more pitfall I stepped on *after* the migration.

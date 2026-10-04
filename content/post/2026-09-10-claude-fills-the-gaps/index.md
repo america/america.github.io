@@ -4,6 +4,8 @@ date: 2026-09-10T00:00:00+09:00
 draft: false
 categories: ["AI"]
 tags: ["claude-code", "claude-sonnet-5", "ai-development", "observation"]
+cover:
+  image: "cover.png"
 ---
 
 自宅のサーバーに小さな自作アプリを載せる作業で、**Claude Code** を30時間ほど使い続けた。

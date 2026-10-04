@@ -6,6 +6,8 @@ description: "Journalist Hiromichi Ugaya, drawing on his background in nuclear s
 tags:
   - ai-development
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **Source**

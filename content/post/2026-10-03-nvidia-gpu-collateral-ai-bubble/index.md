@@ -8,6 +8,8 @@ tags:
   - ai-bubble
   - finance
   - ai-development
+cover:
+  image: "cover.png"
 ---
 
 Xで、こんな投稿を見かけた。

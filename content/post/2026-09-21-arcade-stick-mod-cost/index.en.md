@@ -6,6 +6,8 @@ description: "A HORI Fighting Stick Alpha with every button swapped, a silenced 
 tags:
   - fighting-games
   - arcade-stick
+cover:
+  image: "cover.png"
 ---
 
 ![Button layout on my modded Fighting Stick Alpha](akecon.jpg)

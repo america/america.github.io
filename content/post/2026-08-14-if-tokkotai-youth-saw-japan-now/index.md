@@ -8,6 +8,8 @@ tags:
   - war
   - 特攻隊
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **要約元**

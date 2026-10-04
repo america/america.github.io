@@ -7,6 +7,8 @@ tags:
   - claude-code
   - ai-development
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **要約元**

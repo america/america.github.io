@@ -6,6 +6,8 @@ description: "In 2015 I read Hiromichi Ugaya's From Hiroshima to Fukushima and t
 tags:
   - memoir
   - history
+cover:
+  image: "cover.png"
 ---
 
 <!-- Draft. Skeleton only. Needs more of the memory dug out before publishing. -->

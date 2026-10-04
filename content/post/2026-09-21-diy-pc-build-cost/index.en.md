@@ -6,6 +6,8 @@ description: "An AMD A520-based desktop build. I reconstructed the real cost of 
 tags:
   - IT
   - pc-build
+cover:
+  image: "cover.png"
 ---
 
 I went through purchase receipts and order records to reconstruct the real cost of my

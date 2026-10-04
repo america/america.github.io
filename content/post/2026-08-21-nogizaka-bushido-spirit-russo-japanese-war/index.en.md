@@ -8,6 +8,8 @@ tags:
   - war
   - bushido
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **Source**

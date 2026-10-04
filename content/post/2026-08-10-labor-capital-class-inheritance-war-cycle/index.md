@@ -11,6 +11,8 @@ tags:
   - 再分配
   - war
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 > **要約元**

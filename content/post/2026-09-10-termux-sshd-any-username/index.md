@@ -5,6 +5,8 @@ draft: false
 categories: ["Linux", "解説"]
 tags: ["termux", "android", "openssh", "ssh", "arch-linux"]
 description: "ssh banana@phone でも root@phone でも同じユーザーでログインできる。設定の癖ではなく、Termux の OpenSSH ビルドに当たっているパッチのせい。auth.c の #ifdef __ANDROID__ を読む。"
+cover:
+  image: "cover.png"
 ---
 
 母艦から Pixel 6（Termux の sshd）へ画像を `scp` するために `~/.ssh/config` に

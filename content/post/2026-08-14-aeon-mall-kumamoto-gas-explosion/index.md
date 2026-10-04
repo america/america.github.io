@@ -9,6 +9,8 @@ tags:
   - 防災政策
   - LPガス
   - transcript
+cover:
+  image: "cover-v2.png"
 ---
 
 > **要約元**

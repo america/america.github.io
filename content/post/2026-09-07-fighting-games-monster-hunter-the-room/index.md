@@ -7,6 +7,8 @@ tags:
   - fighting-games
   - monster-hunter
   - memoir
+cover:
+  image: "cover.png"
 ---
 
 格闘ゲームとモンスターハンター、この2つをかれこれ30年ほど追ってきた。ハードは

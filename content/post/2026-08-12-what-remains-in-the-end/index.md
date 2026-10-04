@@ -8,6 +8,8 @@ tags:
   - 記憶
   - 優しさ
   - transcript
+cover:
+  image: "cover.png"
 ---
 
 {{< FireflyCover >}}
