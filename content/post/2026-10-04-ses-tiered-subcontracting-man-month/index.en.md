@@ -27,6 +27,18 @@ On-site, which company you technically belonged to mattered less than whose auth
 
 I also saw, more than once, job listings that padded the advertised salary by folding in commuting allowance as if it were base pay — not an isolated trick.
 
+Industry-side surveys put the typical margin SES companies take at around 35–40%, with roughly 60–65% of the billed rate actually reaching the engineer on-site ([source](https://levtech.jp/partner/guide/article/detail/32/)). So if the client is paying ¥800,000/month for a given engineer, something just over 60% of that is standard practice as what actually lands in that engineer's pocket. And that's just one layer of margin — add another subcontractor in between and it gets skimmed again.
+
+## Putting numbers on the multi-tier structure
+
+The gut feeling deserves to be checked against public data.
+
+A 2022 survey by Japan's Fair Trade Commission (covering roughly 21,000 businesses with capital under ¥300 million — the largest such survey in 18 years) found that software subcontracting chains can become "fragmented and re-subcontracted repeatedly, forming extremely long and multi-layered supply chains," with **cases found of subcontracting as deep as six tiers**. Of the businesses surveyed, 40.4% identified as prime contractors, 38.2% as intermediate subcontractors, and 21.3% as final-tier subcontractors — meaning **roughly 60% had no direct contract with the end client at all** ([source](https://www.jftc.go.jp/houdou/pressrelease/2022/jun/220629_sw_03.pdf)).
+
+The same survey put Japan's software industry market size at roughly ¥15.98 trillion as of 2020, with about 837,606 workers across 25,977 establishments — of which businesses with 4 or fewer employees made up about 40.3% of the total. The small subcontractor I worked for wasn't an outlier; it was the typical building block of this industry.
+
+In fiscal year 2021, the information services industry recorded 686 enforcement actions for subcontracting-law violations — **the most of any industry sector**. The numbers back up what the structure itself implies: multi-tier subcontracting is fertile ground for the kind of abuse of superior bargaining position that Japan's Subcontract Act exists to catch.
+
 ## Why this structure doesn't go away
 
 ### Clients have no in-house capacity
@@ -40,6 +52,14 @@ A value-based contract — "we'll pay Y yen for a system that delivers X value" 
 ### The contract form pushes risk onto the floor
 
 A project that starts without fixed requirements is hard to take on under a fixed-deliverable contract, since that puts the burden of defining "done" on the vendor. So it usually starts as a quasi-delegation contract (準委任, essentially "we're lending you people"), and when the project catches fire, the people on the floor can say "I did what I was told," while most of the actual risk has already flowed down to them.
+
+## Why this specific shape is a Japan thing
+
+Multi-tier subcontracting exists elsewhere too, but Japan's distinctive feature is a stark imbalance: most IT talent sits on the vendor side, and almost none sits inside the client companies themselves.
+
+According to the Information-technology Promotion Agency's (IPA) "IT Human Resources White Paper 2017," **72.3% of Japan's IT workforce is employed by IT-industry vendors**, with only 27.7% working in-house at non-IT companies. In the US, the ratio is nearly reversed: 65.4% of IT workers are employed in-house by user companies, with only 34.6% on the vendor side. Canada, the UK, Germany, and France all likewise have a majority of their IT workforce in-house — Japan's skew stands out even against that group ([source](https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/h30/html/nd114140.html)).
+
+In other words, in the US, the companies that actually use a system are also, typically, the ones employing the engineers who build and run it. In Japan, the companies that use a system typically employ almost no engineers at all — an entirely separate industry exists whose job is to dispatch and station engineers at those companies. I think this is the soil multi-tier subcontracting actually grows out of.
 
 ## Not "being reformed" — people leaving first
 
@@ -56,3 +76,10 @@ Interesting work and decent treatment concentrate at the client-side companies, 
 If anything is likely to actually break this structure, I think it's generative AI. If per-person productivity genuinely rises, the man-month — a unit built entirely on headcount times time — may stop making sense as a pricing yardstick at all.
 
 I'm not optimistic about the shape this takes, though. I think it's more likely to play out not as "the man-month model gets reconsidered," but as "the bottom-most layer of simple, repetitive subcontracted work becomes unnecessary and the industry simply shrinks."
+
+## Sources
+
+- [METI's 2018 "DX Report" and the "2025 Cliff" (overview, in Japanese) - Hitachi Solutions Create](https://www.hitachi-solutions-create.co.jp/column/core-system/2025-cliff.html)
+- [Survey Report on Subcontracting Practices in the Software Industry (June 2022, in Japanese) - Japan Fair Trade Commission](https://www.jftc.go.jp/houdou/pressrelease/2022/jun/220629_sw_03.pdf)
+- [White Paper on Information and Communications in Japan 2018, Japan–US ICT Workforce Comparison (in Japanese) - Ministry of Internal Affairs and Communications](https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/h30/html/nd114140.html)
+- [SES rate benchmarks by skill/role (in Japanese) - Levtech](https://levtech.jp/partner/guide/article/detail/32/)
