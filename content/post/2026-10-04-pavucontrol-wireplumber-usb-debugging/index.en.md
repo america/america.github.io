@@ -1,7 +1,7 @@
 ---
 title: "pavucontrol wouldn't start. Chasing it led from a WirePlumber Lua bug down to a USB protocol error"
 date: 2026-10-04T00:00:00+09:00
-draft: true
+draft: false
 description: "pavucontrol (PulseAudio's volume control app) refused to open, throwing 'pa_context_get_card_info_by_index() failed: Invalid argument'. A record of digging through journalctl, WirePlumber's source (alsa.lua), and down into the kernel's USB logs."
 tags:
   - pipewire

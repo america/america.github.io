@@ -1,7 +1,7 @@
 ---
 title: "pavucontrolが起動しない。追ったら、WirePlumberのLuaバグの奥にUSBの通信エラーがあった"
 date: 2026-10-04T00:00:00+09:00
-draft: true
+draft: false
 description: "pavucontrol（PulseAudioの音量調整アプリ）が「pa_context_get_card_info_by_index() 失敗: Invalid argument」で起動しなくなった。journalctl→WirePlumberのソース（alsa.lua）→カーネルのUSBログ、と潜った記録。"
 tags:
   - pipewire
