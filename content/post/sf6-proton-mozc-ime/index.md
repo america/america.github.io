@@ -6,6 +6,8 @@ draft: false
 description: "SF6のチャット欄でCtrl+Spaceが効かない問題を、Proton/WineのIME実装の制約だと結論づけたが、それは誤りだった。/etc/environment にIME環境変数を設定したところ直接入力が動作するようになった。当時の調査記録と、訂正までの経緯。"
 categories: ["Linux", "トラブルシュート"]
 tags: ["Arch Linux", "Proton", "Wine", "Steam", "Street Fighter 6", "fcitx5", "Mozc", "IME", "Waydroid"]
+cover:
+  image: "cover.png"
 ---
 
 > **訂正 (2026-08-08)**
@@ -144,27 +146,61 @@ SDL_IM_MODULE=fcitx
 適用後にSF6のカスタムルームチャットでも同時に直った。Waydroid+Gboardのクリップボード運用は
 不要になった。
 
-### なぜ直ったのか(仮説・未検証)
-
-**ここから先は確認できていない推測である。** 直ったという事実は確かだが、その理由は検証していない。
+### なぜ直ったのか(ソースで確認した)
 
 `~/.config/environment.d/` と `~/.xprofile` には以前からIME関連の環境変数を設定していた。
-それにもかかわらず直らなかったということは、**それらの経路ではSteamがゲームを起動する
-プロセスまで変数が届いていなかった**可能性がある。
+それでも直らず、`/etc/environment` に書いたら直った。この違いがどこから来るのか、
+実際のソースコードを読んで確認した。
 
-Steamはゲームを Steam Linux Runtime (pressure-vessel) のサンドボックス内で起動する。
-これは対話シェルとも、通常のデスクトップセッションとも、環境変数の引き継ぎ方が異なる。
+**`.xprofile`は、そもそもWaylandセッションでは一度も読まれない。** 筆者の環境は
+SDDM(ディスプレイマネージャ) → Sway(Waylandコンポジタ)という構成。SDDMがWaylandセッションを
+起動するスクリプト本体([`wayland-session`](https://github.com/sddm/sddm/blob/develop/data/scripts/wayland-session)、
+公式ソースで中身を確認)はこうなっている。
 
-一方 `/etc/environment` はPAM経由で**ログイン時、Swayが起動するよりも前**に読み込まれる。
-そのため、セッション内で起動される全プロセス — Sway、Steam本体、Steamがサンドボックス
-越しに起動するWineプロセス — まで確実に伝わる。
+```sh
+case $SHELL in
+  */bash|*/zsh)
+    exec $SHELL --login -c 'exec "$@"' - $@
+    ;;
+  ...
+```
 
-これが正しければ、上で書いた「Wine実装自体の構造的な制約」という結論は誤りで、
-実際には**環境変数がゲームの起動経路まで届いていなかっただけ**ということになる。
-`wine notepad.exe`でXICの作成に成功していたのも、あれが対話シェルから起動されていて
-シェル側の環境変数が乗っていたためだと考えると辻褄が合う。
+bash/zshの場合、ログインシェルを`--login`モードで起動するだけで、`.xprofile`という
+文字列はこのスクリプトのどこにも出てこない。`.xprofile`を読むのはX11向けの
+[`Xsession`スクリプト](https://github.com/sddm/sddm/blob/develop/data/scripts/Xsession)の方で、
+Wayland専用の`wayland-session`には最初から実装されていない。**環境変数が「届かなかった」
+というより、`.xprofile`自体がそもそも実行されていなかった。**
 
-ただし、環境変数を意図的に外して再現させるといった切り分けはしていない。**仮説にとどまる。**
+**Steam Linux Runtime(pressure-vessel)は、環境変数を独自にフィルタしているわけではない。**
+Steamが使ってるサンドボックス機構のソース([`steam-runtime-tools`](https://gitlab.steamos.cloud/steamrt/steam-runtime-tools)、
+git cloneして確認)、`pressure-vessel/wrap-context.c`にこうある。
+
+```c
+self->original_environ = g_get_environ ();
+```
+
+`g_get_environ()`はGLibの関数で、**呼び出し元プロセス(つまりSteam自身)が、その時点で
+実際に持っている環境変数をそのままコピーする。** サンドボックスが用意する環境は、
+この`original_environ`を土台に組み立てられる(`pressure-vessel/wrap.c`の
+`pv_bind_and_propagate_from_environ`など)。つまり仕組みとしては「Steamの環境に有れば、
+サンドボックスにも伝わる」「Steamの環境に無ければ、サンドボックスにも無い」というだけで、
+pressure-vessel側が能動的にIME変数を弾いているわけではなかった。
+
+**`/etc/environment`は、この両方の問題を回避できる場所にある。** PAM(`pam_env`)が
+ログインセッションを開く時点――SDDM経由でシェルが起動するよりも、Swayが立ち上がるよりも
+前――に読み込まれる。Wayland/X11の違いにも、systemd --userのunit起動経路にも依存しない。
+この結果、Sway → (Sway経由で起動する)Steam → Steamが`g_get_environ()`で捕まえる環境、
+という鎖が最初から繋がっていて、確実にサンドボックス内まで届く。
+
+`~/.config/environment.d/*.conf`については、`systemd --user`マネージャが起動時に読み込んで
+**マネージャ自身が管理するunit用の環境**として保持する仕組みで、Swayがsystemd --userの
+unitとして起動されていない(ログインシェルから直接`exec sway`するような構成の)場合、
+Swayやその子プロセスへ自動的に伝播するとは限らない。この部分はユーザー環境の起動設定
+(どうSwayを起動しているか)に依存するため、今回はそこまでは立ち入らない。
+
+`wine notepad.exe`でXICの作成に成功していたのも、あれが対話シェル(すでに`/etc/environment`や
+シェルの設定ファイルの変数が乗っている)から直接起動されていたためで、Steam経由の起動とは
+環境が違っていた、というのも今回の調査で裏が取れた。
 
 ### 教訓
 

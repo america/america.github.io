@@ -11,7 +11,8 @@ tags:
  - 半導体
  - 人口減少
  - ホリエモン
-
+cover:
+  image: "cover.png"
 ---
 
 > **要約元**

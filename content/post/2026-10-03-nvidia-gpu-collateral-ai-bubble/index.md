@@ -1,7 +1,7 @@
 ---
 title: "NVIDIAのGPU担保融資にウォール街が懐疑的、という話を裏取りした"
 date: 2026-10-03T00:00:00+09:00
-draft: true
+draft: false
 description: "Xで見かけた「NVIDIAがAI半導体を担保に資金を調達する構想を打ち出したが、ウォール街は冷ややかだ」という投稿を、実際に裏取りした記録。事実の部分と、そこから飛躍した意見の部分を分けて書く。"
 tags:
   - nvidia
@@ -12,11 +12,11 @@ cover:
   image: "cover.png"
 ---
 
-Xで、こんな投稿を見かけた。
+Xで、こんな趣旨の投稿を見かけた。
 
-> エヌビディアが、自社のAI半導体を担保に資金を調達できる巨大市場を創設する構想を打ち出した。しかし、同社の先端半導体や、それを取り巻くインフラにそれほど価値があるとは思えない。ウォール街は冷ややかだ。AIは過大評価のバブル。やがて冷める確率は高い。
+「NVIDIAが、自社のAI半導体を担保に資金を調達する巨大な枠組みを打ち出した。だが同社の先端半導体やそれを取り巻くインフラに、それほどの価値があるとは思えない。ウォール街も懐疑的だ。AIは過大評価されたバブルで、いずれ冷める可能性が高い」——という内容だった。
 
-最近、ITエンジニアが揃いも揃ってAIの話ばかりしているのに苛立っていたので、これが本当かどうか、自分で裏取りしてみることにした。
+AIバブルについて気になっていたので、これが本当かどうか、自分で裏取りしてみることにした。
 
 ---
 
@@ -60,7 +60,8 @@ NVIDIAは2026年8月、Apollo・BlackRock・Blackstone・Brookfield・Goldman Sa
 
 ### バブルを支持する材料
 
-- S&P500のシラーCAPEレシオが、ドットコムバブル崩壊前に一度だけ到達した水準まで上昇している
+- S&P500のシラーCAPEレシオは、2026年9月時点で40.6倍。1929年の大恐慌前の水準(32.6倍)を上回り、ドットコムバブルの史上最高値(1999年11月、44.19倍)に接近している。40倍超が数ヶ月続くこと自体、過去はドットコムバブル期にしか無かった現象
+- **ロックフェラー・インターナショナル会長のルチル・シャルマ氏**(モルガン・スタンレー・インベストメント・マネジメントで新興国株運用部門責任者・チーフグローバルストラテジストを25年務めた人物)は、「過剰投資」「過大評価」「過剰所有(米国人の個人資産に占める株式比率が過去最高)」「過剰レバレッジ(メタ・アマゾン・マイクロソフトが軒並み『最大級の社債発行企業』になっている)」という自身の「4つのO」基準すべてにAIブームが当てはまると指摘。金利上昇が「たった一つの引き金」になり得ると警告している
 - NVIDIA・Broadcomなど主要AI株の株価売上高倍率（PSR）が30倍を超えている。歴史的に、この水準は大きな調整の前に見られることが多い
 - MITの調査によると、AIを導入した企業の95%が、目に見えるROI（投資対効果）を得られていない
 - AI関連のインフラ投資が年4000億ドルを超える一方、企業側の収益化が追いついていない「期間のミスマッチ」が指摘されている
@@ -69,6 +70,8 @@ NVIDIAは2026年8月、Apollo・BlackRock・Blackstone・Brookfield・Goldman Sa
 
 ### バブルを否定する材料
 
+- **Yorkville Ivesのシニア・マネージング・ディレクター、ダン・アイブス氏**は、今のAI相場を「2000年のバブルではなく1997年の段階」と表現。根拠として、4〜5兆ドル規模とされるAIインフラ投資はまだ15%しか進んでおらず長期サイクルの初期段階であること、AI大手は(1999年の無収益スタートアップと違い)実質的なキャッシュフローと高い営業利益率を既に持っていること、NVIDIAの株価収益率(約19倍)はドットコム期のシスコ(100倍超)よりずっと低いことを挙げている
+- **バンク・オブ・アメリカの米国株戦略責任者、サヴィタ・スブラマニアン氏**は、全面的なバブル崩壊ではなく、データセンター向け負債の積み上がりによる一時的な「エアポケット」(踊り場的な調整)に備えるべきだという立場
 - 2026年の企業業績成長率は12.9%、2027年は12.8%と予測されていて、業績自体は堅調
 - 現在のAI大手企業は、ドットコム期の無収益スタートアップと違い、すでに確立された高収益事業を土台にしている
 - Capital Economics自身も「2026年中に崩壊するとは予想していない」とした上での評価だった
@@ -83,3 +86,12 @@ NVIDIAは2026年8月、Apollo・BlackRock・Blackstone・Brookfield・Goldman Sa
 - AIは過大評価のバブルで、やがて冷める確率は高い：**投稿者個人の意見。専門家の間でも割れている、未決着の論点**
 
 事実の部分と意見の部分が同じ投稿の中に混ざっていると、事実の信頼性がそのまま意見にも貸し出されたように見えてしまう。今回、裏取りして一番はっきりしたのはそこだった。
+
+## 出典
+
+- [GPUを「投資可能なインフラ」に NVIDIAと金融大手6社、78兆円超の資金導入を始動](https://www.zaikei.co.jp/article/20260815/865942.html)
+- [Nvidia's bet that its chips can finance the AI boom gets a Wall Street reality check（BNN Bloomberg）](https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/10/01/nvidias-bet-that-its-chips-can-finance-the-ai-boom-gets-a-wall-street-reality-check/)
+- [AIバブル、2026年に「たった1つの引き金で一気に崩壊しかねない」と著名エコノミストが警鐘（Business Insider Japan）](https://www.businessinsider.jp/article/496b9dcc-5dc7-4c55-8096-92fe1cfb1b5d/)
+- [Shiller PE (CAPE) Ratio Today（thetrading.tools）](https://www.thetrading.tools/shiller-cape)
+- [Top Tech Analyst Says Today's AI Trade Is "a 1997 Moment, Not a 2000 Bubble"（TIKR）](https://www.tikr.com/ja/blog/top-tech-analyst-says-todays-ai-trade-is-not-a-bubble)
+- [Bank of America predicts an 'air pocket,' not an AI bubble（Yahoo Finance）](https://finance.yahoo.com/news/bank-america-predicts-air-pocket-194822135.html)

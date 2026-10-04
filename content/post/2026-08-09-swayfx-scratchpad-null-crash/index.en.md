@@ -5,6 +5,8 @@ draft: false
 categories: ["Linux", "トラブルシュート"]
 tags: ["Arch Linux", "sway", "swayfx", "wlroots", "scenefx", "Wayland", "IPC", "git blame", "OSS"]
 description: "A scratchpad toggle segfaulted swayfx and dropped me to the login screen. It looked like a swayfx-only bug; git archaeology showed it was an upstream sway bug the fork had inherited and not yet re-synced the fix for."
+cover:
+  image: "cover.png"
 ---
 
 ## The symptom

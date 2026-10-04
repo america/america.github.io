@@ -1,7 +1,7 @@
 ---
 title: "I fact-checked the claim that Wall Street is skeptical of NVIDIA's GPU-collateral financing"
 date: 2026-10-03T00:00:00+09:00
-draft: true
+draft: false
 description: "A record of fact-checking an X post claiming NVIDIA launched a scheme to raise money using its AI chips as collateral, and that Wall Street is cold toward it. I separate what's verified fact from what's opinion dressed up as fact."
 tags:
   - nvidia
@@ -12,11 +12,11 @@ cover:
   image: "cover.png"
 ---
 
-I saw a post on X that went something like this:
+I saw a post on X along these lines:
 
-> NVIDIA has proposed creating a massive market where its AI chips can be used as collateral to raise capital. But I don't think its cutting-edge chips, or the infrastructure around them, are worth that much. Wall Street is cold on this. AI is an overvalued bubble, and the odds are high it'll cool down eventually.
+NVIDIA had proposed a massive scheme to raise capital using its AI chips as collateral — but the poster doubted its cutting-edge chips or the infrastructure around them were really worth that much, said Wall Street was cold on it too, and concluded AI is an overvalued bubble likely to cool off eventually.
 
-I'd been getting irritated lately by how every IT engineer around me won't shut up about AI, so I decided to check this claim myself rather than just nod along.
+I'd been curious about the AI bubble question for a while, so I decided to check this claim myself.
 
 ---
 
@@ -60,7 +60,8 @@ That said, the "AI bubble" thesis isn't baseless either, so I looked into it sep
 
 ### Evidence supporting a bubble
 
-- The S&P 500's Shiller CAPE ratio has climbed to a level it's only reached once before — right before the dot-com crash.
+- The S&P 500's Shiller CAPE ratio stood at 40.6 as of September 2026 — above the pre-1929-crash level (32.6) and closing in on the all-time dot-com peak (44.19, November 1999). A multi-month stretch above 40 has, historically, only happened once before: during the dot-com bubble.
+- **Ruchir Sharma, Chairman of Rockefeller International** (who spent 25 years at Morgan Stanley Investment Management as Head of Emerging Markets and Chief Global Strategist), argues the AI boom checks every box of his own "four Os" framework: overinvestment, overvaluation, over-ownership (US household equity allocation at an all-time high), and over-leverage (Meta, Amazon, and Microsoft have each become among the largest corporate bond issuers in recent months). He warns that rising interest rates could be "the one trigger" that sets off a collapse.
 - Major AI stocks like NVIDIA and Broadcom are trading at price-to-sales ratios above 30, a level that has historically preceded sharp corrections.
 - An MIT study found 95% of companies that implemented AI solutions saw no measurable ROI.
 - There's a "duration mismatch": AI infrastructure spending exceeds $400 billion a year, while enterprise monetization lags far behind.
@@ -69,6 +70,8 @@ That said, the "AI bubble" thesis isn't baseless either, so I looked into it sep
 
 ### Evidence against a bubble
 
+- **Dan Ives, Senior Managing Director at Yorkville Ives**, describes the current AI trade as "a 1997 moment, not a 2000 bubble." His reasoning: the projected $4-5 trillion in AI infrastructure spending is only about 15% complete, suggesting an early-stage long cycle rather than a peak; today's AI leaders already generate substantial cash flow and high operating margins, unlike the unprofitable startups of 1999; and NVIDIA's P/E ratio (around 19x) is far below Cisco's during the dot-com era (over 100x).
+- **Savita Subramanian, Bank of America's head of US equity strategy**, has argued against a full bubble-collapse scenario, instead warning investors to brace for a temporary "air pocket" driven by data-center debt piling up, rather than a dot-com-style bust.
 - 2026 corporate earnings growth is projected at 12.9%, and 12.7% for 2027 — the underlying business performance is solid.
 - Unlike the unprofitable dot-com-era startups, today's major AI companies are built on already-established, highly profitable businesses.
 - Even Capital Economics, despite listing bubble-like traits, doesn't expect a collapse within 2026.
@@ -83,3 +86,12 @@ Laid out side by side, it's clear the "is it a bubble" question isn't settled am
 - AI being an overvalued bubble likely to cool soon: **the opinion of one author/individual investor, on a question experts themselves haven't settled**
 
 When fact and opinion get mixed into the same post, the credibility of the fact ends up lending itself to the opinion too. That's the clearest thing this fact-check turned up.
+
+## Sources
+
+- [NVIDIA's "investable infrastructure" push with six major financial firms (in Japanese)](https://www.zaikei.co.jp/article/20260815/865942.html)
+- [Nvidia's bet that its chips can finance the AI boom gets a Wall Street reality check (BNN Bloomberg)](https://www.bnnbloomberg.ca/business/artificial-intelligence/2026/10/01/nvidias-bet-that-its-chips-can-finance-the-ai-boom-gets-a-wall-street-reality-check/)
+- [A noted economist warns the AI bubble could collapse on a single trigger in 2026 (Business Insider Japan, in Japanese)](https://www.businessinsider.jp/article/496b9dcc-5dc7-4c55-8096-92fe1cfb1b5d/)
+- [Shiller PE (CAPE) Ratio Today (thetrading.tools)](https://www.thetrading.tools/shiller-cape)
+- [Top Tech Analyst Says Today's AI Trade Is "a 1997 Moment, Not a 2000 Bubble" (TIKR)](https://www.tikr.com/ja/blog/top-tech-analyst-says-todays-ai-trade-is-not-a-bubble)
+- [Bank of America predicts an 'air pocket,' not an AI bubble (Yahoo Finance)](https://finance.yahoo.com/news/bank-america-predicts-air-pocket-194822135.html)

@@ -11,6 +11,8 @@ tags:
   - コンピュータ
 categories:
   - 技術
+cover:
+  image: "cover.png"
 ---
 
 ## はじめに

@@ -6,6 +6,8 @@ draft: false
 description: "I concluded that Ctrl+Space failing in SF6's chat box was a structural limitation of Wine/Proton's IME implementation. That conclusion was wrong. Setting IME environment variables in /etc/environment made direct input work. Here is the original investigation, and the correction."
 categories: ["Linux", "トラブルシュート"]
 tags: ["Arch Linux", "Proton", "Wine", "Steam", "Street Fighter 6", "fcitx5", "Mozc", "IME", "Waydroid"]
+cover:
+  image: "cover.png"
 ---
 
 > **Correction (2026-08-08)**
@@ -154,31 +156,61 @@ I originally found this setting while investigating a separate issue — `Ctrl+S
 the native Steam client itself. After applying it, SF6's custom room chat started working at the
 same time. The Waydroid + Gboard clipboard workaround is no longer needed.
 
-### Why It Worked (Hypothesis, Unverified)
-
-**Everything from here on is speculation I have not confirmed.** The fix itself is a fact; the
-reason for it is not verified.
+### Why It Worked (Confirmed From Source)
 
 IME-related environment variables had already been set in `~/.config/environment.d/` and
-`~/.xprofile` for a long time. The fact that this did not help suggests that **through those paths,
-the variables were not reaching the process in which Steam launches the game.**
+`~/.xprofile` for a long time, and neither helped. `/etc/environment` did. To find out why, I went
+and read the actual source code involved.
 
-Steam launches games inside the Steam Linux Runtime (pressure-vessel) sandbox. How environment
-variables are inherited there differs both from an interactive shell and from an ordinary desktop
-session.
+**`.xprofile` is never sourced at all under a Wayland session.** My setup is SDDM (display manager)
+launching Sway (a Wayland compositor). SDDM's own
+[`wayland-session`](https://github.com/sddm/sddm/blob/develop/data/scripts/wayland-session) script
+(verified directly from the upstream source) looks like this:
 
-`/etc/environment`, on the other hand, is read via PAM **at login, before Sway even starts**. As a
-result it reliably propagates to every process in the session — Sway, the Steam client, and the Wine
-processes Steam launches through its sandbox.
+```sh
+case $SHELL in
+  */bash|*/zsh)
+    exec $SHELL --login -c 'exec "$@"' - $@
+    ;;
+  ...
+```
 
-If that is correct, then the conclusion written above — "a structural limitation in Wine's
-implementation" — was wrong, and in reality **the environment variables simply were not reaching the
-path the game was launched through.** It would also explain why `wine notepad.exe` succeeded in
-creating an XIC: that instance was started from an interactive shell and carried the shell's
-environment.
+For bash/zsh, it just execs the login shell in `--login` mode. The string `.xprofile` never appears
+anywhere in this script. That file is only sourced by the X11-specific
+[`Xsession`](https://github.com/sddm/sddm/blob/develop/data/scripts/Xsession) script — the
+Wayland-specific `wayland-session` script never implements it. **It's not that the variable "didn't
+reach" anything — `.xprofile` itself was simply never executed in the first place.**
 
-That said, I have not done the isolating test of deliberately removing the variables to reproduce
-the failure. **This remains a hypothesis.**
+**Steam Linux Runtime (pressure-vessel) doesn't filter environment variables on its own.** The source
+for Steam's sandbox mechanism ([`steam-runtime-tools`](https://gitlab.steamos.cloud/steamrt/steam-runtime-tools),
+cloned and read directly) has this in `pressure-vessel/wrap-context.c`:
+
+```c
+self->original_environ = g_get_environ ();
+```
+
+`g_get_environ()` is a GLib function that copies whatever environment the calling process — Steam
+itself — actually has at that moment. The sandbox's environment is built on top of this
+`original_environ` (see `pv_bind_and_propagate_from_environ` in `pressure-vessel/wrap.c`). In other
+words: if it's in Steam's environment, it reaches the sandbox; if it isn't, it doesn't. Pressure-vessel
+isn't actively stripping IME variables out.
+
+**`/etc/environment` sits in a spot that sidesteps both problems.** PAM (`pam_env`) reads it when the
+login session opens — before the shell SDDM launches, before Sway even starts. It doesn't depend on
+Wayland vs. X11, or on systemd --user's unit-launch mechanics. That gives an unbroken chain: Sway →
+Steam (launched from within the Sway session) → whatever `g_get_environ()` captures from Steam's own
+environment — and the variable reliably survives all the way into the sandbox.
+
+As for `~/.config/environment.d/*.conf`: that gets loaded by the `systemd --user` manager at startup
+and kept as **environment for units the manager itself launches**. If Sway isn't started as a
+systemd --user unit (e.g., it's exec'd directly from a login shell instead), there's no guarantee
+that environment automatically propagates to Sway or its children. That depends on how Sway itself
+gets launched, which is outside the scope of what I dug into here.
+
+This also explains why `wine notepad.exe` succeeded in creating an XIC earlier: that process was
+launched directly from an interactive shell, which already carried the relevant variables (from
+`/etc/environment` and the shell's own startup files) — a different environment than what Steam's
+launch path provided. That gap is now accounted for, not just conveniently explained away.
 
 ### Takeaways
 

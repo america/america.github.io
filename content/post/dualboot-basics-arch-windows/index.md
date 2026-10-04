@@ -4,6 +4,8 @@ date: 2025-11-16T19:10:00+09:00
 draft: false
 categories: ["Linux", "解説"]
 tags: ["Arch Linux", "Windows 11", "systemd-boot", "UEFI", "デュアルブート"]
+cover:
+  image: "cover.png"
 ---
 
 ## このメモの目的

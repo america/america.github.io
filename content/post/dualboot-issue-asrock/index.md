@@ -4,6 +4,8 @@ date: 2025-11-16T18:40:00+09:00
 draft: false
 categories: ["Linux", "トラブルシュート"]
 jtags: ["Arch Linux", "Windows 11", "systemd-boot", "UEFI", "ASRock", "デュアルブート"]
+cover:
+  image: "cover.png"
 ---
 
 ---

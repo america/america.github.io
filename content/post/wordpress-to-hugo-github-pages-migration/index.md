@@ -1,8 +1,11 @@
-
 ---
 date: "2024-11-20T23:47:31+09:00"
 draft: false
-title: "First Post"
+title: "WordPressをやめて、Hugo + GitHub Pagesに移行した理由"
+aliases:
+  - /post/first-post/
+cover:
+  image: "cover.png"
 ---
 
 # AWSでLAMP環境を構築したけれど…

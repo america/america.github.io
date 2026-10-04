@@ -4,6 +4,8 @@ date: 2026-08-09T17:00:00+09:00
 draft: false
 categories: ["Linux", "トラブルシュート"]
 tags: ["Arch Linux", "sway", "swayfx", "wlroots", "scenefx", "Wayland", "IPC", "git blame", "OSS"]
+cover:
+  image: "cover.png"
 ---
 
 ## 事象

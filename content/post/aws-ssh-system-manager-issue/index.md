@@ -3,6 +3,11 @@
 title: "AWSでSSH接続できない問題を解決した話"
 date: 2024-11-27
 tags: ["AWS", "SSH", "トラブルシューティング"]
+aliases:
+  - /post/aws_ssh_issue_with_system_manager/
+  - /post/AWS_SSH_Issue_with_System_Manager/
+cover:
+  image: "cover.png"
 ---
 
 ## はじめに
