@@ -63,6 +63,14 @@ According to the Information-technology Promotion Agency's (IPA) "IT Human Resou
 
 In other words, in the US, the companies that actually use a system are also, typically, the ones employing the engineers who build and run it. In Japan, the companies that use a system typically employ almost no engineers at all — an entirely separate industry exists whose job is to dispatch and station engineers at those companies. I think this is the soil multi-tier subcontracting actually grows out of.
 
+## Was this caused by the Koizumi reforms?
+
+When I bring this up, people sometimes ask whether it traces back to 2004, when Prime Minister Junichiro Koizumi's government amended the Worker Dispatch Act to further deregulate temporary staffing. Half right, half wrong.
+
+The Worker Dispatch Act itself dates to 1986, under the Nakasone government, and **software development was one of the original 16 job categories** the law covered from day one. The arrangement of stationing engineers at a client site was baked into the law from its very first version — eighteen years before Koizumi. In 1999, under the Obuchi government, the law shifted from a whitelist (specific permitted categories) to a blacklist (everything permitted except a short list of prohibited categories), broadly deregulating dispatch work. What the 2004 Koizumi-era amendment actually changed was opening up **manufacturing** — a sector that had been off-limits until then — to dispatch labor ([source](https://www.manpowergroup.jp/client/manpowerclip/temporary/workerdispatchingact.html)). In other words, the Koizumi reform's direct target was manufacturing, not IT; the foundation of IT's multi-tier subcontracting structure predates it by a long stretch.
+
+If anything, the "disguised contracting" problem this piece has been describing — where actual control doesn't match the contractual relationship — runs in something closer to the opposite direction from "deregulation caused it." I'd describe it more as: companies use subcontracting or quasi-delegation contracts *instead of* formal worker dispatch specifically to avoid the obligations the Dispatch Act imposes (caps on dispatch duration, obligations owed to the dispatched worker, etc.). It's less a product of loosened regulation and more a product of companies routing around regulation that's still there.
+
 ## Not "being reformed" — people leaving first
 
 I don't think this industry changes in one dramatic moment of reform. What's actually happening is quieter erosion.
@@ -87,3 +95,4 @@ I'm not optimistic about the shape this takes, though. I think it's more likely 
 - [SES rate benchmarks by skill/role (in Japanese) - Levtech](https://levtech.jp/partner/guide/article/detail/32/)
 - [Employment Security Act, full text — Articles 44, 5-3, 65 (in Japanese) - Hourei Lead](https://hourei.net/law/322AC0000000141)
 - [What counts as "beating down the price" under the Subcontract Act (in Japanese) - Business Lawyers](https://www.businesslawyers.jp/practices/136)
+- [A timeline of Worker Dispatch Act amendments (in Japanese) - ManpowerGroup](https://www.manpowergroup.jp/client/manpowerclip/temporary/workerdispatchingact.html)
