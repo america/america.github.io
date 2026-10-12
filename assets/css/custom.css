@@ -129,6 +129,11 @@ a {
     border-color: var(--border);
 }
 
+/* PaperModは、タグ・カテゴリ一覧(.tag-entry)ではカバー画像を非表示にする。ここでも出す */
+.tag-entry .entry-cover {
+    display: block;
+}
+
 .post-entry .entry-cover {
     grid-column: 1;
     grid-row: 1 / span 3;
