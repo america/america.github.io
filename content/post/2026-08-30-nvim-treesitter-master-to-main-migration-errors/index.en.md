@@ -1,5 +1,5 @@
 ---
-title: "Three treesitter Errors From Migrating nvim-treesitter master → main (Neovim 0.12)"
+title: "Three treesitter Errors From Migrating nvim-treesitter master → main (Neovim 0.12): attempt to call method 'range' (a nil value)"
 date: 2026-08-30T11:30:00+09:00
 draft: false
 description: "Notes on three errors I hit back to back after migrating nvim-treesitter from the EOL master branch to main on Neovim 0.12 — Markdown crashing on a gotmpl parser, code-fence highlighting dying, and 'Parser could not be created' on .txt files — with the cause and fix for each."
@@ -10,7 +10,7 @@ tags:
   - treesitter
   - lua
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 Around the time I bumped Neovim to `0.12.4`, `nvim-treesitter` errors started piling up one after another. Tracing them all leads back to a single fact: **`nvim-treesitter`'s `master` branch is already EOL and can't keep up with Neovim 0.12.** Migrating to the `main` branch fixed it, but here's the path there — plus one more pitfall I stepped on *after* the migration.

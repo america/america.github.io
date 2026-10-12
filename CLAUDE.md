@@ -56,6 +56,7 @@
 
 - ページバンドル形式(`content/post/<slug>/index.md`)の新規記事には、**聞かれる前に毎回**`cover.png`(1200×630)を作ること。「前回面倒だったから今回は省略する」は禁止(2026-08-14に実際にそれをやって指摘された)。
 - PaperModテーマは記事のページバンドル内にある`*cover*`という名前を含む画像ファイルを自動検出し、`og:image`(OGP/Twitterカード用)として使う。**ただしこれはリンクプレビュー用のメタタグだけの話で、記事ページ本文や記事一覧のカードに画像として表示するには別途frontmatterで`cover:\n  image: "cover.png"`を明示する必要がある**(2026-10-04、og:image用の自動検出と、`layouts/_partials/cover.html`が見る`.Params.cover.image`は別ロジックだと判明。「frontmatterに`cover:`キーは不要」という以前の記述は誤りで、それだとリンクを貼らない限り誰にも見えない状態になっていた。既存の全記事に`cover.image`を追記して直した)。新規記事でも、cover.pngを作ったら必ずfrontmatterに`cover:\n  image: "cover.png"`を書くこと。
+- **英語版(`index.en.md`)があるページバンドルには、`cover.en.png`(1200×630)も作る(2026-10-12〜)。** 日本語の文字が入った`cover.png`を、英語版のページと共有しない(2026-10-12、ユーザー:「cover.pngが英語版のページでも日本語のままなんだよ、こんなのだめだろ」。調べると、英語版のある20記事すべてのカバーに日本語の文字が入っていた)。`index.en.md`のfrontmatterは`cover:\n  image: "cover.en.png"`にする。英語版のタイトル・ラベルは、`index.en.md`の`title`と、日本語版カバーの小さいラベル(`LINUX DEBUGGING`など)に合わせる。デザインは、日本語版と同じ配色・背景・レイアウトで、文字だけを英語にする。
 - 画像の作り方: HTML/CSSでデザイン→`python3 -m http.server`でローカル配信→`chromium --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1200,630 --screenshot=out.png URL`でheadless Chromiumから直接スクリーンショット。これで1200×630ぴったり、端まで欠けなく撮れる。
   - **`mcp__claude-in-chrome`のブラウザ拡張機能(`resize_window`→スクリーンショット/`zoom`)は使わないこと**。このユーザーの環境(Sway/swayfxのタイリングWM)では`resize_window`が実際のウィンドウ幅に反映されず、指定サイズと違う範囲がキャプチャされて画像の端が欠ける(実際に一度これで失敗した)。
   - サーバー起動時、zshの`noclobber`設定により`command > 既存のログファイル`のリダイレクトが失敗することがある。ログは`/dev/null`に捨てるか、事前に`rm -f`しておく。

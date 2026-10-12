@@ -9,7 +9,7 @@ tags:
   - relationships
   - transcript
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 > **Source**

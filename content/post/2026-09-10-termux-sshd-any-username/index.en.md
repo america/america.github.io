@@ -6,7 +6,7 @@ categories: ["Linux", "解説"]
 tags: ["termux", "android", "openssh", "ssh", "arch-linux"]
 description: "ssh banana@phone and ssh root@phone both log in as the same user. Not a config quirk — a patch in Termux's OpenSSH build. Reading the #ifdef __ANDROID__ in auth.c."
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I added an entry to `~/.ssh/config` so I could `scp` images from my desktop to my

@@ -1,5 +1,5 @@
 ---
-title: "nvim-treesitter の master→main 移行で踏んだ treesitter エラー3連発（Neovim 0.12）"
+title: "nvim-treesitter の master→main 移行で踏んだ treesitter エラー3連発（Neovim 0.12）: attempt to call method 'range' (a nil value)"
 date: 2026-08-30T11:30:00+09:00
 draft: false
 description: "Neovim 0.12 で nvim-treesitter を EOL の master ブランチから main へ移行したときに連続で踏んだ3つのエラー ― Markdown が gotmpl parser で落ちる、コードフェンスのハイライトが死ぬ、.txt ファイルで Parser could not be created ― の原因と対処のメモ。"

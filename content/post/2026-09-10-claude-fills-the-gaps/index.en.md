@@ -6,7 +6,7 @@ categories: ["AI"]
 tags: ["claude-code", "claude-sonnet-5", "ai-development", "observation"]
 description: "Thirty hours of work with Claude Code (Sonnet 5), fact-checking every line. The failure modes that kept showing up — and why having it write a rule doesn't fix them."
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I spent about thirty hours with **Claude Code**, putting a small home-made app onto a

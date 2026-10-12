@@ -8,7 +8,7 @@ tags:
   - michael-jackson
   - transcript
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 > **Source**

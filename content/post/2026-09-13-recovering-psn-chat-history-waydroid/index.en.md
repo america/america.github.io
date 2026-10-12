@@ -8,7 +8,7 @@ tags:
   - arch-linux
   - reverse-engineering
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I wanted to save an old chat history with a friend on PlayStation Network (PSN) before it disappeared somewhere. I run the PS App inside Waydroid (a way to run Android on Linux) on my PC. The obvious first move — read the local cache file directly — turned into a longer investigation than expected.

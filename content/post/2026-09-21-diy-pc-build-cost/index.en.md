@@ -7,7 +7,7 @@ tags:
   - IT
   - pc-build
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I went through purchase receipts and order records to reconstruct the real cost of my

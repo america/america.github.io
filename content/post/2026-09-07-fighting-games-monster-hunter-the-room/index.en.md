@@ -8,7 +8,7 @@ tags:
   - monster-hunter
   - memoir
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I've been following two things for about thirty years now: fighting games and Monster

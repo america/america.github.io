@@ -7,7 +7,7 @@ tags:
   - fighting-games
   - arcade-stick
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 ![Button layout on my modded Fighting Stick Alpha](akecon.jpg)

@@ -7,7 +7,7 @@ tags:
   - ai-development
   - transcript
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 > **Source**

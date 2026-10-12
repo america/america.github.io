@@ -7,7 +7,7 @@ description: "I concluded that Ctrl+Space failing in SF6's chat box was a struct
 categories: ["Linux", "トラブルシュート"]
 tags: ["Arch Linux", "Proton", "Wine", "Steam", "Street Fighter 6", "fcitx5", "Mozc", "IME", "Waydroid"]
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 > **Correction (2026-08-08)**
