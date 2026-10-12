@@ -1,18 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400&family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap");
 
-/* ===== 洗練された配色・タイポグラフィへの上書き ===== */
+/* ===== 配色・タイポグラフィ =====
+   方針: 装飾は足さない。紙面の余白・罫線・明朝見出しで見せる。
+   アクセント色は、リンクと現在地の表示だけに使う。 */
 :root {
-    --radius: 14px;
-    --theme: #faf8f4;
+    --radius: 6px;
+    --theme: #ffffff;
     --entry: #ffffff;
-    --primary: #20242c;
-    --secondary: #6b7280;
-    --tertiary: #e7e2d8;
-    --content: #34373e;
+    --primary: #1b1d22;
+    --secondary: #555a63;
+    --tertiary: #e3dfd4;
+    --content: #2b2e35;
     --code-block-bg: #1f2430;
-    --code-bg: #f1ede3;
-    --border: #ece7dd;
-    --accent: #3f6d5c;
+    --code-bg: #efece3;
+    --border: #dcd8cc;
+    --accent: #2f5d4c;
+    --serif: "Newsreader", "Shippori Mincho B1", "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
+    --sans: "Inter", "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans CJK JP", sans-serif;
 }
 
 :root[data-theme="dark"] {
@@ -24,31 +28,28 @@
     --content: #cfd0d4;
     --code-block-bg: #1a1d24;
     --code-bg: #21252d;
-    --border: #262a32;
+    --border: #2a2e37;
     --accent: #86bfab;
 }
 
-body {
-    background:
-        radial-gradient(ellipse 60% 40% at 15% 0%, rgba(63, 109, 92, 0.06), transparent 60%),
-        radial-gradient(ellipse 50% 35% at 100% 10%, rgba(216, 169, 74, 0.05), transparent 60%),
-        var(--theme);
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
-    letter-spacing: 0.001em;
+/* PaperModは一覧ページだけ背景を--code-bgにする。記事ページと同じ色にそろえる */
+.list,
+:root[data-theme="dark"] .list {
+    background: var(--theme);
 }
 
-:root[data-theme="dark"] body {
-    background:
-        radial-gradient(ellipse 55% 35% at 15% 0%, rgba(134, 191, 171, 0.05), transparent 60%),
-        radial-gradient(ellipse 45% 30% at 100% 5%, rgba(216, 169, 74, 0.04), transparent 60%),
-        var(--theme);
+body {
+    background: var(--theme);
+    font-family: var(--sans);
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5,
-.post-title, .entry-header h2 {
-    font-family: "Newsreader", Georgia, serif;
+.post-title, .entry-header h2, .logo a {
+    font-family: var(--serif);
     font-weight: 600;
-    letter-spacing: 0.002em;
+    letter-spacing: 0.02em;
 }
 
 a {
@@ -56,105 +57,241 @@ a {
 }
 
 .post-content a {
+    text-decoration-thickness: 1px;
     text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
-    text-underline-offset: 3px;
+    text-underline-offset: 4px;
 }
 
-/* ===== ページ読み込み時の「シュイーン」登場アニメーション ===== */
-/* 横から高速で滑り込み、行き過ぎてから収まるオーバーシュート+モーションブラー */
-@keyframes site-pop-in {
-    0% {
-        opacity: 0;
-        transform: translateX(-130px) translateY(8px) scale(0.82) rotate(-5deg);
-        filter: blur(5px);
-    }
-    35% {
-        opacity: 1;
-        filter: blur(0);
-    }
-    62% {
-        transform: translateX(10px) translateY(-6px) scale(1.05) rotate(1deg);
-    }
-    80% {
-        transform: translateX(-4px) translateY(2px) scale(0.985) rotate(-0.4deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) translateY(0) scale(1) rotate(0deg);
-        filter: blur(0);
-    }
+/* ===== ヘッダー ===== */
+.header {
+    margin-bottom: 0;
 }
 
+.logo a {
+    color: var(--primary);
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+}
+
+.nav a, #menu a {
+    color: var(--secondary);
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+}
+
+#menu a:hover, #menu .active {
+    color: var(--primary);
+}
+
+/* ===== トップの紹介 ===== */
+.first-entry.home-info {
+    min-height: 0;
+    margin: 3rem 0 0;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.first-entry.home-info .entry-header h1 {
+    font-size: 2.8rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+}
+
+.home-info .entry-content {
+    color: var(--secondary);
+    font-size: 1.25rem;
+    line-height: 1.9;
+}
+
+/* ===== 記事一覧: 箱をやめて、罫線で区切る目次にする ===== */
 .post-entry {
-    box-shadow: 0 1px 3px rgba(20, 20, 20, 0.04);
-    will-change: transform, opacity, filter;
-    background-image: linear-gradient(115deg, transparent 0%, transparent 40%, rgba(63, 109, 92, 0.22) 50%, transparent 60%, transparent 100%);
-    background-size: 260% 100%;
-    background-position: 140% 0;
-    transition-property: box-shadow, transform, background-position;
-    transition-duration: 220ms, 220ms, 550ms;
-    transition-timing-function: ease, cubic-bezier(0.34, 1.56, 0.64, 1), ease;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    column-gap: 1.6rem;
+    align-items: start;
+    margin: 0;
+    padding: 1.6rem 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: none;
+    transition: none;
 }
 
-/* JS(scroll-reveal.js)がスクロールで視界に入った要素にだけ付与する。
-   JS未実行時は付かないので、要素は常に通常表示のまま(non-JSフォールバック)。 */
-.reveal-ready {
-    opacity: 0;
+.post-entry:first-of-type {
+    border-top: 0;
 }
 
-.reveal-ready.reveal-in {
-    animation: site-pop-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+.post-entry:hover,
+.post-entry:focus-within {
+    transform: none;
+    border-color: var(--border);
 }
 
-.post-entry:hover {
-    box-shadow: 0 16px 36px -12px rgba(20, 20, 20, 0.22);
-    transform: translateY(-6px) scale(1.015) rotate(-0.3deg);
-    background-position: -40% 0;
+.post-entry .entry-cover {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
 }
 
-.post-entry:nth-child(1) { animation-delay: 0.02s; }
-.post-entry:nth-child(2) { animation-delay: 0.06s; }
-.post-entry:nth-child(3) { animation-delay: 0.1s; }
-.post-entry:nth-child(4) { animation-delay: 0.14s; }
-.post-entry:nth-child(5) { animation-delay: 0.18s; }
-.post-entry:nth-child(6) { animation-delay: 0.22s; }
-.post-entry:nth-child(7) { animation-delay: 0.26s; }
-.post-entry:nth-child(8) { animation-delay: 0.3s; }
-.post-entry:nth-child(9) { animation-delay: 0.34s; }
-.post-entry:nth-child(n+10) { animation-delay: 0.38s; }
-
-.post-single .post-title.reveal-ready.reveal-in,
-.page .post-title.reveal-ready.reveal-in {
-    animation: site-pop-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+.post-entry .entry-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    transition: transform 500ms ease;
 }
 
-.post-single .post-content > *:first-child.reveal-ready.reveal-in {
-    animation: site-pop-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-delay: 0.06s;
+.post-entry:hover .entry-cover img {
+    transform: scale(1.03);
+}
+
+.post-entry .entry-header,
+.post-entry .entry-content,
+.post-entry .entry-footer {
+    grid-column: 2;
+}
+
+.post-entry .entry-header h2 {
+    font-size: 1.65rem;
+    line-height: 1.55;
+    margin: 0;
+    color: var(--primary);
+    transition: color 200ms ease;
+}
+
+.post-entry:hover .entry-header h2 {
+    color: var(--accent);
+}
+
+.post-entry .entry-content {
+    margin: 0.55rem 0 0.7rem;
+    color: var(--secondary);
+    font-size: 1.12rem;
+    line-height: 1.85;
+    -webkit-line-clamp: 2;
+}
+
+.post-entry .entry-footer {
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+/* 画像を持たない記事は、文字だけを全幅で出す */
+.post-entry:not(:has(.entry-cover)) {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.post-entry:not(:has(.entry-cover)) .entry-header,
+.post-entry:not(:has(.entry-cover)) .entry-content,
+.post-entry:not(:has(.entry-cover)) .entry-footer {
+    grid-column: 1;
+}
+
+@media (max-width: 640px) {
+    .post-entry {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 1.4rem 0;
+    }
+
+    .post-entry .entry-cover {
+        grid-row: auto;
+        margin-bottom: 0.9rem;
+    }
+
+    .post-entry .entry-header,
+    .post-entry .entry-content,
+    .post-entry .entry-footer {
+        grid-column: 1;
+    }
+}
+
+/* ===== 記事ページ ===== */
+.post-single .post-title {
+    font-size: 2.4rem;
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+}
+
+@media (max-width: 640px) {
+    .post-single .post-title {
+        font-size: 2rem;
+    }
+}
+
+.post-meta {
+    color: var(--secondary);
+    font-size: 1.05rem;
+}
+
+.post-content {
+    font-size: 1.3125rem;
+    line-height: 1.9;
+    color: var(--content);
+}
+
+.post-content h2 {
+    font-size: 1.8rem;
+    line-height: 1.5;
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.post-content h3 {
+    font-size: 1.45rem;
+    line-height: 1.55;
+    margin: 2.2rem 0 0.7rem;
+}
+
+.post-content blockquote {
+    margin: 1.6rem 0;
+    padding: 0.2rem 0 0.2rem 1.2rem;
+    border-left: 2px solid var(--accent);
+    color: var(--secondary);
+}
+
+.post-content img {
+    border-radius: var(--radius);
+}
+
+.post-single .toc {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: transparent;
+    font-size: 1.12rem;
+}
+
+.post-single .toc summary {
+    color: var(--secondary);
+}
+
+.post-single .toc ul {
+    list-style: none;
+    padding-left: 0.3rem;
+}
+
+.post-single .toc ul ul {
+    padding-left: 1.2rem;
+}
+
+.post-single .toc li {
+    margin: 0.35rem 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .post-entry,
-    .post-title,
-    .post-content > *:first-child,
-    .reveal-ready {
-        opacity: 1 !important;
-        animation: none !important;
+    .post-entry .entry-cover img,
+    .post-entry .entry-header h2 {
+        transition: none;
     }
 
-    .post-entry {
-        background-position: 0 0 !important;
-        transition: box-shadow 180ms ease, transform 180ms ease !important;
+    .post-entry:hover .entry-cover img {
+        transform: none;
     }
-}
-
-:root[data-theme="dark"] .post-entry {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-    background-image: linear-gradient(115deg, transparent 0%, transparent 42%, rgba(134, 191, 171, 0.28) 50%, transparent 58%, transparent 100%);
-}
-
-:root[data-theme="dark"] .post-entry:hover {
-    box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.55);
 }
 
 /* ===== 記事一覧カードのタグ表示 ===== */
@@ -173,9 +310,9 @@ a {
 }
 
 .entry-tags a {
-    font-size: 12px;
-    line-height: 26px;
-    padding: 0 10px;
+    font-size: 15px;
+    line-height: 32px;
+    padding: 0 13px;
 }
 
 /* ===== 右余白のカテゴリ・タグ一覧サイドバー ===== */

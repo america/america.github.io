@@ -38,7 +38,7 @@ defaultContentLanguageInSubdir = false
   # ホーム上部の紹介
   [params.homeInfoParams]
     Title = "雑記"
-    Content = "Linux / Arch / Waydroid などのメモ。備忘録でも、誰かの助けになりますように。"
+    Content = "Linux・Arch の技術メモと、AI・労働・格闘ゲームの記事。"
 
   [params.assets]
   favicon = "/images/favicon.png"
