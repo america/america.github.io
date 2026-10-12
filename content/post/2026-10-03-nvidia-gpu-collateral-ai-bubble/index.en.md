@@ -9,7 +9,7 @@ tags:
   - finance
   - ai-development
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I saw a post on X along these lines:

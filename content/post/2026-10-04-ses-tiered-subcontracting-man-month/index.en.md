@@ -8,7 +8,7 @@ tags:
   - ses
   - memoir
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 For a few years, I worked as a subcontracted engineer stationed at bank-affiliated system development sites in Japan, through a so-called SES (System Engineering Service) company. I honestly didn't know how many companies sat between me and the final client. Margins got skimmed at every tier, and by the time the work reached the floor, the original request had been diluted many times over. This piece isn't about any specific company or person — it's about the structure itself.

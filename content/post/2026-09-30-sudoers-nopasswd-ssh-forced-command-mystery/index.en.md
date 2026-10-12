@@ -10,7 +10,7 @@ tags:
   - sudo
   - reverse-engineering
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I typed `sudo systemctl restart bluetooth`, and it ran without asking for a password. Something was wrong. That single observation led through a GTFOBins lookup, a full SSH key redesign, a fight with rrsync, and eventually reading the OpenSSH source itself. The story ends with an unsatisfying twist: my PC powered itself off twice, and I never fully found out why.

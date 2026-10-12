@@ -9,7 +9,7 @@ tags:
   - debugging
   - arch-linux
 cover:
-  image: "cover.png"
+  image: "cover.en.png"
 ---
 
 I tried to open pavucontrol to adjust the volume, and got this instead:
