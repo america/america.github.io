@@ -33,9 +33,9 @@ COVERS = {
 """,
     },
     "2026-10-04-pavucontrol-wireplumber-usb-debugging": {
-        "patches": [(60, 140, 610, 160), (70, 522, 700, 30)],
+        "patches": [(60, 140, 610, 190), (70, 522, 700, 30)],
         "html": """
-<div style="position:absolute;left:66px;top:150px;font:600 44px/1.3 'Noto Serif';color:#3a2f2d;letter-spacing:-.01em">pavucontrol won't start.<br>Four layers down.</div>
+<div style="position:absolute;left:66px;top:150px;font:600 40px/1.3 'Noto Serif';color:#3a2f2d;letter-spacing:-.01em">pavucontrol won't start.<br>The cause lies four layers<br>below pavucontrol.</div>
 <div style="position:absolute;left:84px;top:527px;font:400 13px/1 'Noto Sans Mono';white-space:nowrap"><span style="color:#8a9a90">$</span> <span style="color:#b04a3f">pa_context_get_card_info_by_index()</span> <span style="color:#7a7f87">failed: Invalid argument</span></div>
 """,
     },
