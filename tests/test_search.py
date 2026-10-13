@@ -57,7 +57,7 @@ def _build_list_is_never(metadata):
                 break
             if base_indent is None:
                 base_indent = indent
-            if indent == base_indent and re.match(r"list:\s*never\s*$", child.strip(), re.IGNORECASE):
+            if indent == base_indent and re.match(r"list:\s*[\"']?never[\"']?\s*(?:#.*)?$", child.strip(), re.IGNORECASE):
                 return True
     return False
 
@@ -65,8 +65,8 @@ def _build_list_is_never(metadata):
 def _is_excluded(metadata):
     """True for posts that must not appear in the search index (design doc: 検索の対象外)."""
     flags = (
-        r"^draft:\s*true\s*$",
-        r"^searchHidden:\s*true\s*$",
+        r"^draft:\s*[\"']?true[\"']?\s*(?:#.*)?$",
+        r"^searchHidden:\s*[\"']?true[\"']?\s*(?:#.*)?$",
     )
     if any(re.search(flag, metadata, re.MULTILINE | re.IGNORECASE) for flag in flags):
         return True
@@ -161,13 +161,15 @@ def test_home_pages_link_to_their_search_pages(built_site):
     pages = {"index.html": "/search/", "en/index.html": "/en/search/"}
     for page, search_path in pages.items():
         html = (built_site / page).read_text(encoding="utf-8")
-        anchors = re.findall(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', html, re.DOTALL)
+        menu = re.search(r'<ul[^>]+id="menu"[^>]*>(.*?)</ul>', html, re.DOTALL)
+        assert menu, f"{page}: header menu (ul#menu) not found"
+        anchors = re.findall(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', menu.group(1), re.DOTALL)
         labels = [
             re.sub(r"<[^>]+>", "", label).strip()
             for href, label in anchors
             if urlparse(href).path == search_path
         ]
-        assert labels, f"{page}: no link to {search_path}"
+        assert labels, f"{page}: no link to {search_path} in the menu"
         # メニューの表示名は、言語ごとの別名を持たず、英語版でも「検索」(設計書: 仕様3)
         assert "検索" in labels
 
