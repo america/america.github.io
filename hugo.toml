@@ -47,6 +47,21 @@ defaultContentLanguageInSubdir = false
   # 抜粋の長さ（トップの要約）
   summaryLength = 140
 
+  # 検索(Fuse.js)の設定。設計書: Obsidian 22_設計書/blog-search.md
+  # ignoreLocation: 長い記事の後半にしか無い言葉も見つける。
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    ignoreLocation = true
+    threshold = 0.3
+    minMatchCharLength = 2
+    keys = ["title", "summary", "content"]
+
+# 検索用のデータ(/index.json、/en/index.json)をホームから出力する。
+# 設計書: Obsidian 22_設計書/blog-search.md
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [menu]
   [[menu.main]]
     identifier = "categories"
@@ -59,6 +74,12 @@ defaultContentLanguageInSubdir = false
     name = "タグ"
     url = "/tags/"
     weight = 20
+
+  [[menu.main]]
+    identifier = "search"
+    name = "検索"
+    url = "/search/"
+    weight = 30
 
 #  customJS = ["js/copy.js"]
 #  copyCode = true
