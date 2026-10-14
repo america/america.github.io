@@ -1,0 +1,44 @@
+{{- if .Params.cover.image -}}
+<meta name="twitter:card" content="summary_large_image">
+{{- /* ページバンドル内に該当する画像があれば、そのURLを使う(cover.htmlと同じ探し方)。無ければテーマ標準の動き。 */}}
+{{- $bundleCover := false }}
+{{- if not (or (hasPrefix .Params.cover.image "http") (hasPrefix .Params.cover.image "/")) }}
+  {{- $bundleCover = (.Resources.ByType "image").GetMatch (printf "*%s*" .Params.cover.image) }}
+{{- end }}
+{{- if $bundleCover }}
+<meta name="twitter:image" content="{{ $bundleCover.Permalink }}">
+{{- else if (ne $.Params.cover.relative true) }}
+<meta name="twitter:image" content="{{ .Params.cover.image | absURL }}">
+{{- else }}
+<meta name="twitter:image" content="{{ (path.Join .RelPermalink .Params.cover.image ) | absURL }}">
+{{- end}}
+{{- else }}
+{{- $images := partial "templates/_funcs/get-page-images" . }}
+{{- with index $images 0 }}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ .Permalink }}">
+{{- else }}
+  <meta name="twitter:card" content="summary">
+{{- end }}
+{{- end }}
+
+{{- with or .Title site.Title site.Params.title | plainify }}
+  <meta name="twitter:title" content="{{ . }}">
+{{- end }}
+
+{{- with or .Description .Summary site.Params.description | plainify | htmlUnescape }}
+  <meta name="twitter:description" content="{{ trim . "\n\r\t " }}">
+{{- end }}
+
+{{- $twitterSite := "" }}
+{{- with site.Params.social }}
+  {{- if reflect.IsMap . }}
+    {{- with .twitter }}
+      {{- $content := . }}
+      {{- if not (strings.HasPrefix . "@") }}
+        {{- $content = printf "@%v" . }}
+      {{- end }}
+      <meta name="twitter:site" content="{{ $content }}">
+    {{- end }}
+  {{- end }}
+{{- end }}
