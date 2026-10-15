@@ -53,6 +53,7 @@ At the PC, `cc` attaches to the same `dev`. `cc` is an alias for `tmux new -A -s
 ## Where it falls short
 
 - **The PC has to be awake.** When it's off, I wake it from my home NAS with Wake-on-LAN (wrapped in a command called `wake-arch`).
+- **Restarting the PC wipes tmux.** The `dev` session and the Claude Code running in it are gone after every reboot, and the same applies when I wake a powered-off PC with Wake-on-LAN. The conversation itself can be resumed with Claude Code's `--continue`.
 - **The screen is small.** Reading long output on a phone is hard; I have long output written to a file and read it later.
 - **Typing Japanese through a terminal app is more work than at the PC.**
 - **It plays a different role than the official app.** Notifications and checking things in the app's UI are easier there. I also have Remote Control (instructions from the official app) enabled and use both as needed.
